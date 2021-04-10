@@ -11,7 +11,7 @@ function About() {
     <div>
       <p>This is an about page</p>
       <button type="button" onClick={goToHomePage}>
-          Go back to home
+          Go back
       </button>
     </div>
   );
