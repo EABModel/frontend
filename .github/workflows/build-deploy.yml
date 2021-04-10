@@ -28,10 +28,14 @@ jobs:
         cmd: install
     
     - name: Build project
-      run: yarn build
+      uses: borales/actions-yarn@v2.0.0
+      with:
+        cmd: build
     
     - name: Run tests
-      run: yarn test
+      uses: borales/actions-yarn@v2.0.0
+      with:
+        cmd: test
 
     - name: Upload production-ready build files
       uses: actions/upload-artifact@v2
@@ -53,12 +57,12 @@ jobs:
         path: ./build
 
     - name: Deploy to gh-pages
-      # uses: peaceiris/actions-gh-pages@v3
-      # with:
-        # github_token: ${{ secrets.GITHUB_TOKEN }}
-        # publish_dir: ./build
-      run: |
-        git config --global user.email ${{ secrets.DEPLOY_EMAIL }}
-        git config --global user.name ${{ secrets.DEPLOY_USERNAME }}
-        git remote set-url origin https://${{ secrets.DEPLOY_ACCESS_TOKEN }}@github.com/${{ secrets.DEPLOY_USERNAME }}/frontend.git
-        npm run deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build
+      # run: |
+      #   git config --global user.email ${{ secrets.DEPLOY_EMAIL }}
+      #   git config --global user.name ${{ secrets.DEPLOY_USERNAME }}
+      #   git remote set-url origin https://${{ secrets.DEPLOY_ACCESS_TOKEN }}@github.com/${{ secrets.DEPLOY_USERNAME }}/frontend.git
+      #   npm run deploy
