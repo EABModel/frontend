@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 
 export default async function fetchData(path: string, token: string = '', session: string = 'default') {
@@ -13,8 +13,8 @@ export default async function fetchData(path: string, token: string = '', sessio
     method: 'delete',
     url: `${host}/${path}`,
   })
-  .then((data) => response = data)
-  .catch((error) => console.log(error));
+  .then((data: AxiosResponse<any>) => response = data)
+  .catch((error: Error) => console.log(error));
 
   return { status: response.status, body: response };
 }

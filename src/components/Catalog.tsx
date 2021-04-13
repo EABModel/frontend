@@ -1,5 +1,5 @@
-import React from 'react';
-import CatalogCard from './CatalogCard';
+import React, { FC } from 'react';
+import { CatalogCard } from './CatalogCard';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 
@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function Catalog() {
+export const Catalog: FC = () => {
   const classes = useStyles();
 
   return (
@@ -99,6 +99,4 @@ function Catalog() {
       </Box>
     </Box>
   );
-}
-
-export default Catalog;
+};

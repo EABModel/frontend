@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 // import Response from '../interfaces/response';
 
 
@@ -11,9 +11,10 @@ export default async function getFetch(path: string, token: string = '', session
       Authorization: `Bearer ${token}`,
       Session: session,
     },
+    method: 'get',
   })
-  .then((data) => response = data)
-  .catch((error) => console.log(error));
+  .then((data: AxiosResponse<any>) => response = data)
+  .catch((error: Error) => console.log(error));
 
   return { status: response.status, body: response };
 }

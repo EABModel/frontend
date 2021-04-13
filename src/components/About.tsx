@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useHistory } from "react-router-dom";
 
-function About() {
+export const About: FC = () => {
   const history = useHistory();
 
   const goToHomePage = () => {
@@ -15,6 +15,4 @@ function About() {
       </button>
     </div>
   );
-}
-
-export default About;
+};
