@@ -1,8 +1,8 @@
-import React from 'react';
-import Catalog from './Catalog';
+import React, { FC } from 'react';
+import { Catalog } from './Catalog';
 
 
-function Home() {
+export const Home: FC = () => {
   
   // const history = useHistory();
 
@@ -15,6 +15,4 @@ function Home() {
       <Catalog />
     </div>
   );
-}
-
-export default Home;
+};

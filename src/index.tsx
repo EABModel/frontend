@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import { store } from './app/store';
+import { App } from './App';
+import { store } from './store/store';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import { CookiesProvider } from "react-cookie";
@@ -11,9 +11,7 @@ import reportWebVitals from './reportWebVitals';
 
 const history = createBrowserHistory();
 let root = document.getElementById('root');
-
 const path = (/#!(\/.*)$/.exec(window.location.hash) || [])[1];
-
 if (path) {
   history.replace(path);
 }

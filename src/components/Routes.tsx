@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from './Home';
-import About from './About';
+import { Home } from './Home';
+import { About } from './About';
 
 
-function Routes() {
+export const Routes: FC = () => {
   return (
     <div>
       <Router basename={process.env.PUBLIC_URL}>
@@ -15,6 +15,4 @@ function Routes() {
       </Router>
     </div>
   );
-}
-
-export default Routes;
+};

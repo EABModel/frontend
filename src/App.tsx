@@ -1,8 +1,8 @@
-import React from 'react';
-import Routes from './components/Routes';
-import NavBar from './components/NavBar';
+import React, { FC } from 'react';
+import { Routes } from './components/Routes';
+import { NavBar } from './components/NavBar';
 
-function App() {
+export const App: FC = () => {
   return (
     <div className="container">
       <header className="App-header">
@@ -13,6 +13,4 @@ function App() {
       </div>
     </div>
   );
-}
-
-export default App;
+};
