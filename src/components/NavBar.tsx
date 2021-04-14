@@ -3,7 +3,7 @@ import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/co
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
-import { UserState } from '../store/types';
+import { UserState } from '../store/types/UserTypes';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
 
 export const NavBar: FC = () => {
 	// A way of doing it in case the state is an object
-	// const { sessionType } = useSelector<UserState, UserState['user']>((state) => state.user);
+	// useSelector<ArgumentType, ReturnType>
+	// const sessionType = useSelector<UserState, UserState['user']['sessionType']>((state) => state.user.sessionType);
 	const user = useSelector<UserState, UserState['user']>((state) => state.user);
 	const classes = useStyles();
 
