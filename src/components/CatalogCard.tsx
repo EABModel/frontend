@@ -28,7 +28,8 @@ interface Props {
     color: string,
     inches: number
   }
-}
+};
+
 
 export const CatalogCard: FC<Props> = ({ specs }: Props) => {
   const classes = useStyles();
