@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Routes } from './components/Routes';
-import { NavBar } from './components/NavBar';
+import NavBar from './components/NavBar';
 
 export const App: FC = () => {
   return (

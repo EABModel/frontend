@@ -1,15 +1,30 @@
 export interface UserState {
-  user: {
-    username: string,
-    userId: string,
-    sessionType: Session,
-    authToken: string,
-    refreshToken: string
-  }
-};
+  username: string;
+  email: string;
+  userId: string;
+  sessionType: Session;
+  authToken: string;
+  refreshToken: string;
+  addUserStatus: {
+    loading: boolean;
+    success: boolean;
+    error: boolean;
+  };
+  logoutUserStatus: {
+    loading: boolean;
+    success: boolean;
+    error: boolean;
+  };
+}
+
+export interface UserAuthFields {
+  usernameOrEmail: string;
+  password: string;
+}
+
 
 export type UserAction = {
-  type: UserActionTypes;
+  type: UserActionTypes,
   payload?: UserState
 };
 
