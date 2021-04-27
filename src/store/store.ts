@@ -1,6 +1,7 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import userReducer from './reducers/UserReducer';
 import thunk from 'redux-thunk';
+import LogInReducer from './reducers/LogInReducer';
 
 // Boilerplate code needed for visualizing redux dev tools
 // declare global {
@@ -14,6 +15,7 @@ import thunk from 'redux-thunk';
 // Add new reducers here
 const RootReducer = combineReducers({
   user: userReducer,
+  logIn: LogInReducer,
 });
 
 export type RootState = ReturnType<typeof RootReducer>;
