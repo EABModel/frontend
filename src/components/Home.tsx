@@ -21,8 +21,8 @@ const Home: FC<Props> = (props: Props) => {
   const { logIn } = props;
   return (
     <div>
-      {logIn.open && <LogIn/>}
       <Catalog />
+      {logIn.open && <LogIn/>}
     </div>
   );
 };

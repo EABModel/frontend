@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Card from '@material-ui/core/Card';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 function Copyright() {
   return (
@@ -44,13 +46,29 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  popUp: {
+    // position: 'absolute',
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    padding: '1em',
+    // display: 'flex',
+    // alignContent: 'center',
+    // justifyContent: 'center',
+  },
+  cancelIcon: {
+    position: 'absolute',
+    marginRight: '50%',
+  }
 }));
 
 export default function LogIn() {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Card className={classes.popUp} component="main" variant="outlined">
+      <CancelIcon className="cancelIcon" />
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -101,7 +119,7 @@ export default function LogIn() {
                 Forgot password?
               </Link>
             </Grid>
-            <Grid item>
+            <Grid item xs>
               <Link href="#" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
@@ -112,6 +130,6 @@ export default function LogIn() {
       <Box mt={8}>
         <Copyright />
       </Box>
-    </Container>
+    </Card>
   );
 }
