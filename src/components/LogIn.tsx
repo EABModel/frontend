@@ -1,26 +1,36 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Card from '@material-ui/core/Card';
-import CancelIcon from '@material-ui/icons/Cancel';
+import React, { FC, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import UseStyles from '../styles/LogInStyles';
+import { bindActionCreators } from 'redux';
+import { RootState } from '../redux/store';
+import { connect } from 'react-redux';
+import { AuthState, PostAuthFields } from '../redux/types/AuthTypes';
+import { UserState } from '../redux/types/UserTypes';
+import * as authInteractors from '../redux/interactors/authInteractors';
+import * as userInteractors from '../redux/interactors/userInteractors';
+import * as modalInteractors from '../redux/interactors/modalInteractor';
+import { Cancel } from '@material-ui/icons';
+import {
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Card,
+  CircularProgress,
+} from '@material-ui/core';
+
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        EABModel
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -28,56 +38,69 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  popUp: {
-    // position: 'absolute',
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    padding: '1em',
-    // display: 'flex',
-    // alignContent: 'center',
-    // justifyContent: 'center',
-  },
-  cancelIcon: {
-    position: 'absolute',
-    marginRight: '50%',
-  }
-}));
+interface StateProps {
+  auth: AuthState;
+  user: UserState
+}
 
-export default function LogIn() {
-  const classes = useStyles();
+interface DispatchProps {
+  postAuthInteractor: typeof authInteractors.postAuthInteractor;
+  getUserInteractor: typeof userInteractors.getUserInteractor;
+  closePopUpInteractor: typeof modalInteractors.closePopUpInteractor;
+  removeSuccessStatusInteractor: typeof userInteractors.removeSuccessStatusInteractor;
+}
+
+interface Props extends StateProps, DispatchProps {
+  closePopUp: Function;
+}
+
+const LogIn: FC<Props> = (props: Props) => {
+  const styles = UseStyles();
+  const history = useHistory();
+  const { auth, user } = props;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    if (user.addUserStatus.success) {
+      props.removeSuccessStatusInteractor();
+      props.closePopUpInteractor();
+      history.push('/about');
+    }
+  },[history, props, user]);
+
+  const closePopUp = (): void => {
+    props.closePopUp();
+  };
+
+  const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setEmail(event.target.value);
+  };
+
+  const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = (): void => {
+    const authFields: PostAuthFields = {
+      email,
+      password
+    };
+    props.postAuthInteractor(authFields);
+  };
 
   return (
-    <Card className={classes.popUp} component="main" variant="outlined">
-      <CancelIcon className="cancelIcon" />
+    <Card className={styles.popUp} component="main" variant="outlined">
+      <div className={styles.cancelIcon} onClick={closePopUp} >
+        <Cancel fontSize="large" color="secondary" />
+      </div>
       <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
+      <div className={styles.paper}>
+        {auth.postAuthStatus.loading && <CircularProgress />}
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <div className={styles.form}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -88,6 +111,7 @@ export default function LogIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={onEmailChange}
           />
           <TextField
             variant="outlined"
@@ -99,6 +123,7 @@ export default function LogIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={onPasswordChange}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -109,27 +134,49 @@ export default function LogIn() {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
+            className={styles.submit}
+            disabled={!(email && password)}
+            onClick={handleSubmit}
           >
             Sign In
           </Button>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
-                Forgot password?
+                ¿Forgot password?
               </Link>
             </Grid>
             <Grid item xs>
               <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+                Don't have an account? Sign Up
               </Link>
             </Grid>
           </Grid>
-        </form>
+        </div>
       </div>
-      <Box mt={8}>
+      <Box mt={4}>
         <Copyright />
       </Box>
     </Card>
   );
-}
+};
+
+const mapStateToProps = (state: RootState): StateProps => {
+  return {
+    auth: state.auth,
+    user: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+  ...bindActionCreators(
+    {
+      ...authInteractors,
+      ...userInteractors,
+      ...modalInteractors,
+    },
+    dispatch,
+  ),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn);

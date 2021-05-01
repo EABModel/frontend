@@ -1,14 +1,17 @@
 import React, { FC } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { RootState } from '../store/store';
-import { UserState } from '../store/types/UserTypes';
-import { PopUpState } from '../store/types/LogInTypes';
-import * as userInteractors from '../store/interactors/UserInteractor';
-import * as logInInteractors from '../store/interactors/LogInInteractor';
+import { RootState } from '../redux/store';
+import { UserState } from '../redux/types/UserTypes';
+import { PopUpState } from '../redux/types/ModalTypes';
+import { AuthState } from '../redux/types/AuthTypes';
+import * as authInteractors from '../redux/interactors/authInteractors';
+import * as userInteractors from '../redux/interactors/userInteractors';
+import * as modalInteractors from '../redux/interactors/modalInteractor';
 import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -21,18 +24,20 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    textAlign: 'left',
   },
 }));
 
 interface StateProps {
   user: UserState;
-  logIn: PopUpState;
+  auth: AuthState;
+  modal: PopUpState;
 }
 
 interface DispatchProps {
-  fetchUserInteractor: typeof userInteractors.fetchUserInteractor;
+  logoutAuthInteractor: typeof authInteractors.logoutAuthInteractor;
   logoutUserInteractor: typeof userInteractors.logoutUserInteractor;
-  showPopUpInteractor: typeof logInInteractors.showPopUpInteractor;
+  showPopUpInteractor: typeof modalInteractors.showPopUpInteractor;
 }
 
 interface Props extends StateProps, DispatchProps {
@@ -40,24 +45,32 @@ interface Props extends StateProps, DispatchProps {
 }
 
 const NavBar: FC<Props> = (props: Props) => {
-	const { user } = props;
-	const classes = useStyles();
+	const { user, auth } = props;
+  const history = useHistory();
+	const styles = useStyles();
 
-  const openPopUp = () => {
+  const openPopUp = (): void => {
     props.showPopUpInteractor();
-  }
+  };
+
+  const logOut = (): void => {
+    props.logoutAuthInteractor();
+    props.logoutUserInteractor();
+    history.replace('/');
+  };
 
 	return (
-		<div className={classes.root}>
+		<div className={styles.root}>
 			<AppBar position="static">
 				<Toolbar>
-					<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+					<IconButton edge="start" className={styles.menuButton} color="inherit" aria-label="menu">
 						<MenuIcon />
 					</IconButton>
-					<Typography variant="h6" className={classes.title}>
-						{user.sessionType === 'ANONYMOUS' ? `Hello Dear Customer!` : `Hello ${user.username}!`}
+					<Typography variant="h6" className={styles.title}>
+						{auth.sessionType === 'ANONYMOUS' ? `Hello Dear Customer!` : `Hello ${user.username}!`}
 					</Typography>
-					<Button color="inherit" onClick={openPopUp}>Login</Button>
+          {auth.sessionType === 'ANONYMOUS' && <Button color="inherit" onClick={openPopUp}>Login</Button>}
+          {auth.sessionType !== 'ANONYMOUS' && <Button color="secondary" onClick={logOut}>Logout</Button>}
 					</Toolbar>
 			</AppBar>
 		</div>)
@@ -66,15 +79,17 @@ const NavBar: FC<Props> = (props: Props) => {
 const mapStateToProps = (state: RootState): StateProps => {
   return {
     user: state.user,
-    logIn: state.logIn,
+    auth: state.auth,
+    modal: state.modal,
   };
 };
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   ...bindActionCreators(
     {
+      ...authInteractors,
       ...userInteractors,
-      ...logInInteractors,
+      ...modalInteractors
     },
     dispatch,
   ),

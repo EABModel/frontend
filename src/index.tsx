@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { App } from './App';
-import { store } from './store/store';
+import { store, storePersistor } from './redux/store';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
-import { CookiesProvider } from "react-cookie";
+import { PersistGate } from 'redux-persist/integration/react';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
@@ -19,9 +19,9 @@ if (path) {
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <CookiesProvider>
+      <PersistGate persistor={storePersistor}>
         <App />
-      </CookiesProvider>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   root
