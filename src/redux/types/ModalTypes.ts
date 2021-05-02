@@ -1,3 +1,3 @@
 export interface PopUpState {
-    open: boolean;
+  open: boolean;
 }

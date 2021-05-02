@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import UseStyles from '../styles/CatalogCardStyles';
 import {
   Card,
   CardActionArea,
@@ -9,16 +9,6 @@ import {
   Button,
   Typography
 } from '@material-ui/core';
-
-
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  }
-});
 
 interface Props {
   specs: {
@@ -32,12 +22,12 @@ interface Props {
 
 
 export const CatalogCard: FC<Props> = ({ specs }: Props) => {
-  const classes = useStyles();
+  const styles = UseStyles();
 
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia className={classes.media} image="CHANGE-LATER" title="Device" />
+    <Card className={styles.root}>
+      <CardActionArea style={{textAlign: 'left'}}>
+        <CardMedia className={styles.media} image="CHANGE-LATER" title="Device" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {specs.name}

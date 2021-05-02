@@ -1,26 +1,18 @@
-import { UserState, Session } from '../types/UserTypes';
+import { UserState } from '../types/UserTypes';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: UserState = {
   username: 'defaultUser',
   email: '',
   userId: '',
-  sessionType: Session.ANONYMOUS,
-  authToken: '',
-  refreshToken: '',
   addUserStatus: {
-    loading: false,
-    success: false,
-    error: false,
-  },
-  logoutUserStatus: {
     loading: false,
     success: false,
     error: false,
   },
 };
 
-const user = createSlice({
+const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
@@ -51,27 +43,24 @@ const user = createSlice({
         },
       };
     },
-    loadingLogoutUser: (state: UserState) => {
+    removeSuccessStatus: (state: UserState) => {
       return {
         ...state,
-        ...initialState,
-        logoutUserStatus: { loading: true, success: false, error: false },
+        addUserStatus: {
+          loading: false,
+          success: false,
+          error: false,
+        },
       };
     },
-    successLogoutUser: (state: UserState) => {
+    logoutUser: (state: UserState) => {
       return {
         ...state,
-        logoutUserStatus: { loading: false, success: true, error: false },
-      };
-    },
-    errorLogoutUser: (state: UserState) => {
-      return {
-        ...state,
-        logoutUserStatus: { loading: false, success: false, error: true },
+        ...initialState
       };
     },
   },
 });
 
-export default user.reducer;
-export const userActions = user.actions;
+export const userReducer = userSlice.reducer;
+export const userActions = userSlice.actions;

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { PopUpState } from '../types/LogInTypes';
+import { PopUpState } from '../types/ModalTypes';
 
 const initialState: PopUpState = {
   open: false,
@@ -13,6 +13,12 @@ const logIn = createSlice({
       return {
         ...state,
         open: true,
+      };
+    },
+    closeLogIn: (state: PopUpState) => {
+      return {
+        ...state,
+        open: false,
       };
     },
   },
