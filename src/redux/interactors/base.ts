@@ -53,8 +53,7 @@ export const buildAuthInteractor = (
     dispatch(loadingAuthAction());
     try {
       const response = await request!(params);
-      const { sessionType, authToken, refreshToken } = response;
-      const { username, email, id } = response;
+      const { sessionType, authToken, refreshToken, username, email, id } = response;
       const authResponse = {
         sessionType,
         authToken,
