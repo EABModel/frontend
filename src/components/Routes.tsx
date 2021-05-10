@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { RootState } from '../redux/store';
-import { AuthState } from '../redux/types/AuthTypes';
+import { UserState } from '../redux/types/UserTypes';
 import Home from './Home';
 import { About } from './About';
 import NavBar from './NavBar';
@@ -9,10 +9,10 @@ import { useSelector } from 'react-redux';
 
 
 const PrivateRoute: FC<any> = ({ component: Component, ...rest }) => {
-  const auth = useSelector<RootState, AuthState>(state => state.auth);
+  const user = useSelector<RootState, UserState>(state => state.user);
   return (
     <Route {...rest} render={(props) => (
-      auth.sessionType !== 'ANONYMOUS'
+      user.sessionType !== 'ANONYMOUS'
       ? <Component {...props} />
       : <Redirect to='/' />
     )} />

@@ -3,7 +3,6 @@ import { persistStore, persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 import modalReducer from './slices/modalSlice';
 import { userReducer } from './slices/userSlice';
-import { authReducer } from './slices/authSlice';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import storage from 'redux-persist/lib/storage';
 
@@ -17,7 +16,6 @@ const persistConfig = {
 // Add new reducers here
 const RootReducer = combineReducers({
   user: userReducer,
-  auth: authReducer,
   modal: modalReducer,
 });
 

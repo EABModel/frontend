@@ -4,9 +4,7 @@ import UseStyles from '../styles/LogInStyles';
 import { bindActionCreators } from 'redux';
 import { RootState } from '../redux/store';
 import { connect } from 'react-redux';
-import { AuthState, PostAuthFields } from '../redux/types/AuthTypes';
-import { UserState } from '../redux/types/UserTypes';
-import * as authInteractors from '../redux/interactors/authInteractors';
+import { UserState, UserAuthFields } from '../redux/types/UserTypes';
 import * as userInteractors from '../redux/interactors/userInteractors';
 import * as modalInteractors from '../redux/interactors/modalInteractor';
 import { Cancel } from '@material-ui/icons';
@@ -39,15 +37,13 @@ function Copyright() {
 }
 
 interface StateProps {
-  auth: AuthState;
   user: UserState
 }
 
 interface DispatchProps {
-  postAuthInteractor: typeof authInteractors.postAuthInteractor;
-  getUserInteractor: typeof userInteractors.getUserInteractor;
+  loginUserInteractor: typeof userInteractors.loginUserInteractor;
+  resetUserStatusInteractor: typeof userInteractors.resetUserStatusInteractor;
   closePopUpInteractor: typeof modalInteractors.closePopUpInteractor;
-  removeSuccessStatusInteractor: typeof userInteractors.removeSuccessStatusInteractor;
 }
 
 interface Props extends StateProps, DispatchProps {
@@ -57,13 +53,13 @@ interface Props extends StateProps, DispatchProps {
 const LogIn: FC<Props> = (props: Props) => {
   const styles = UseStyles();
   const history = useHistory();
-  const { auth, user } = props;
+  const { user } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    if (user.addUserStatus.success) {
-      props.removeSuccessStatusInteractor();
+    if (user.loginUserStatus.success) {
+      props.resetUserStatusInteractor();
       props.closePopUpInteractor();
       history.push('/about');
     }
@@ -82,11 +78,11 @@ const LogIn: FC<Props> = (props: Props) => {
   };
 
   const handleSubmit = (): void => {
-    const authFields: PostAuthFields = {
+    const authFields: UserAuthFields = {
       email,
       password
     };
-    props.postAuthInteractor(authFields);
+    props.loginUserInteractor(authFields);
   };
 
   return (
@@ -96,7 +92,7 @@ const LogIn: FC<Props> = (props: Props) => {
       </div>
       <CssBaseline />
       <div className={styles.paper}>
-        {auth.postAuthStatus.loading && <CircularProgress />}
+        {user.loginUserStatus.loading && <CircularProgress />}
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
@@ -163,7 +159,6 @@ const LogIn: FC<Props> = (props: Props) => {
 
 const mapStateToProps = (state: RootState): StateProps => {
   return {
-    auth: state.auth,
     user: state.user,
   };
 };
@@ -171,7 +166,6 @@ const mapStateToProps = (state: RootState): StateProps => {
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   ...bindActionCreators(
     {
-      ...authInteractors,
       ...userInteractors,
       ...modalInteractors,
     },

@@ -1,11 +1,17 @@
-import { UserState } from '../types/UserTypes';
+import { UserState, Session } from '../types/UserTypes';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: UserState = {
   username: 'defaultUser',
   email: '',
   userId: '',
-  addUserStatus: {
+  sessionType: Session.ANONYMOUS,
+  loginUserStatus: {
+    loading: false,
+    success: false,
+    error: false,
+  },
+  logoutUserStatus: {
     loading: false,
     success: false,
     error: false,
@@ -16,47 +22,68 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    loadingAddUser: (state: UserState) => {
+    loadingLoginUser: (state: UserState) => {
       return {
         ...state,
-        addUserStatus: { loading: true, success: false, error: false },
+        loginUserStatus: { loading: true, success: false, error: false },
       };
     },
-    successAddUser: (state: UserState, action) => {
+    successLoginUser: (state: UserState, action) => {
       return {
         ...state,
         ...action.payload,
-        addUserStatus: {
+        loginUserStatus: {
           loading: false,
           success: true,
           error: false,
         },
+        logoutUserStatus: { loading: false, success: false, error: false },
       };
     },
-    errorAddUser: (state: UserState, action) => {
+    errorLoginUser: (state: UserState, action) => {
       return {
         ...state,
-        addUserStatus: {
+        loginUserStatus: {
           loading: false,
           success: false,
           error: action.payload || true,
         },
       };
     },
-    removeSuccessStatus: (state: UserState) => {
+    loadingLogoutUser: (state: UserState) => {
       return {
         ...state,
-        addUserStatus: {
+        logoutUserStatus: { loading: true, success: false, error: false },
+      };
+    },
+    successLogoutUser: (state: UserState) => {
+      return {
+        ...state,
+        ...initialState,
+        logoutUserStatus: { loading: false, success: true, error: false },
+      };
+    },
+    errorLogoutUser: (state: UserState, action) => {
+      return {
+        ...state,
+        logoutUserStatus: {
           loading: false,
           success: false,
-          error: false,
+          error: action.payload || true,
         },
       };
     },
-    logoutUser: (state: UserState) => {
+    resetUserStatus: (state: UserState) => {
       return {
         ...state,
-        ...initialState
+        loginUserStatus: initialState.loginUserStatus,
+        logoutUserStatus: initialState.logoutUserStatus,
+      };
+    },
+    resetUser: (state: UserState) => {
+      return {
+        ...state,
+        ...initialState,
       };
     },
   },

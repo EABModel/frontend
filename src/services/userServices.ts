@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { PostUserFields } from '../redux/types/UserTypes';
+import { PostUserFields, UserAuthFields } from '../redux/types/UserTypes';
 import { axiosBaseInstance } from './config';
 
 const getUser = async (userId: string) => {
@@ -16,7 +16,27 @@ const getUser = async (userId: string) => {
     });
 };
 
-const postUser = async (authFields: PostUserFields) => {
+const postUserLogin = async (authFields: UserAuthFields) => {
+  return await axiosBaseInstance({
+    headers: { 'Content-Type': 'application/json' },
+    method: 'post',
+    url: '/user/auth',
+    data: {
+      email: authFields.email,
+      password: authFields.password,
+    },
+  })
+    .then((response: AxiosResponse<any>) => {
+      console.log(response?.data);
+      return response?.data;
+    })
+    .catch((error: Error) => {
+      // TODO: Implement logging functionality for future purposes
+      throw error;
+    });
+};
+
+const postUserRegister = async (authFields: PostUserFields) => {
   return await axiosBaseInstance({
     headers: { 'Content-Type': 'application/json' },
     method: 'post',
@@ -33,13 +53,15 @@ const postUser = async (authFields: PostUserFields) => {
       return response?.data;
     })
     .catch((error: Error) => {
-      console.log(error);
+      // TODO: Implement logging functionality for future purposes
+      throw error;
     });
 };
 
 const usersService = {
   getUser,
-  postUser,
+  postUserLogin,
+  postUserRegister,
 };
 
 export default usersService;
