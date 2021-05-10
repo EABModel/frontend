@@ -10,7 +10,7 @@ import storage from 'redux-persist/lib/storage';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user', 'auth', 'modal'],
+  whitelist: ['user', 'modal'],
 };
 
 // Add new reducers here
