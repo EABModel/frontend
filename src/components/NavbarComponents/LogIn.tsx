@@ -1,12 +1,12 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import UseStyles from '../styles/LogInStyles';
+import UseStyles from '../../styles/LogInStyles';
 import { bindActionCreators } from 'redux';
-import { RootState } from '../redux/store';
+import { RootState } from '../../redux/store';
 import { connect } from 'react-redux';
-import { UserState, UserAuthFields } from '../redux/types/UserTypes';
-import * as userInteractors from '../redux/interactors/userInteractors';
-import * as modalInteractors from '../redux/interactors/modalInteractor';
+import { UserState, UserAuthFields } from '../../redux/types/UserTypes';
+import * as userInteractors from '../../redux/interactors/userInteractors';
+import * as modalInteractors from '../../redux/interactors/modalInteractor';
 import { Cancel } from '@material-ui/icons';
 import {
   Button,

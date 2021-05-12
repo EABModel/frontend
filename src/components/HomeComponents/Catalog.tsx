@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { connect } from 'react-redux';
-import { RootState } from '../redux/store';
-import { CatalogState, Product } from '../redux/types/CatalogTypes';
+import { RootState } from '../../redux/store';
+import { CatalogState, Product } from '../../redux/types/CatalogTypes';
 import { CatalogCard } from './CatalogCard';
-import UseStyles from '../styles/CatalogStyles';
+import UseStyles from '../../styles/CatalogStyles';
 import Box from '@material-ui/core/Box';
 
 interface StateProps {

@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux';
 import { RootState } from '../redux/store';
 import { PopUpState } from '../redux/types/ModalTypes';
 import * as modalInteractors from '../redux/interactors/modalInteractor';
-import Catalog from './Catalog';
-import LogIn from './LogIn';
+import Catalog from '../components/HomeComponents/Catalog';
+import LogIn from '../components/NavbarComponents/LogIn';
 import { connect } from 'react-redux';
 
 interface StateProps {

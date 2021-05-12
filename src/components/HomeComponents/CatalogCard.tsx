@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import UseStyles from '../styles/CatalogCardStyles';
+import UseStyles from '../../styles/CatalogCardStyles';
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
 
 interface Props {
