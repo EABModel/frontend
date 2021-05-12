@@ -1,5 +1,8 @@
 import { userActions } from '../slices/userSlice';
 import userServices from '../../services/userServices';
+import { Action } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { RootState } from '../store';
 import { buildInteractor, buildInteractorNoParams } from './base';
 
 export const loginUserInteractor = buildInteractor(
@@ -17,13 +20,13 @@ export const logoutUserInteractor = buildInteractorNoParams(
 );
 
 export const resetUserStatusInteractor = () => {
-  return (dispatch: any) => {
+  return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
     dispatch(userActions.resetUserStatus());
-  }
+  };
 };
 
 export const resetUserInteractor = () => {
-  return (dispatch: any) => {
+  return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
     dispatch(userActions.resetUser());
-  }
+  };
 };

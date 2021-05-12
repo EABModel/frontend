@@ -3,20 +3,19 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { RootState } from '../redux/store';
 import { UserState } from '../redux/types/UserTypes';
 import Home from './Home';
-import { About } from './About';
+import AdministrationPortal from './AdministrationPortal';
 import NavBar from './NavBar';
 import { useSelector } from 'react-redux';
 
-
+// eslint-disable-next-line react/prop-types
 const PrivateRoute: FC<any> = ({ component: Component, ...rest }) => {
-  const user = useSelector<RootState, UserState>(state => state.user);
+  const user = useSelector<RootState, UserState>((state) => state.user);
   return (
-    <Route {...rest} render={(props) => (
-      user.sessionType !== 'ANONYMOUS'
-      ? <Component {...props} />
-      : <Redirect to='/' />
-    )} />
-  )
+    <Route
+      {...rest}
+      render={(props) => (user.sessionType !== 'ANONYMOUS' ? <Component {...props} /> : <Redirect to="/" />)}
+    />
+  );
 };
 
 export const Routes: FC = () => {
@@ -27,8 +26,8 @@ export const Routes: FC = () => {
           <NavBar />
         </header>
         <Switch>
-          <Route path='/' exact component={Home} />
-          <PrivateRoute path='/about' exact component={About} />
+          <Route path="/" exact component={Home} />
+          <PrivateRoute path="/administration" exact component={AdministrationPortal} />
         </Switch>
       </Router>
     </div>

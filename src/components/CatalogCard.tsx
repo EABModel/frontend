@@ -1,32 +1,25 @@
 import React, { FC } from 'react';
 import UseStyles from '../styles/CatalogCardStyles';
-import {
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Button,
-  Typography
-} from '@material-ui/core';
+import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
 
 interface Props {
   specs: {
-    name: string,
-    brand: string,
-    os: string,
-    color: string,
-    inches: number
-  }
-};
-
+    id: string;
+    name: string;
+    brand: string;
+    os: string;
+    color: string;
+    inches: number;
+    price: number;
+  };
+}
 
 export const CatalogCard: FC<Props> = ({ specs }: Props) => {
   const styles = UseStyles();
 
   return (
     <Card className={styles.root}>
-      <CardActionArea style={{textAlign: 'left'}}>
+      <CardActionArea style={{ textAlign: 'left' }}>
         <CardMedia className={styles.media} image="CHANGE-LATER" title="Device" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -60,10 +53,12 @@ export const CatalogCard: FC<Props> = ({ specs }: Props) => {
 
 CatalogCard.defaultProps = {
   specs: {
+    id: '0',
     name: 'Defaut Device',
     brand: 'Default Brand',
     os: 'Default OS',
     color: 'Default Color',
-    inches: 5
-  }
+    inches: 5,
+    price: 0,
+  },
 };

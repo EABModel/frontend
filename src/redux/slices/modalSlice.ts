@@ -5,8 +5,8 @@ const initialState: PopUpState = {
   open: false,
 };
 
-const logIn = createSlice({
-  name: 'logIn',
+const modal = createSlice({
+  name: 'modal',
   initialState,
   reducers: {
     showLogIn: (state: PopUpState) => {
@@ -24,5 +24,5 @@ const logIn = createSlice({
   },
 });
 
-export default logIn.reducer;
-export const logInActions = logIn.actions;
+export const modalReducer = modal.reducer;
+export const modalActions = modal.actions;

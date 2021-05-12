@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import { PostUserFields, UserAuthFields } from '../redux/types/UserTypes';
 import { axiosBaseInstance } from './config';
 
-const getUser = async (userId: string) => {
+const getUser = async (userId: string): Promise<any> => {
   return await axiosBaseInstance({
     headers: { 'Content-Type': 'application/json' },
     method: 'get',
@@ -16,7 +16,7 @@ const getUser = async (userId: string) => {
     });
 };
 
-const postUserLogin = async (authFields: UserAuthFields) => {
+const postUserLogin = async (authFields: UserAuthFields): Promise<any> => {
   return await axiosBaseInstance({
     headers: { 'Content-Type': 'application/json' },
     method: 'post',
@@ -36,7 +36,7 @@ const postUserLogin = async (authFields: UserAuthFields) => {
     });
 };
 
-const postUserRegister = async (authFields: PostUserFields) => {
+const postUserRegister = async (authFields: PostUserFields): Promise<any> => {
   return await axiosBaseInstance({
     headers: { 'Content-Type': 'application/json' },
     method: 'post',

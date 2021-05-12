@@ -22,7 +22,6 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 
-
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -37,7 +36,7 @@ function Copyright() {
 }
 
 interface StateProps {
-  user: UserState
+  user: UserState;
 }
 
 interface DispatchProps {
@@ -47,7 +46,7 @@ interface DispatchProps {
 }
 
 interface Props extends StateProps, DispatchProps {
-  closePopUp: Function;
+  closePopUp: () => void;
 }
 
 const LogIn: FC<Props> = (props: Props) => {
@@ -61,9 +60,9 @@ const LogIn: FC<Props> = (props: Props) => {
     if (user.loginUserStatus.success) {
       props.resetUserStatusInteractor();
       props.closePopUpInteractor();
-      history.push('/about');
+      history.push('/administration');
     }
-  },[history, props, user]);
+  }, [history, props, user]);
 
   const closePopUp = (): void => {
     props.closePopUp();
@@ -80,14 +79,14 @@ const LogIn: FC<Props> = (props: Props) => {
   const handleSubmit = (): void => {
     const authFields: UserAuthFields = {
       email,
-      password
+      password,
     };
     props.loginUserInteractor(authFields);
   };
 
   return (
     <Card className={styles.popUp} component="main" variant="outlined">
-      <div className={styles.cancelIcon} onClick={closePopUp} >
+      <div className={styles.cancelIcon} onClick={closePopUp}>
         <Cancel fontSize="large" color="secondary" />
       </div>
       <CssBaseline />
@@ -121,10 +120,7 @@ const LogIn: FC<Props> = (props: Props) => {
             autoComplete="current-password"
             onChange={onPasswordChange}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
           <Button
             type="submit"
             fullWidth
@@ -132,8 +128,7 @@ const LogIn: FC<Props> = (props: Props) => {
             color="primary"
             className={styles.submit}
             disabled={!(email && password)}
-            onClick={handleSubmit}
-          >
+            onClick={handleSubmit}>
             Sign In
           </Button>
           <Grid container>
@@ -144,7 +139,7 @@ const LogIn: FC<Props> = (props: Props) => {
             </Grid>
             <Grid item xs>
               <Link href="#" variant="body2">
-                Don't have an account? Sign Up
+                Don&apos;t have an account? Sign Up
               </Link>
             </Grid>
           </Grid>

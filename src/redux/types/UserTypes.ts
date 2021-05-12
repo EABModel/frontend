@@ -30,5 +30,5 @@ export interface UserAuthFields {
 export enum Session {
   ANONYMOUS = 'ANONYMOUS',
   EMPLOYEE = 'EMPLOYEE',
-  ADMINISTRATOR = 'ADMINISTRATOR'
+  ADMINISTRATOR = 'ADMINISTRATOR',
 }

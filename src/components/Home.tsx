@@ -3,10 +3,9 @@ import { bindActionCreators } from 'redux';
 import { RootState } from '../redux/store';
 import { PopUpState } from '../redux/types/ModalTypes';
 import * as modalInteractors from '../redux/interactors/modalInteractor';
-import { Catalog } from './Catalog';
+import Catalog from './Catalog';
 import LogIn from './LogIn';
 import { connect } from 'react-redux';
-
 
 interface StateProps {
   modal: PopUpState;
@@ -22,9 +21,9 @@ interface Props extends StateProps, DispatchProps {
 
 const Home: FC<Props> = (props: Props) => {
   const { modal } = props;
-  const closePopUp = () => {
+  const closePopUp = (): void => {
     props.closePopUpInteractor();
-  }
+  };
 
   return (
     <div>

@@ -39,12 +39,20 @@ interface Props extends StateProps, DispatchProps {
 }
 
 const NavBar: FC<Props> = (props: Props) => {
-	const { user } = props;
+  const { user } = props;
   const history = useHistory();
-	const styles = useStyles();
+  const styles = useStyles();
 
   const openPopUp = (): void => {
     props.showPopUpInteractor();
+  };
+
+  const goToHomePage = (): void => {
+    history.replace('/');
+  };
+
+  const goToAdministrationPortal = (): void => {
+    history.replace('/administration');
   };
 
   const logOut = (): void => {
@@ -52,21 +60,37 @@ const NavBar: FC<Props> = (props: Props) => {
     history.replace('/');
   };
 
-	return (
-		<div className={styles.root}>
-			<AppBar position="static">
-				<Toolbar>
-					<IconButton edge="start" className={styles.menuButton} color="inherit" aria-label="menu">
-						<MenuIcon />
-					</IconButton>
-					<Typography variant="h6" className={styles.title}>
-						{user.sessionType === 'ANONYMOUS' ? `Hello Dear Customer!` : `Hello ${user.username}!`}
-					</Typography>
-          {user.sessionType === 'ANONYMOUS' && <Button color="inherit" onClick={openPopUp}>Login</Button>}
-          {user.sessionType !== 'ANONYMOUS' && <Button color="secondary" onClick={logOut}>Logout</Button>}
-					</Toolbar>
-			</AppBar>
-		</div>)
+  return (
+    <div className={styles.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton edge="start" className={styles.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={styles.title}>
+            {user.sessionType === 'ANONYMOUS' ? `Hello Dear Customer!` : `Hello ${user.username}!`}
+          </Typography>
+          <Button color="inherit" onClick={goToHomePage}>
+            Home
+          </Button>
+          {user.sessionType !== 'ANONYMOUS' && (
+            <Button color="inherit" onClick={goToAdministrationPortal}>
+              Administration
+            </Button>
+          )}
+          {user.sessionType === 'ANONYMOUS' ? (
+            <Button color="inherit" onClick={openPopUp}>
+              Login
+            </Button>
+          ) : (
+            <Button color="secondary" onClick={logOut}>
+              Logout
+            </Button>
+          )}
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 };
 
 const mapStateToProps = (state: RootState): StateProps => {
@@ -80,7 +104,7 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   ...bindActionCreators(
     {
       ...userInteractors,
-      ...modalInteractors
+      ...modalInteractors,
     },
     dispatch,
   ),
