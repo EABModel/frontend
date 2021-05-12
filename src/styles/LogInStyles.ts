@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: '-10',
     right: '-10',
-  }
+  },
 }));
 
 export default useStyles;

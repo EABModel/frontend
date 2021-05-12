@@ -1,13 +1,16 @@
-import { logInActions } from '../slices/modalSlice';
+import { modalActions } from '../slices/modalSlice';
+import { Action } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { RootState } from '../store';
 
 export const showPopUpInteractor = () => {
-  return function (dispatch: any) {
-    dispatch(logInActions.showLogIn());
+  return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
+    dispatch(modalActions.showLogIn());
   };
 };
 
 export const closePopUpInteractor = () => {
-  return function (dispatch: any) {
-    dispatch(logInActions.closeLogIn());
+  return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
+    dispatch(modalActions.closeLogIn());
   };
 };

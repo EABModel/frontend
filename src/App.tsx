@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Routes } from './components/Routes';
+import { Routes } from './navigation/Routes';
 import './App.css';
 
 export const App: FC = () => {

@@ -5,11 +5,11 @@ const useStyles = makeStyles({
     maxWidth: 345,
   },
   infoContainer: {
-    textAlign: 'left'
+    textAlign: 'left',
   },
   media: {
     height: 140,
-  }
+  },
 });
 
 export default useStyles;
