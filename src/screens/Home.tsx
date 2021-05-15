@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import { bindActionCreators } from 'redux';
 import { RootState } from '../redux/store';
 import { PopUpState } from '../redux/types/ModalTypes';
-import * as modalInteractors from '../redux/interactors/modalInteractor';
+import * as modalInteractors from '../redux/interactors/modalInteractors';
 import Catalog from '../components/HomeComponents/Catalog';
-import LogIn from '../components/NavbarComponents/LogIn';
+import Login from '../components/NavbarComponents/UserLogin';
 import { connect } from 'react-redux';
 
 interface StateProps {
@@ -28,7 +28,7 @@ const Home: FC<Props> = (props: Props) => {
   return (
     <div>
       <Catalog />
-      {modal.open && <LogIn closePopUp={closePopUp} />}
+      {modal.open && <Login closePopUp={closePopUp} />}
     </div>
   );
 };

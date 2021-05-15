@@ -3,9 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RootState } from '../redux/store';
 import { UserState } from '../redux/types/UserTypes';
-import { PopUpState } from '../redux/types/ModalTypes';
+import { CompanyState } from '../redux/types/CompanyTypes';
 import * as userInteractors from '../redux/interactors/userInteractors';
-import * as modalInteractors from '../redux/interactors/modalInteractor';
+import * as modalInteractors from '../redux/interactors/modalInteractors';
 import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 interface StateProps {
   user: UserState;
-  modal: PopUpState;
+  company: CompanyState;
 }
 
 interface DispatchProps {
@@ -39,7 +39,7 @@ interface Props extends StateProps, DispatchProps {
 }
 
 const NavBar: FC<Props> = (props: Props) => {
-  const { user } = props;
+  const { user, company } = props;
   const history = useHistory();
   const styles = useStyles();
 
@@ -48,7 +48,7 @@ const NavBar: FC<Props> = (props: Props) => {
   };
 
   const goToHomePage = (): void => {
-    history.replace('/');
+    history.replace('/home');
   };
 
   const goToAdministrationPortal = (): void => {
@@ -57,7 +57,7 @@ const NavBar: FC<Props> = (props: Props) => {
 
   const logOut = (): void => {
     props.logoutUserInteractor();
-    history.replace('/');
+    history.replace('/home');
   };
 
   return (
@@ -70,20 +70,22 @@ const NavBar: FC<Props> = (props: Props) => {
           <Typography variant="h6" className={styles.title}>
             {user.sessionType === 'ANONYMOUS' ? `Hello Dear Customer!` : `Hello ${user.username}!`}
           </Typography>
-          <Button color="inherit" onClick={goToHomePage}>
-            Home
-          </Button>
+          {company.id && (
+            <Button color="inherit" onClick={goToHomePage}>
+              Home
+            </Button>
+          )}
           {user.sessionType !== 'ANONYMOUS' && (
             <Button color="inherit" onClick={goToAdministrationPortal}>
               Administration
             </Button>
           )}
           {user.sessionType === 'ANONYMOUS' ? (
-            <Button color="inherit" onClick={openPopUp}>
+            <Button color="inherit" onClick={openPopUp} disabled={!company.id}>
               Login
             </Button>
           ) : (
-            <Button color="secondary" onClick={logOut}>
+            <Button color="secondary" onClick={logOut} disabled={!company.id}>
               Logout
             </Button>
           )}
@@ -96,7 +98,7 @@ const NavBar: FC<Props> = (props: Props) => {
 const mapStateToProps = (state: RootState): StateProps => {
   return {
     user: state.user,
-    modal: state.modal,
+    company: state.company,
   };
 };
 
