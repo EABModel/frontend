@@ -4,6 +4,8 @@ import thunk from 'redux-thunk';
 import { userReducer } from './slices/userSlice';
 import { modalReducer } from './slices/modalSlice';
 import { catalogReducer } from './slices/catalogSlice';
+import { companyReducer } from './slices/companySlice';
+import { shopReducer } from './slices/shopSlice';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import storage from 'redux-persist/lib/storage';
 
@@ -11,7 +13,7 @@ import storage from 'redux-persist/lib/storage';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user', 'modal', 'catalog'],
+  whitelist: ['user', 'modal', 'catalog', 'company', 'shop'],
 };
 
 // Add new reducers here
@@ -19,6 +21,8 @@ const RootReducer = combineReducers({
   user: userReducer,
   modal: modalReducer,
   catalog: catalogReducer,
+  company: companyReducer,
+  shop: shopReducer,
 });
 
 const RootReducerPersistor = persistReducer(persistConfig, RootReducer);

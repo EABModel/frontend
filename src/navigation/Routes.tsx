@@ -5,6 +5,7 @@ import { UserState } from '../redux/types/UserTypes';
 import Home from '../screens/Home';
 import NavBar from './NavBar';
 import { useSelector } from 'react-redux';
+import CompanyLogin from '../screens/CompanyLogin';
 import AdministrationPortal from '../screens/AdministrationPortal';
 import CallsMenu from '../screens/CallsMenu';
 import CatalogMenu from '../screens/CatalogMenu';
@@ -43,7 +44,8 @@ export const Routes: FC = () => {
           <NavBar />
         </header>
         <Switch>
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact component={CompanyLogin} />
+          <Route path="/home" exact component={Home} />
           <EmployeeRoute path="/administration" exact component={AdministrationPortal} />
           <EmployeeRoute path="/administration/calls" exact component={CallsMenu} />
           <EmployeeRoute path="/administration/catalog" exact component={CatalogMenu} />

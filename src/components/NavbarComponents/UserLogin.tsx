@@ -6,7 +6,7 @@ import { RootState } from '../../redux/store';
 import { connect } from 'react-redux';
 import { UserState, UserAuthFields } from '../../redux/types/UserTypes';
 import * as userInteractors from '../../redux/interactors/userInteractors';
-import * as modalInteractors from '../../redux/interactors/modalInteractor';
+import * as modalInteractors from '../../redux/interactors/modalInteractors';
 import { Cancel } from '@material-ui/icons';
 import {
   Button,
@@ -49,7 +49,7 @@ interface Props extends StateProps, DispatchProps {
   closePopUp: () => void;
 }
 
-const LogIn: FC<Props> = (props: Props) => {
+const UserLogin: FC<Props> = (props: Props) => {
   const styles = UseStyles();
   const history = useHistory();
   const { user } = props;
@@ -168,4 +168,4 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogIn);
+export default connect(mapStateToProps, mapDispatchToProps)(UserLogin);

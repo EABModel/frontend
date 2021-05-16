@@ -6,6 +6,7 @@ import { UserState } from '../redux/types/UserTypes';
 import { Typography } from '@material-ui/core';
 import UseStyles from '../styles/AdministrationPortalStyles';
 import MenuSection from '../components/AdministrationPortalComponents/MenuSection';
+import CompanyLogout from '../components/AdministrationPortalComponents/CompanyLogout';
 
 interface StateProps {
   user: UserState;
@@ -64,6 +65,7 @@ const AdministrationPortal: FC<Props> = (props: Props) => {
             callback={goToEmployeesMenu}
           />
         )}
+        <CompanyLogout />
       </div>
     </div>
   );

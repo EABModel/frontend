@@ -27,7 +27,6 @@ const postUserLogin = async (authFields: UserAuthFields): Promise<any> => {
     },
   })
     .then((response: AxiosResponse<any>) => {
-      console.log(response?.data);
       return response?.data;
     })
     .catch((error: Error) => {
@@ -49,7 +48,6 @@ const postUserRegister = async (authFields: PostUserFields): Promise<any> => {
     },
   })
     .then((response: AxiosResponse<any>) => {
-      console.log(response?.data);
       return response?.data;
     })
     .catch((error: Error) => {
