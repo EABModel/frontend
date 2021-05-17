@@ -4,7 +4,13 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState: CompanyState = {
   id: '',
   name: '',
+  email: '',
   shops: [],
+  registerCompanyStatus: {
+    loading: false,
+    success: false,
+    error: false,
+  },
   loginCompanyStatus: {
     loading: false,
     success: false,
@@ -21,6 +27,25 @@ const companySlice = createSlice({
   name: 'company',
   initialState,
   reducers: {
+    loadingRegisterCompany: (state: CompanyState) => {
+      return {
+        ...state,
+        registerCompanyStatus: { loading: true, success: false, error: false },
+      };
+    },
+    successRegisterCompany: (state: CompanyState, action) => {
+      return {
+        ...state,
+        ...action.payload,
+        registerCompanyStatus: { loading: false, success: true, error: false },
+      };
+    },
+    errorRegisterCompany: (state: CompanyState, action) => {
+      return {
+        ...state,
+        registerCompanyStatus: { loading: false, success: false, error: action.payload || true },
+      };
+    },
     loadingLoginCompany: (state: CompanyState) => {
       return {
         ...state,

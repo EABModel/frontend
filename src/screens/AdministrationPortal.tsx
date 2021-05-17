@@ -30,7 +30,7 @@ const AdministrationPortal: FC<Props> = (props: Props) => {
   };
 
   const goToStoreMenu = (): void => {
-    history.push('/administration/store');
+    history.push('/administration/shop');
   };
 
   const goToEmployeesMenu = (): void => {
@@ -54,8 +54,8 @@ const AdministrationPortal: FC<Props> = (props: Props) => {
           callback={goToCatalogMenu}
         />
         <MenuSection
-          title={'Store'}
-          body={'Menu for updating stores, their location, policies and other specifications.'}
+          title={'Shop'}
+          body={'Menu for updating shops, their location, policies and other specifications.'}
           callback={goToStoreMenu}
         />
         {user.sessionType === 'ADMINISTRATOR' && (

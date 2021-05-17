@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState: UserState = {
   username: 'defaultUser',
   email: '',
-  userId: '',
+  id: '',
   sessionType: Session.ANONYMOUS,
   loginUserStatus: {
     loading: false,
