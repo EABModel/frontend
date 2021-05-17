@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import UseStyles from '../../styles/CompanyLoginStyles';
+import React, { FC, useEffect } from 'react';
+import UseStyles from '../../styles/CompanyAuthStyles';
 import { ShopBackendState } from '../../redux/types/CompanyTypes';
 import { useHistory } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -19,6 +19,13 @@ const CompanyLoginForm: FC<Props> = (props: Props) => {
   const styles = UseStyles();
   const history = useHistory();
   const { shops } = props;
+
+  useEffect(() => {
+    // If company has not created a shop, redirect to home to allow it to do that
+    if (shops?.length === 0) {
+      history.replace('/home');
+    }
+  }, []);
 
   const login = (shop: ShopBackendState): void => {
     props.setShopInteractor(shop);

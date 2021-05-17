@@ -25,7 +25,7 @@ interface DispatchProps {
 }
 
 interface Props extends StateProps, DispatchProps {
-  //
+  toggleForm: () => void;
 }
 
 const CompanyLoginForm: FC<Props> = (props: Props) => {
@@ -65,7 +65,7 @@ const CompanyLoginForm: FC<Props> = (props: Props) => {
             required
             fullWidth
             id="name"
-            label="Company Name"
+            label="Company name"
             name="name"
             autoFocus
             onChange={onNameChange}
@@ -94,6 +94,9 @@ const CompanyLoginForm: FC<Props> = (props: Props) => {
           </Button>
         </div>
       </div>
+      <Button color="default" size="small" onClick={props.toggleForm}>
+        Don&apos;t have a company, create one
+      </Button>
     </Card>
   );
 };

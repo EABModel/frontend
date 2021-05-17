@@ -5,6 +5,13 @@ import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from '../store';
 import { buildInteractor, buildInteractorNoParams } from './base';
 
+export const registerCompanyInteractor = buildInteractor(
+  companyActions.loadingRegisterCompany,
+  companyActions.successRegisterCompany,
+  companyActions.errorRegisterCompany,
+  companyServices.postCompanyRegister,
+);
+
 export const loginCompanyInteractor = buildInteractor(
   companyActions.loadingLoginCompany,
   companyActions.successLoginCompany,

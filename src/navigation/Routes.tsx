@@ -5,12 +5,12 @@ import { UserState } from '../redux/types/UserTypes';
 import Home from '../screens/Home';
 import NavBar from './NavBar';
 import { useSelector } from 'react-redux';
-import CompanyLogin from '../screens/CompanyLogin';
+import CompanyAuth from '../screens/CompanyAuth';
 import AdministrationPortal from '../screens/AdministrationPortal';
 import CallsMenu from '../screens/CallsMenu';
 import CatalogMenu from '../screens/CatalogMenu';
 import EmployeesMenu from '../screens/EmployeesMenu';
-import StoreMenu from '../screens/StoreMenu';
+import ShopMenu from '../screens/ShopMenu';
 
 // eslint-disable-next-line react/prop-types
 const EmployeeRoute: FC<any> = ({ component: Component, ...rest }) => {
@@ -18,7 +18,7 @@ const EmployeeRoute: FC<any> = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={(props) => (user.sessionType !== 'ANONYMOUS' ? <Component {...props} /> : <Redirect to="/" />)}
+      render={(props) => (user.sessionType !== 'ANONYMOUS' ? <Component {...props} /> : <Redirect to="/home" />)}
     />
   );
 };
@@ -44,12 +44,12 @@ export const Routes: FC = () => {
           <NavBar />
         </header>
         <Switch>
-          <Route path="/" exact component={CompanyLogin} />
+          <Route path="/" exact component={CompanyAuth} />
           <Route path="/home" exact component={Home} />
           <EmployeeRoute path="/administration" exact component={AdministrationPortal} />
           <EmployeeRoute path="/administration/calls" exact component={CallsMenu} />
           <EmployeeRoute path="/administration/catalog" exact component={CatalogMenu} />
-          <EmployeeRoute path="/administration/store" exact component={StoreMenu} />
+          <EmployeeRoute path="/administration/shop" exact component={ShopMenu} />
           <AdministratorRoute path="/administration/employees" exact component={EmployeesMenu} />
         </Switch>
       </Router>
