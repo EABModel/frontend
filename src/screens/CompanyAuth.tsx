@@ -23,7 +23,7 @@ const CompanyAuth: FC<Props> = (props: Props) => {
   const [isSigninIn, setIsSigningIn] = useState(true);
 
   useEffect(() => {
-    // If just logged in, redirect to store picker
+    // If just logged in, redirect to shop picker
     if (company.loginCompanyStatus.success) {
       setShowShops(true);
     }

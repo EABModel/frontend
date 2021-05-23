@@ -26,13 +26,13 @@ export const logoutCompanyInteractor = buildInteractorNoParams(
   null,
 );
 
-export const resetShopStatusInteractor = () => {
+export const resetCompanyStatusInteractor = () => {
   return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
     dispatch(companyActions.resetCompanyStatus());
   };
 };
 
-export const resetShopInteractor = () => {
+export const resetCompanyInteractor = () => {
   return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
     dispatch(companyActions.resetCompany());
   };

@@ -2,7 +2,7 @@ export interface CompanyState {
   id: string;
   name: string;
   email: string;
-  shops: Array<ShopBackendState>;
+  shops: ShopBackendState[];
   registerCompanyStatus: {
     loading: boolean;
     success: boolean;
@@ -42,5 +42,5 @@ export interface CompanyBackendState {
   id: string;
   name: string;
   email: string;
-  shops: Array<ShopBackendState>;
+  shops: ShopBackendState[];
 }

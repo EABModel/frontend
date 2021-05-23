@@ -17,13 +17,11 @@ if (path) {
 }
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate persistor={storePersistor}>
-        <App />
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <PersistGate persistor={storePersistor}>
+      <App />
+    </PersistGate>
+  </Provider>,
   root,
 );
 

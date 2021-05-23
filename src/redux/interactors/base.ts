@@ -13,8 +13,11 @@ export const buildInteractor =
     return async function (dispatch: any) {
       dispatch(loadingAction());
       try {
-        const response = await request!(params);
-        dispatch(successAction(response));
+        // Simulate API call on localhost, remove in production
+        setTimeout(async () => {
+          const response = await request!(params);
+          dispatch(successAction(response));
+        }, 1500);
       } catch (error) {
         dispatch(errorAction(error));
       }

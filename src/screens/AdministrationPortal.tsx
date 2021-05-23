@@ -25,8 +25,8 @@ const AdministrationPortal: FC<Props> = (props: Props) => {
     history.push('/administration/calls');
   };
 
-  const goToCatalogMenu = (): void => {
-    history.push('/administration/catalog');
+  const goToCatalogueMenu = (): void => {
+    history.push('/administration/catalogue');
   };
 
   const goToStoreMenu = (): void => {
@@ -49,9 +49,9 @@ const AdministrationPortal: FC<Props> = (props: Props) => {
           callback={goToCallsMenu}
         />
         <MenuSection
-          title={'Catalog'}
-          body={'Menu for adding, removing or updating products from the main catalog.'}
-          callback={goToCatalogMenu}
+          title={'Catalogue'}
+          body={'Menu for adding, removing or updating products from the main catalogue.'}
+          callback={goToCatalogueMenu}
         />
         <MenuSection
           title={'Shop'}

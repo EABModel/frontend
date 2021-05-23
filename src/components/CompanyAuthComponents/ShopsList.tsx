@@ -12,7 +12,7 @@ interface DispatchProps {
 }
 
 interface Props extends DispatchProps {
-  shops: Array<ShopBackendState>;
+  shops: ShopBackendState[];
 }
 
 const CompanyLoginForm: FC<Props> = (props: Props) => {

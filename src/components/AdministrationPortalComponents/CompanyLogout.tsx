@@ -6,13 +6,13 @@ import { connect } from 'react-redux';
 import * as companyInteractors from '../../redux/interactors/companyInteractors';
 import * as shopInteractors from '../../redux/interactors/shopInteractors';
 import * as userInteractors from '../../redux/interactors/userInteractors';
-import * as catalogInteractors from '../../redux/interactors/catalogInteractors';
+import * as catalogueInteractors from '../../redux/interactors/catalogueInteractors';
 
 interface DispatchProps {
   logoutCompanyInteractor: typeof companyInteractors.logoutCompanyInteractor;
   resetShopInteractor: typeof shopInteractors.resetShopInteractor;
   logoutUserInteractor: typeof userInteractors.logoutUserInteractor;
-  resetCatalogInteractor: typeof catalogInteractors.resetCatalogInteractor;
+  resetCatalogueInteractor: typeof catalogueInteractors.resetCatalogueInteractor;
 }
 
 interface Props extends DispatchProps {}
@@ -23,7 +23,7 @@ const CompanyLogoutButton: FC<Props> = (props: Props) => {
   const companyLogout = (): void => {
     props.resetShopInteractor();
     props.logoutUserInteractor();
-    props.resetCatalogInteractor();
+    props.resetCatalogueInteractor();
     props.logoutCompanyInteractor();
     history.replace('/');
   };
@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
       ...companyInteractors,
       ...shopInteractors,
       ...userInteractors,
-      ...catalogInteractors,
+      ...catalogueInteractors,
     },
     dispatch,
   ),

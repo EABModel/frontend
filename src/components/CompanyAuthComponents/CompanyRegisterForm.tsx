@@ -81,6 +81,10 @@ const CompanyRegisterForm: FC<Props> = (props: Props) => {
       password,
     };
     props.registerCompanyInteractor(authFields);
+    setName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
   };
 
   const registerCondition =
@@ -114,7 +118,6 @@ const CompanyRegisterForm: FC<Props> = (props: Props) => {
             id="email"
             label="Company email"
             name="email"
-            autoFocus
             onChange={onEmailChange}
           />
           <Typography variant="body2" className={styles.alertMessage}>
@@ -158,6 +161,9 @@ const CompanyRegisterForm: FC<Props> = (props: Props) => {
             onClick={handleSubmit}>
             Company Sign Up
           </Button>
+          {company.registerCompanyStatus.error && (
+            <Typography>An error ocurred, probably the company already exists.</Typography>
+          )}
         </div>
       </div>
       <Button color="default" size="small" onClick={props.toggleForm}>
