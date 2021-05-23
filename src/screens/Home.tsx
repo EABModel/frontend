@@ -1,18 +1,29 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { RootState } from '../redux/store';
 import { PopUpState } from '../redux/types/ModalTypes';
+import { CompanyState } from '../redux/types/CompanyTypes';
+import { ShopState } from '../redux/types/ShopTypes';
+import { CatalogueState } from '../redux/types/CatalogueTypes';
 import * as modalInteractors from '../redux/interactors/modalInteractors';
-import Catalog from '../components/HomeComponents/Catalog';
+import * as catalogueInteractors from '../redux/interactors/catalogueInteractors';
+import Catalogue from '../components/HomeComponents/Catalogue';
 import Login from '../components/NavbarComponents/UserLogin';
+import HomeAlert from '../components/HomeComponents/ShowHomeAlert';
+import { Severity } from '../components/HomeComponents/ShowHomeAlert';
 import { connect } from 'react-redux';
+import { LinearProgress } from '@material-ui/core';
 
 interface StateProps {
   modal: PopUpState;
+  company: CompanyState;
+  shop: ShopState;
+  catalogue: CatalogueState;
 }
 
 interface DispatchProps {
   closePopUpInteractor: typeof modalInteractors.closePopUpInteractor;
+  getCatalogueInteractor: typeof catalogueInteractors.getCatalogueInteractor;
 }
 
 interface Props extends StateProps, DispatchProps {
@@ -20,15 +31,65 @@ interface Props extends StateProps, DispatchProps {
 }
 
 const Home: FC<Props> = (props: Props) => {
-  const { modal } = props;
-  const closePopUp = (): void => {
+  const { modal, company, shop, catalogue } = props;
+  const [showCreateShopMessage, setShowCreateShopMessage] = useState(false);
+  const [showCreateProductMessage, setShowCreateProductMessage] = useState(false);
+
+  useEffect(() => {
+    // If just registered or has no shops
+    if (company.registerCompanyStatus.success || company?.shops?.length === 0) {
+      setShowCreateShopMessage(true);
+    } else {
+      setShowCreateShopMessage(false);
+    }
+  }, [company.registerCompanyStatus, company]);
+
+  useEffect(() => {
+    props.getCatalogueInteractor(shop.id);
+  }, [props.getCatalogueInteractor]);
+
+  useEffect(() => {
+    // If shop has no products, show create product message
+    if (catalogue?.products?.length === 0) {
+      setShowCreateProductMessage(true);
+    } else {
+      setShowCreateProductMessage(false);
+    }
+  }, [catalogue]);
+
+  const closeModal = (): void => {
     props.closePopUpInteractor();
   };
 
   return (
     <div>
-      <Catalog />
-      {modal.open && <Login closePopUp={closePopUp} />}
+      {catalogue.getCatalogueStatus.loading && <LinearProgress color="secondary" />}
+      {showCreateShopMessage && (
+        <HomeAlert
+          resourceName={'shop'}
+          severity={Severity.warning}
+          alertTitle={'Create a shop'}
+          alertBody={[
+            "It seems you don't have any shops, create one.",
+            'If you already created one, logout your company and sign in as that shop.',
+          ]}
+          hasLoginButton={true}
+        />
+      )}
+      {showCreateProductMessage && (
+        <HomeAlert
+          resourceName={'product'}
+          severity={Severity.info}
+          alertTitle={"Add a product or products to your shop's catalogue"}
+          alertBody={[
+            'In order to display your products, add them first.',
+            'You can do that from the administrator menu.',
+          ]}
+          hasLoginButton={true}
+        />
+      )}
+      {!showCreateShopMessage && !showCreateProductMessage && <Catalogue />}
+      {modal.open && <Login closePopUp={closeModal} />}
     </div>
   );
 };
@@ -36,6 +97,9 @@ const Home: FC<Props> = (props: Props) => {
 const mapStateToProps = (state: RootState): StateProps => {
   return {
     modal: state.modal,
+    company: state.company,
+    shop: state.shop,
+    catalogue: state.catalogue,
   };
 };
 
@@ -43,6 +107,7 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   ...bindActionCreators(
     {
       ...modalInteractors,
+      ...catalogueInteractors,
     },
     dispatch,
   ),

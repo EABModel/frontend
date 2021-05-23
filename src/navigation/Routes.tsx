@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import CompanyAuth from '../screens/CompanyAuth';
 import AdministrationPortal from '../screens/AdministrationPortal';
 import CallsMenu from '../screens/CallsMenu';
-import CatalogMenu from '../screens/CatalogMenu';
+import CatalogueMenu from '../screens/CatalogueMenu';
 import EmployeesMenu from '../screens/EmployeesMenu';
 import ShopMenu from '../screens/ShopMenu';
 
@@ -48,7 +48,7 @@ export const Routes: FC = () => {
           <Route path="/home" exact component={Home} />
           <EmployeeRoute path="/administration" exact component={AdministrationPortal} />
           <EmployeeRoute path="/administration/calls" exact component={CallsMenu} />
-          <EmployeeRoute path="/administration/catalog" exact component={CatalogMenu} />
+          <EmployeeRoute path="/administration/catalogue" exact component={CatalogueMenu} />
           <EmployeeRoute path="/administration/shop" exact component={ShopMenu} />
           <AdministratorRoute path="/administration/employees" exact component={EmployeesMenu} />
         </Switch>

@@ -10,7 +10,7 @@ const postShopRegister = async (authFields: PostShopFields): Promise<any> => {
     data: {
       companyId: authFields.companyId,
       name: authFields.name,
-      email: authFields.location,
+      location: authFields.location,
     },
   })
     .then((response: AxiosResponse<Record<string, never>>) => {

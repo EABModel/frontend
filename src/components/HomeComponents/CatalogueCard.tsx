@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import UseStyles from '../../styles/CatalogCardStyles';
+import UseStyles from '../../styles/CatalogueCardStyles';
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
   };
 }
 
-export const CatalogCard: FC<Props> = ({ specs }: Props) => {
+export const CatalogueCard: FC<Props> = ({ specs }: Props) => {
   const styles = UseStyles();
 
   return (
@@ -51,7 +51,7 @@ export const CatalogCard: FC<Props> = ({ specs }: Props) => {
   );
 };
 
-CatalogCard.defaultProps = {
+CatalogueCard.defaultProps = {
   specs: {
     id: '0',
     name: 'Defaut Device',

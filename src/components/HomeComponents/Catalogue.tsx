@@ -1,25 +1,25 @@
 import React, { FC } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { CatalogState, Product } from '../../redux/types/CatalogTypes';
-import { CatalogCard } from './CatalogCard';
-import UseStyles from '../../styles/CatalogStyles';
+import { CatalogueState, Product } from '../../redux/types/CatalogueTypes';
+import { CatalogueCard } from './CatalogueCard';
+import UseStyles from '../../styles/CatalogueStyles';
 import Box from '@material-ui/core/Box';
 
 interface StateProps {
-  catalog: CatalogState;
+  catalogue: CatalogueState;
 }
 
 type Props = StateProps;
 
-const Catalog: FC<Props> = (props: Props) => {
+const Catalogue: FC<Props> = (props: Props) => {
   const classes = UseStyles();
-  const { catalog } = props;
+  const { catalogue } = props;
   return (
     <Box display="flex" flexWrap="wrap" justifyContent="space-evenly" m={1} p={1} bgcolor="background.paper">
-      {catalog?.products.map((product: Product) => (
+      {catalogue?.products.map((product: Product) => (
         <Box className={classes.cardContainer} key={product.id}>
-          <CatalogCard specs={product} />
+          <CatalogueCard specs={product} />
         </Box>
       ))}
     </Box>
@@ -28,8 +28,8 @@ const Catalog: FC<Props> = (props: Props) => {
 
 const mapStateToProps = (state: RootState): StateProps => {
   return {
-    catalog: state.catalog,
+    catalogue: state.catalogue,
   };
 };
 
-export default connect(mapStateToProps)(Catalog);
+export default connect(mapStateToProps)(Catalogue);

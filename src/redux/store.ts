@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 import { userReducer } from './slices/userSlice';
 import { modalReducer } from './slices/modalSlice';
-import { catalogReducer } from './slices/catalogSlice';
+import { catalogueReducer } from './slices/catalogueSlice';
 import { companyReducer } from './slices/companySlice';
 import { shopReducer } from './slices/shopSlice';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -13,14 +13,14 @@ import storage from 'redux-persist/lib/storage';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['company'],
+  whitelist: ['company', 'user', 'shop', 'catalogue'],
 };
 
 // Add new reducers here
 const RootReducer = combineReducers({
   user: userReducer,
   modal: modalReducer,
-  catalog: catalogReducer,
+  catalogue: catalogueReducer,
   company: companyReducer,
   shop: shopReducer,
 });

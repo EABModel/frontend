@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
 import useStyles from '../styles/AccordionMenuStyles';
-import CreateShopAccordionRow from '../components/ShopMenuComponents/ShopRegister';
+import CreateSigleProductAccordionRow from '../components/CatalogueMenu/ProductRegister';
 
-const ShopMenu: FC = () => {
+const CatalogueMenu: FC = () => {
   const styles = useStyles();
   const [expanded, setExpanded] = useState<string | false>(false);
 
@@ -13,15 +13,15 @@ const ShopMenu: FC = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <CreateShopAccordionRow
+      <CreateSigleProductAccordionRow
         expanded={expanded}
         handleChange={handleChange}
         panel={'panel1'}
-        heading={'Create Shop'}
-        summary={'Here you can create a shop, giving all its necesary attributes.'}
+        heading={'Create Single Product'}
+        summary={'Here you can create a product for this shop, giving all its necesary attributes.'}
       />
     </div>
   );
 };
 
-export default ShopMenu;
+export default CatalogueMenu;
