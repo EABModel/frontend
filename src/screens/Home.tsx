@@ -79,7 +79,7 @@ const Home: FC<Props> = (props: Props) => {
       {showCreateProductMessage && (
         <HomeAlert
           resourceName={'product'}
-          severity={Severity.warning}
+          severity={Severity.info}
           alertTitle={"Add a product or products to your shop's catalogue"}
           alertBody={[
             'In order to display your products, add them first.',
