@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as modalInteractors from '../../redux/interactors/modalInteractors';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { Button } from '@material-ui/core';
-import '../../styles/css/homeStyles.css';
+import '../../styles/css/homeStyles.scss';
 
 export enum Severity {
   error = 'error',

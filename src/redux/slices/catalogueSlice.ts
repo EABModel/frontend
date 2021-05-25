@@ -18,6 +18,16 @@ const initialState: CatalogueState = {
     success: false,
     error: false,
   },
+  addProductsToCatalogue: {
+    loading: false,
+    success: false,
+    error: false,
+  },
+  removeProductsFromCatalogue: {
+    loading: false,
+    success: false,
+    error: false,
+  },
 };
 
 const catalogueSlice = createSlice({
@@ -68,6 +78,32 @@ const catalogueSlice = createSlice({
       return {
         ...state,
         addProductToCatalogue: {
+          loading: false,
+          success: false,
+          error: action.payload || true,
+        },
+      };
+    },
+    loadingAddProductsToCatalogue: (state: CatalogueState) => {
+      return {
+        ...state,
+        addProductsToCatalogue: { loading: true, success: false, error: false },
+      };
+    },
+    successAddProductsToCatalogue: (state: CatalogueState) => {
+      return {
+        ...state,
+        addProductsToCatalogue: {
+          loading: false,
+          success: true,
+          error: false,
+        },
+      };
+    },
+    errorAddProductsToCatalogue: (state: CatalogueState, action) => {
+      return {
+        ...state,
+        addProductsToCatalogue: {
           loading: false,
           success: false,
           error: action.payload || true,
