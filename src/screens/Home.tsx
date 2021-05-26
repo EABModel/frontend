@@ -13,7 +13,7 @@ import HomeAlert from '../components/HomeComponents/ShowHomeAlert';
 import { Severity } from '../components/HomeComponents/ShowHomeAlert';
 import { connect } from 'react-redux';
 import { LinearProgress } from '@material-ui/core';
-import IdleVideoOlayer from '../components/HomeComponents/IdleVideoPlayer';
+import IdleVideoPlayer from '../components/HomeComponents/IdleVideoPlayer';
 
 interface StateProps {
   modal: PopUpState;
@@ -65,7 +65,7 @@ const Home: FC<Props> = (props: Props) => {
 
   return (
     <div>
-      <IdleVideoOlayer idleValue={isIdle} toggleIdle={setIsIdle} />
+      <IdleVideoPlayer idleValue={isIdle} toggleIdle={setIsIdle} />
       {!isIdle && (
         <>
           {catalogue.getCatalogueStatus.loading && <LinearProgress color="secondary" />}
