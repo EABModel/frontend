@@ -43,7 +43,7 @@ const catalogueSlice = createSlice({
     successGetCatalogue: (state: CatalogueState, action) => {
       return {
         ...state,
-        products: [...action.payload],
+        products: [...action?.payload],
         getCatalogueStatus: { loading: false, success: true, error: false },
       };
     },

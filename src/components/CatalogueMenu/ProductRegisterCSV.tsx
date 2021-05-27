@@ -34,24 +34,14 @@ const CreateProductsCSV: FC<Props> = (props: Props) => {
       setShowSuccessMessage(true);
       props.resetCatalogueInteractor();
     }
-  }, [catalogue.addProductsToCatalogue, setShowSuccessMessage, props.resetCatalogueInteractor]);
+  }, [catalogue.addProductsToCatalogue, props.resetCatalogueInteractor]);
 
   const handleOnDrop = (data: any) => {
-    console.log('---------------------------');
-    console.log(data);
-    console.log('---------------------------');
     setData(data);
   };
 
   const handleOnError = (err: any, file: any, inputElem: any, reason: any) => {
     console.log(err);
-  };
-
-  const handleOnRemoveFile = (data: any) => {
-    console.log('---------------------------');
-    console.log(data);
-    console.log('---------------------------');
-    setData(null);
   };
 
   function isValid(productAuthFields: ProductPostFields): boolean {
@@ -78,28 +68,10 @@ const CreateProductsCSV: FC<Props> = (props: Props) => {
       };
       // TODO: check if it's necessary to check if attributes make sense (like os being part of a valid list)
       if (isValid(productAuthFields)) {
-        console.log(isValid(productAuthFields));
-        console.log('A');
         products.push(productAuthFields);
       }
-      // props.addProductToCatalogueInteractor(productAuthFields);
-      // Called to reset the state
-      // handleCancelCreate();
     });
-    console.log(products);
     props.addProductsToCatalogueInteractor(products);
-    // const productAuthFields: ProductPostFields = {
-    //   shopId: shop.id,
-    //   name,
-    //   brand,
-    //   os,
-    //   color,
-    //   inches,
-    //   price,
-    // };
-    // props.addProductToCatalogueInteractor(productAuthFields);
-    // Called to reset the state
-    setData(null);
   };
 
   return (
@@ -107,7 +79,7 @@ const CreateProductsCSV: FC<Props> = (props: Props) => {
       <div className="flex-container-between">
         <Typography className={styles.heading}>Import Products from CSV</Typography>
         <div className="flex-container-evenly">
-          <CSVReader onDrop={handleOnDrop} onError={handleOnError} addRemoveButton onRemoveFile={handleOnRemoveFile}>
+          <CSVReader onDrop={handleOnDrop} onError={handleOnError} addRemoveButton>
             <span>Drop CSV file here or click to upload.</span>
           </CSVReader>
           <Fab color="primary" className={styles.fab} onClick={handleUpload}>
