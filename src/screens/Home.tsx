@@ -13,6 +13,7 @@ import HomeAlert from '../components/HomeComponents/ShowHomeAlert';
 import { Severity } from '../components/HomeComponents/ShowHomeAlert';
 import { connect } from 'react-redux';
 import { LinearProgress } from '@material-ui/core';
+import IdleVideoPlayer from '../components/HomeComponents/IdleVideoPlayer';
 
 interface StateProps {
   modal: PopUpState;
@@ -34,6 +35,7 @@ const Home: FC<Props> = (props: Props) => {
   const { modal, company, shop, catalogue } = props;
   const [showCreateShopMessage, setShowCreateShopMessage] = useState(false);
   const [showCreateProductMessage, setShowCreateProductMessage] = useState(false);
+  const [isIdle, setIsIdle] = useState(false);
 
   useEffect(() => {
     // If just registered or has no shops
@@ -63,33 +65,38 @@ const Home: FC<Props> = (props: Props) => {
 
   return (
     <div>
-      {catalogue.getCatalogueStatus.loading && <LinearProgress color="secondary" />}
-      {showCreateShopMessage && (
-        <HomeAlert
-          resourceName={'shop'}
-          severity={Severity.warning}
-          alertTitle={'Create a shop'}
-          alertBody={[
-            "It seems you don't have any shops, create one.",
-            'If you already created one, logout your company and sign in as that shop.',
-          ]}
-          hasLoginButton={true}
-        />
+      <IdleVideoPlayer idleValue={isIdle} toggleIdle={setIsIdle} />
+      {!isIdle && (
+        <>
+          {catalogue.getCatalogueStatus.loading && <LinearProgress color="secondary" />}
+          {showCreateShopMessage && (
+            <HomeAlert
+              resourceName={'shop'}
+              severity={Severity.warning}
+              alertTitle={'Create a shop'}
+              alertBody={[
+                "It seems you don't have any shops, create one.",
+                'If you already created one, logout your company and sign in as that shop.',
+              ]}
+              hasLoginButton={true}
+            />
+          )}
+          {showCreateProductMessage && (
+            <HomeAlert
+              resourceName={'product'}
+              severity={Severity.info}
+              alertTitle={"Add a product or products to your shop's catalogue"}
+              alertBody={[
+                'In order to display your products, add them first.',
+                'You can do that from the administrator menu.',
+              ]}
+              hasLoginButton={true}
+            />
+          )}
+          {!showCreateShopMessage && !showCreateProductMessage && <Catalogue />}
+          {modal.open && <Login closePopUp={closeModal} />}
+        </>
       )}
-      {showCreateProductMessage && (
-        <HomeAlert
-          resourceName={'product'}
-          severity={Severity.info}
-          alertTitle={"Add a product or products to your shop's catalogue"}
-          alertBody={[
-            'In order to display your products, add them first.',
-            'You can do that from the administrator menu.',
-          ]}
-          hasLoginButton={true}
-        />
-      )}
-      {!showCreateShopMessage && !showCreateProductMessage && <Catalogue />}
-      {modal.open && <Login closePopUp={closeModal} />}
     </div>
   );
 };
