@@ -57,10 +57,30 @@ const getShopProducts = async (shopId: string): Promise<any> => {
     });
 };
 
+const postProductDelete = async (productId: string): Promise<any> => {
+  return await axiosBaseInstance({
+    headers: { 'Content-Type': 'application/json' },
+    method: 'delete',
+    url: '/catalogue/delete-product',
+    data: {
+      id: productId,
+    },
+  })
+    .then((response: AxiosResponse<any>) => {
+      // Recieves an empty object to avoid changing shop state
+      return response?.data;
+    })
+    .catch((error: Error) => {
+      // TODO: Implement logging functionality for future purposes
+      throw error;
+    });
+};
+
 const catalogueService = {
   postProductRegister,
   getShopProducts,
   postProductsRegister,
+  postProductDelete,
 };
 
 export default catalogueService;
