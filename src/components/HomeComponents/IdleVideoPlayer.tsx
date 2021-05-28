@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { useIdleTimer } from 'react-idle-timer';
 import ReactPlayer from 'react-player/lazy';
 import { Spring, animated } from 'react-spring';
-import '../../styles/css/videoPlayer.css';
+import '../../styles/css/videoPlayer.scss';
 
 interface Props {
   idleValue: boolean;

@@ -27,6 +27,21 @@ const postProductRegister = async (authFields: ProductPostFields): Promise<any> 
     });
 };
 
+const postProductsRegister = async (products: ProductPostFields[]): Promise<any> => {
+  return await axiosBaseInstance({
+    headers: { 'Content-Type': 'application/json' },
+    method: 'post',
+    url: '/catalogue/add-many-products',
+    data: products,
+  })
+    .then((response: AxiosResponse<Record<string, never>>) => {
+      return response?.data;
+    })
+    .catch((error: Error) => {
+      throw error;
+    });
+};
+
 const getShopProducts = async (shopId: string): Promise<any> => {
   return await axiosBaseInstance({
     headers: { 'Content-Type': 'application/json' },
@@ -34,7 +49,6 @@ const getShopProducts = async (shopId: string): Promise<any> => {
     url: `/catalogue/shop/${shopId}`,
   })
     .then((response: AxiosResponse<Product[]>) => {
-      // Recieves an empty object to avoid changing shop state
       return response?.data;
     })
     .catch((error: Error) => {
@@ -46,6 +60,7 @@ const getShopProducts = async (shopId: string): Promise<any> => {
 const catalogueService = {
   postProductRegister,
   getShopProducts,
+  postProductsRegister,
 };
 
 export default catalogueService;
