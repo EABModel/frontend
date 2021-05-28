@@ -16,6 +16,14 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.95rem',
       color: theme.palette.text.secondary,
     },
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+      textAlign: 'left',
+    },
+    fab: {
+      margin: theme.spacing(2),
+    },
   }),
 );
 

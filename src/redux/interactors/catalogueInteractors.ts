@@ -19,6 +19,13 @@ export const addProductToCatalogueInteractor = buildInteractor(
   catalogueServices.postProductRegister,
 );
 
+export const addProductsToCatalogueInteractor = buildInteractor(
+  catalogueActions.loadingAddProductsToCatalogue,
+  catalogueActions.successAddProductsToCatalogue,
+  catalogueActions.errorAddProductsToCatalogue,
+  catalogueServices.postProductsRegister,
+);
+
 export const removeProductFromCatalogueInteractor = buildInteractor(
   catalogueActions.loadingRemoveProductFromCatalogue,
   catalogueActions.successRemoveProductFromCatalogue,

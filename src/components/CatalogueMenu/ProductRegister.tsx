@@ -19,6 +19,10 @@ import {
   Button,
   TextField,
   LinearProgress,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
 } from '@material-ui/core';
 
 interface StateProps {
@@ -81,6 +85,10 @@ const CreateProduct: FC<Props> = (props: Props) => {
     handleCancelCreate();
   };
 
+  const handleOS = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setOS(event.target.value as string);
+  };
+
   const fieldsVerified: boolean =
     verifyString(name) &&
     verifyString(brand) &&
@@ -120,16 +128,19 @@ const CreateProduct: FC<Props> = (props: Props) => {
         />
       </AccordionDetails>
       <AccordionDetails>
-        <TextField
-          value={os}
-          variant="standard"
-          required
-          fullWidth
-          id="os"
-          label="Operative System"
-          name="os"
-          onChange={(event) => setOS(event.target.value)}
-        />
+        <FormControl variant="outlined" className={styles.formControl} fullWidth>
+          <InputLabel id="demo-simple-select-outlined-label">OS</InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            value={os}
+            onChange={(event) => handleOS(event)}
+            label="Age">
+            <MenuItem value={'Android'}>Android</MenuItem>
+            <MenuItem value={'IOS'}>IOS</MenuItem>
+            <MenuItem value={'Windows'}>Windows</MenuItem>
+          </Select>
+        </FormControl>
       </AccordionDetails>
       <AccordionDetails>
         <TextField

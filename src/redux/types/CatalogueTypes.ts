@@ -15,6 +15,16 @@ export interface CatalogueState {
     success: boolean;
     error: boolean;
   };
+  addProductsToCatalogue: {
+    loading: boolean;
+    success: boolean;
+    error: boolean;
+  };
+  removeProductsFromCatalogue: {
+    loading: boolean;
+    success: boolean;
+    error: boolean;
+  };
 }
 
 export interface Product {
