@@ -28,6 +28,7 @@ const CreateProductsCSV: FC<Props> = (props: Props) => {
   const [csvData, setData] = useState<Array<any> | null>(null);
   const { shop, catalogue } = props;
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState<string>('');
 
   useEffect(() => {
     if (catalogue.addProductsToCatalogue.success) {
@@ -40,8 +41,8 @@ const CreateProductsCSV: FC<Props> = (props: Props) => {
     setData(data);
   };
 
-  const handleOnError = (err: any, file: any, inputElem: any, reason: any) => {
-    console.log(err);
+  const handleOnError = (err: any) => {
+    setShowErrorMessage(`An unexpected error ocurred: ${err}`);
   };
 
   function isValid(productAuthFields: ProductPostFields): boolean {
@@ -94,6 +95,7 @@ const CreateProductsCSV: FC<Props> = (props: Props) => {
           openedStateInParent={setShowSuccessMessage}
         />
       )}
+      {showErrorMessage}
     </Paper>
   );
 };
