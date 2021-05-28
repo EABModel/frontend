@@ -20,6 +20,13 @@ const CatalogueMenu: FC = () => {
         heading={'Create Single Product'}
         summary={'Here you can create a product for this shop, giving all its necesary attributes.'}
       />
+      <CreateSigleProductAccordionRow
+        expanded={expanded}
+        handleChange={handleChange}
+        panel={'panel2'}
+        heading={'Create Single Product'}
+        summary={'Here you can create a product for this shop, giving all its necesary attributes.'}
+      />
     </div>
   );
 };

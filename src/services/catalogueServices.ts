@@ -31,7 +31,7 @@ const getShopProducts = async (shopId: string): Promise<any> => {
   return await axiosBaseInstance({
     headers: { 'Content-Type': 'application/json' },
     method: 'get',
-    url: `/catalogue/${shopId}`,
+    url: `/catalogue/shop/${shopId}`,
   })
     .then((response: AxiosResponse<Product[]>) => {
       // Recieves an empty object to avoid changing shop state
