@@ -150,10 +150,11 @@ const catalogueSlice = createSlice({
       };
     },
     successDeleteProductFromCatalogue: (state: CatalogueState, action) => {
-      const index = state.products.indexOf(action.payload);
-      if (index > -1) state.products.splice(index, 1);
+      // const index = state.products.indexOf(action.payload);
+      // if (index > -1) state.products.splice(index, 1);
       return {
         ...state,
+        products: state.products.filter((product) => product.id !== action?.payload?.id),
         deleteProductFromCatalogue: {
           loading: false,
           success: true,

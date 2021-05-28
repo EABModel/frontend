@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import useStyles from '../../styles/AccordionMenuStyles';
 import { ShopState } from '../../redux/types/ShopTypes';
-import { CatalogueState } from '../../redux/types/CatalogueTypes';
+import { CatalogueState, Product } from '../../redux/types/CatalogueTypes';
 import * as catalogueInteractors from '../../redux/interactors/catalogueInteractors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DissmisibleSuccessAlert from '../GeneralUseComponents/DissmissibleSuccessAlert';
@@ -21,32 +21,12 @@ import {
   LinearProgress,
 } from '@material-ui/core';
 
-//Le paso lo que quiero ver del estado de catalogueService(CatalogueMenu.tsx)
-// interface StateProps {
-//     shop: ShopState; //confirmar que es la misma tienda, sacar id shop
-//     catalogue: CatalogueState; //sacar lista de productos
-//   }
-//acciones
-// interface DispatchProps {
-//     deleteProductFromCatalogueInteractor: typeof catalogueInteractors.deleteProductFromCatalogueInteractor;
-// }
-
-// interface Props extends StateProps, DispatchProps {
-//     expanded: string | false;
-//     handleChange: (panel: string) => any;
-//     panel: string;
-//     heading: string;
-//     summary: string;
-//   }
-
 interface StateProps {
   shop: ShopState;
   catalogue: CatalogueState;
 }
 
 interface DispatchProps {
-  addProductToCatalogueInteractor: typeof catalogueInteractors.addProductToCatalogueInteractor;
-  resetCatalogueInteractor: typeof catalogueInteractors.resetCatalogueInteractor;
   deleteProductFromCatalogueInteractor: typeof catalogueInteractors.deleteProductFromCatalogueInteractor;
 }
 
@@ -62,15 +42,16 @@ const DeleteProduct: FC<Props> = (props: Props) => {
   const { expanded, handleChange, panel, heading, summary, catalogue } = props;
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const styles = useStyles();
+  const [products, setProducts] = useState<Product[]>(catalogue.products);
 
   useEffect(() => {
     if (catalogue.deleteProductFromCatalogue.success) {
       setShowSuccessMessage(true);
-      props.resetCatalogueInteractor();
     }
-  }, [catalogue.deleteProductFromCatalogue, setShowSuccessMessage, props.resetCatalogueInteractor]);
+  }, [catalogue.deleteProductFromCatalogue, setShowSuccessMessage, products]);
 
   const handleDelete = (id: string): void => {
+    setProducts(products.filter((item) => item.id !== id));
     props.deleteProductFromCatalogueInteractor(id);
   };
 
@@ -81,8 +62,7 @@ const DeleteProduct: FC<Props> = (props: Props) => {
         <Typography className={styles.secondaryHeading}>{summary}</Typography>
       </AccordionSummary>
       <List dense>
-        {catalogue.products.map((product) => {
-          // const labelId = `checkbox-list-secondary-label-${product.id}`;
+        {products.map((product: Product) => {
           return (
             <ListItem key={product.id} button>
               <ListItemText
