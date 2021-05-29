@@ -40,7 +40,6 @@ const DeleteProduct: FC<Props> = (props: Props) => {
   const { expanded, handleChange, panel, heading, summary, catalogue } = props;
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const styles = useStyles();
-  // const [products, setProducts] = useState<Product[]>(catalogue.products);
 
   useEffect(() => {
     if (catalogue.deleteProductFromCatalogue.success) {
@@ -49,7 +48,6 @@ const DeleteProduct: FC<Props> = (props: Props) => {
   }, [catalogue.deleteProductFromCatalogue, setShowSuccessMessage]);
 
   const handleDelete = (id: string): void => {
-    // setProducts(products.filter((item) => item.id !== id));
     props.deleteProductFromCatalogueInteractor(id);
   };
 

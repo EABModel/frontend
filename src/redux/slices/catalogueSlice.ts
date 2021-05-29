@@ -150,10 +150,10 @@ const catalogueSlice = createSlice({
       };
     },
     successDeleteProductFromCatalogue: (state: CatalogueState, action) => {
-      const index = state.products.indexOf(action.payload);
+      const newArray = state.products.filter((product) => product.id !== action?.payload?.id);
       return {
         ...state,
-        products: [...state.products.slice(0, index), ...state.products.slice(index + 1)],
+        products: newArray,
         deleteProductFromCatalogue: {
           loading: false,
           success: true,
