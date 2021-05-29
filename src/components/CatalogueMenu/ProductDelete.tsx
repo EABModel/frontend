@@ -1,6 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
 import useStyles from '../../styles/AccordionMenuStyles';
-import { ShopState } from '../../redux/types/ShopTypes';
 import { CatalogueState, Product } from '../../redux/types/CatalogueTypes';
 import * as catalogueInteractors from '../../redux/interactors/catalogueInteractors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -22,7 +21,6 @@ import {
 } from '@material-ui/core';
 
 interface StateProps {
-  shop: ShopState;
   catalogue: CatalogueState;
 }
 
@@ -42,16 +40,16 @@ const DeleteProduct: FC<Props> = (props: Props) => {
   const { expanded, handleChange, panel, heading, summary, catalogue } = props;
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const styles = useStyles();
-  const [products, setProducts] = useState<Product[]>(catalogue.products);
+  // const [products, setProducts] = useState<Product[]>(catalogue.products);
 
   useEffect(() => {
     if (catalogue.deleteProductFromCatalogue.success) {
       setShowSuccessMessage(true);
     }
-  }, [catalogue.deleteProductFromCatalogue, setShowSuccessMessage, products]);
+  }, [catalogue.deleteProductFromCatalogue, setShowSuccessMessage]);
 
   const handleDelete = (id: string): void => {
-    setProducts(products.filter((item) => item.id !== id));
+    // setProducts(products.filter((item) => item.id !== id));
     props.deleteProductFromCatalogueInteractor(id);
   };
 
@@ -62,7 +60,7 @@ const DeleteProduct: FC<Props> = (props: Props) => {
         <Typography className={styles.secondaryHeading}>{summary}</Typography>
       </AccordionSummary>
       <List dense>
-        {products.map((product: Product) => {
+        {catalogue.products.map((product: Product) => {
           return (
             <ListItem key={product.id} button>
               <ListItemText
@@ -93,7 +91,6 @@ const DeleteProduct: FC<Props> = (props: Props) => {
 
 const mapStateToProps = (state: RootState): StateProps => {
   return {
-    shop: state.shop,
     catalogue: state.catalogue,
   };
 };
