@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import useStyles from '../styles/AccordionMenuStyles';
 import CreateSingleProductAccordionRow from '../components/CatalogueMenu/ProductRegister';
 import CreateProductsCSV from '../components/CatalogueMenu/ProductRegisterCSV';
+import DeleteProduct from '../components/CatalogueMenu/ProductDelete';
 import { Button } from '@material-ui/core';
 import '../styles/css/catalogueMenu.scss';
 import { useHistory } from 'react-router-dom';
@@ -27,6 +28,13 @@ const CatalogueMenu: FC = () => {
           summary={'Here you can create a product for this shop, giving all its necesary attributes.'}
         />
         <CreateProductsCSV />
+        <DeleteProduct
+          expanded={expanded}
+          handleChange={handleChange}
+          panel={'panel2'}
+          heading={'Delete Product'}
+          summary={'Here you can delete a product from this shop.'}
+        />
       </div>
       <div className="btn-bottom-left">
         <Button
