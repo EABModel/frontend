@@ -61,10 +61,7 @@ const postProductDelete = async (productId: string): Promise<any> => {
   return await axiosBaseInstance({
     headers: { 'Content-Type': 'application/json' },
     method: 'delete',
-    url: '/catalogue/delete-product',
-    data: {
-      id: productId,
-    },
+    url: `/catalogue/delete-product/${productId}`,
   })
     .then((response: AxiosResponse<any>) => {
       // Recieves an empty object to avoid changing shop state
