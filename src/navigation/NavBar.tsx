@@ -8,21 +8,8 @@ import * as userInteractors from '../redux/interactors/userInteractors';
 import * as modalInteractors from '../redux/interactors/modalInteractors';
 import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-    textAlign: 'left',
-  },
-}));
+import { useStyles } from '../styles/NavBarStyles';
 
 interface StateProps {
   user: UserState;
@@ -47,51 +34,28 @@ const NavBar: FC<Props> = (props: Props) => {
     props.showPopUpInteractor();
   };
 
-  const goToHomePage = (): void => {
-    history.replace('/home');
-  };
-
-  const goToAdministrationPortal = (): void => {
-    history.replace('/administration');
-  };
-
   const logOut = (): void => {
     props.logoutUserInteractor();
     history.replace('/home');
   };
 
   return (
-    <div className={styles.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" className={styles.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={styles.title}>
-            {user.sessionType === 'ANONYMOUS' ? `Hello Dear Customer!` : `Hello ${user.username}!`}
-          </Typography>
-          {company.id && (
-            <Button color="inherit" onClick={goToHomePage}>
-              Home
-            </Button>
-          )}
-          {user.sessionType !== 'ANONYMOUS' && (
-            <Button color="inherit" onClick={goToAdministrationPortal}>
-              Administration
-            </Button>
-          )}
-          {user.sessionType === 'ANONYMOUS' ? (
-            <Button color="inherit" onClick={openPopUp} disabled={!company.id}>
-              Login
-            </Button>
-          ) : (
-            <Button color="secondary" onClick={logOut} disabled={!company.id}>
-              Logout
-            </Button>
-          )}
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position="static" className={styles.root}>
+      <Toolbar>
+        <Typography variant="h6" className={styles.title}>
+          {user.sessionType === 'ANONYMOUS' ? `Hello Dear Customer!` : `Hello ${user.username}!`}
+        </Typography>
+        {user.sessionType === 'ANONYMOUS' ? (
+          <Button className={styles.btn} color="inherit" onClick={openPopUp} disabled={!company.id}>
+            Login
+          </Button>
+        ) : (
+          <Button color="secondary" onClick={logOut} disabled={!company.id}>
+            Logout
+          </Button>
+        )}
+      </Toolbar>
+    </AppBar>
   );
 };
 
