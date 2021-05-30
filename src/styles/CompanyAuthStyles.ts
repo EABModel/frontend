@@ -1,6 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
+  page: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
   container: {
     position: 'absolute',
     left: '50%',
@@ -9,14 +14,24 @@ const useStyles = makeStyles({
     padding: '20px',
     width: '50%',
     height: '60vh',
-    borderRadius: '15px',
+    borderRadius: '8px',
+    overflowY: 'scroll',
+  },
+  containerList: {
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '20px',
+    width: '50%',
+    height: '60vh',
+    borderRadius: '8px',
     overflowY: 'scroll',
   },
   shopContainer: {
     position: 'relative',
     padding: '10px',
     margin: '15px 0',
-    borderRadius: '15px',
+    borderRadius: '8px',
     'box-shadow': '5px 6px 12px -4px rgba(0,0,0,0.75)',
   },
   name: {
