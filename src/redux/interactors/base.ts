@@ -45,3 +45,15 @@ export const buildInteractorNoParams =
       }
     };
   };
+
+export const buildInteractorDirectAction = (request: ActionCreatorWithPayload<any>) => (params: any) => {
+  return (dispatch: any) => {
+    dispatch(request(params));
+  };
+};
+
+export const buildInteractorDirectActionNoParams = (request: ActionCreatorWithoutPayload) => () => {
+  return (dispatch: any) => {
+    dispatch(request());
+  };
+};

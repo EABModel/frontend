@@ -6,6 +6,7 @@ import { modalReducer } from './slices/modalSlice';
 import { catalogueReducer } from './slices/catalogueSlice';
 import { companyReducer } from './slices/companySlice';
 import { shopReducer } from './slices/shopSlice';
+import { connectionReducer } from './slices/connectionSlice';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import storage from 'redux-persist/lib/storage';
 
@@ -23,6 +24,7 @@ const RootReducer = combineReducers({
   catalogue: catalogueReducer,
   company: companyReducer,
   shop: shopReducer,
+  connection: connectionReducer,
 });
 
 const RootReducerPersistor = persistReducer(persistConfig, RootReducer);

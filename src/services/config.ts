@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export const axiosBaseInstance = axios.create({
-  baseURL: 'http://localhost',
+  baseURL: 'https://eabmodel.herokuapp.com/',
 });
