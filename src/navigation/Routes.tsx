@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect, useHistory } from 'react-router-dom';
+import React, { FC, useState } from 'react';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { RootState } from '../redux/store';
 import { UserState } from '../redux/types/UserTypes';
 import Home from '../screens/Home';
 import NavBar from './NavBar';
-import { connect, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import CompanyAuth from '../screens/CompanyAuth';
 import AdministrationPortal from '../screens/AdministrationPortal';
 import CallsMenu from '../screens/CallsMenu';
@@ -13,10 +13,9 @@ import EmployeesMenu from '../screens/EmployeesMenu';
 import ShopMenu from '../screens/ShopMenu';
 import ProductDetails from '../screens/ProductDetails';
 import CustomerCallScreen from '../screens/CustomerCallScreen';
-import { Button, IconButton, makeStyles } from '@material-ui/core';
+import { IconButton, makeStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import '../styles/css/layout.scss';
-import { CompanyState } from '../redux/types/CompanyTypes';
 import SidebarOptions from './SidebarOptions';
 
 const useStyles = makeStyles((theme) => ({
@@ -60,7 +59,7 @@ const Routes: FC = () => {
   const styles = useStyles();
   const [leftOpen, setLeftOpen] = useState(false);
   const [isOpen, setOpen] = useState(leftOpen ? 'open' : 'closed');
-  const toggleSidebar = (event: any) => {
+  const toggleSidebar = () => {
     setLeftOpen(!leftOpen);
     setOpen(leftOpen ? 'open' : 'closed');
   };
