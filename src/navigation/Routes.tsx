@@ -11,6 +11,8 @@ import CallsMenu from '../screens/CallsMenu';
 import CatalogueMenu from '../screens/CatalogueMenu';
 import EmployeesMenu from '../screens/EmployeesMenu';
 import ShopMenu from '../screens/ShopMenu';
+import ProductDetails from '../screens/ProductDetails';
+import CustomerCallScreen from '../screens/CustomerCallScreen';
 
 // eslint-disable-next-line react/prop-types
 const EmployeeRoute: FC<any> = ({ component: Component, ...rest }) => {
@@ -46,6 +48,8 @@ export const Routes: FC = () => {
         <Switch>
           <Route path="/" exact component={CompanyAuth} />
           <Route path="/home" exact component={Home} />
+          <Route path="/home/call" exact component={CustomerCallScreen} />
+          <Route path="/product/:id/details" exact component={ProductDetails} />
           <EmployeeRoute path="/administration" exact component={AdministrationPortal} />
           <EmployeeRoute path="/administration/calls" exact component={CallsMenu} />
           <EmployeeRoute path="/administration/catalogue" exact component={CatalogueMenu} />

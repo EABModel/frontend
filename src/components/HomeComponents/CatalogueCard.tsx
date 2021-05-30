@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import UseStyles from '../../styles/CatalogueCardStyles';
+import { useHistory } from 'react-router-dom';
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
 
 interface Props {
@@ -16,6 +17,11 @@ interface Props {
 
 export const CatalogueCard: FC<Props> = ({ specs }: Props) => {
   const styles = UseStyles();
+  const history = useHistory();
+
+  const goToDetails = useCallback((productId: string) => {
+    history.push(`product/${productId}/details`);
+  }, []);
 
   return (
     <Card className={styles.root}>
@@ -43,7 +49,7 @@ export const CatalogueCard: FC<Props> = ({ specs }: Props) => {
         <Button size="small" color="primary">
           Buy
         </Button>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={() => goToDetails(specs.id)}>
           Details
         </Button>
       </CardActions>
