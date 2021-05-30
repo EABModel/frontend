@@ -33,6 +33,7 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
   const [calling, setCalling] = useState(false);
 
   useEffect(() => {
+    console.log('This it a test console log to prevent firestore excessive requests...');
     firestore.collection('shopCalls').doc(props.shopId).set({ updatedAt: new Date() });
     const data = {
       peerConnection,

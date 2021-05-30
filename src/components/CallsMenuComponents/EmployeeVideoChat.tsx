@@ -44,7 +44,7 @@ const EmployeeVideoChat: FC<Props> = (props: Props) => {
     answerCall();
     // Cleanup
     return () => {
-      // hangupCall();
+      hangupCall();
       if (webcamVideo.current && remoteVideo.current) {
         webcamVideo.current.srcObject = null;
         remoteVideo.current.srcObject = null;
@@ -87,6 +87,7 @@ const EmployeeVideoChat: FC<Props> = (props: Props) => {
 
   const hangupCall = useCallback(async () => {
     try {
+      console.log('This it a test console log to prevent firestore excessive requests...');
       await firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc(callId).delete();
     } catch (error) {
       console.log(error);
