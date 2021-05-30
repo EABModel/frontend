@@ -1,12 +1,17 @@
 import React, { FC, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { withStyles } from '@material-ui/core/styles';
+// import callServices from '../../services/callServices';
+// import { CallState } from '../../redux/types/ConnectionTypes';
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { AccordionActions, Modal, Typography, Backdrop, Fade, Divider, Button, Box } from '@material-ui/core';
 
 // interface DispatchProps {
-//   addRankToCall: typeof catalogueInteractors.addRankToCall;
+//   addRatingToCall: typeof callServices.addRating;
+// }
+
+// interface StateProps {
+//   call: CallState;
 // }
 
 const useStyles = makeStyles((theme) => ({
@@ -53,8 +58,8 @@ const DisplaySurvey: FC = () => {
     typeof reply1 !== 'undefined' && typeof reply2 !== 'undefined' && typeof reply3 !== 'undefined';
 
   const handleRating = (): void => {
-    const rank: number = reply1 * 0.4 + reply2 * 0.25 + reply3 * 0.35;
-    // props.addRankToCall();
+    const ratingValue: number = reply1 * 0.4 + reply2 * 0.25 + reply3 * 0.35;
+    // props.addRatingToCall(ratingValue, call.id);
     // Called to reset the state
     handleCancel();
     handleClose();
