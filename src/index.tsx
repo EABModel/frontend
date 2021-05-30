@@ -1,30 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import { App } from './App';
-import { store } from './store/store';
+import { store, storePersistor } from './redux/store';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
-import { CookiesProvider } from "react-cookie";
+import { PersistGate } from 'redux-persist/integration/react';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
 const history = createBrowserHistory();
-let root = document.getElementById('root');
+const root = document.getElementById('root');
 const path = (/#!(\/.*)$/.exec(window.location.hash) || [])[1];
 if (path) {
   history.replace(path);
 }
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <CookiesProvider>
-        <App />
-      </CookiesProvider>
-    </Provider>
-  </React.StrictMode>,
-  root
+  <Provider store={store}>
+    <PersistGate persistor={storePersistor}>
+      <App />
+    </PersistGate>
+  </Provider>,
+  root,
 );
 
 // If you want your app to work offline and load faster, you can change
