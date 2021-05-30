@@ -6,8 +6,7 @@ import { UserState } from '../redux/types/UserTypes';
 import { CompanyState } from '../redux/types/CompanyTypes';
 import * as userInteractors from '../redux/interactors/userInteractors';
 import * as modalInteractors from '../redux/interactors/modalInteractors';
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useStyles } from '../styles/NavBarStyles';
 
