@@ -18,6 +18,11 @@ const initialState: CatalogueState = {
     success: false,
     error: false,
   },
+  editProductFromCatalogue: {
+    loading: false,
+    success: false,
+    error: false,
+  },
 };
 
 const catalogueSlice = createSlice({
@@ -102,10 +107,41 @@ const catalogueSlice = createSlice({
         },
       };
     },
+    loadingEditProductFromCatalogue: (state: CatalogueState) => {
+      return {
+        ...state,
+        editProductFromCatalogue: { loading: true, success: false, error: false },
+      };
+    },
+    successEditProductFromCatalogue: (state: CatalogueState, action) => {
+      console.log('pppp', action.payload);
+      const index = state.products.indexOf(action.payload);
+      console.log(index);
+      if (index > -1) state.products[index] = action.payload;
+      return {
+        ...state,
+        editProductFromCatalogue: {
+          loading: false,
+          success: true,
+          error: false,
+        },
+      };
+    },
+    errorEditProductFromCatalogue: (state: CatalogueState, action) => {
+      return {
+        ...state,
+        editProductFromCatalogue: {
+          loading: false,
+          success: false,
+          error: action.payload || true,
+        },
+      };
+    },
     resetCatalogue: (state: CatalogueState) => {
       return {
         ...state,
         ...initialState,
+        ...state.products,
       };
     },
   },

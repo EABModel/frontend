@@ -26,6 +26,13 @@ export const removeProductFromCatalogueInteractor = buildInteractor(
   null,
 );
 
+export const editProductFromCatalogueInteractor = buildInteractor(
+  catalogueActions.loadingEditProductFromCatalogue,
+  catalogueActions.successEditProductFromCatalogue,
+  catalogueActions.errorEditProductFromCatalogue,
+  catalogueServices.putProductEdit,
+);
+
 export const resetCatalogueInteractor = () => {
   return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
     dispatch(catalogueActions.resetCatalogue());

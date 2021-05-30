@@ -47,7 +47,7 @@ const Home: FC<Props> = (props: Props) => {
   }, [company.registerCompanyStatus, company]);
 
   useEffect(() => {
-    props.getCatalogueInteractor(shop.id);
+    props.getCatalogueInteractor('1');
   }, [props.getCatalogueInteractor]);
 
   useEffect(() => {

@@ -15,6 +15,11 @@ export interface CatalogueState {
     success: boolean;
     error: boolean;
   };
+  editProductFromCatalogue: {
+    loading: boolean;
+    success: boolean;
+    error: boolean;
+  };
 }
 
 export interface Product {
@@ -29,6 +34,17 @@ export interface Product {
 
 export interface ProductPostFields {
   shopId: string;
+  name: string;
+  brand: string;
+  os: string;
+  color: string;
+  inches: string;
+  price: string;
+}
+
+export interface ProductPutFields {
+  shopId: string;
+  id: string;
   name: string;
   brand: string;
   os: string;
