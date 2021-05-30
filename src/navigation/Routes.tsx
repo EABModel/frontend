@@ -75,9 +75,6 @@ const Routes: FC = () => {
             <MenuIcon />
           </IconButton>
           <div className={`sidebar ${isOpen}`}>
-            {/* <div className="header">
-              <h3 className="title">Left header</h3>
-            </div> */}
             <div className="content">
               <SidebarOptions />
             </div>

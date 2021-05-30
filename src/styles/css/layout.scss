@@ -41,7 +41,6 @@ body {
         background: linear-gradient(to right, var(--bg-left), var(--bg-right));
         @media (orientation: landscape) {
             .title { transition: left var(--secs), right var(--secs);
-                // &.left-closed { left: var(--header-height); background-color: var(--bg-left);}
             }
         }
     }
