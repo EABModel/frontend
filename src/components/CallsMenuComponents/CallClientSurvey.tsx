@@ -1,20 +1,13 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
-import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
-import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
-import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltOutlined';
-import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import { AccordionActions, Modal, Typography, Backdrop, Fade, Divider, Button, Box } from '@material-ui/core';
+
+// interface DispatchProps {
+//   addRankToCall: typeof catalogueInteractors.addRankToCall;
+// }
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -28,51 +21,17 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 }));
-
-const StyledRating = withStyles({
-  iconFilled: {
-    color: '#ff6d75',
-  },
-  iconHover: {
-    color: '#ff3d47',
-  },
-})(Rating);
-
-const customIcons = {
-  1: {
-    icon: <SentimentVeryDissatisfiedIcon />,
-    label: 'Very Dissatisfied',
-  },
-  2: {
-    icon: <SentimentDissatisfiedIcon />,
-    label: 'Dissatisfied',
-  },
-  3: {
-    icon: <SentimentSatisfiedIcon />,
-    label: 'Neutral',
-  },
-  4: {
-    icon: <SentimentSatisfiedAltIcon />,
-    label: 'Satisfied',
-  },
-  5: {
-    icon: <SentimentVerySatisfiedIcon />,
-    label: 'Very Satisfied',
-  },
-};
-
-// function IconContainer(props: any) {
-//   const { value, ...other } = props;
-//   return <span {...other}>{customIcons[value].icon}</span>;
-// }
-
-// IconContainer.propTypes = {
-//   value: PropTypes.number.isRequired,
-// };
 
 const DisplaySurvey: FC = () => {
   const classes = useStyles();
+  const [reply1, setReply1] = useState<any>();
+  const [reply2, setReply2] = useState<any>();
+  const [reply3, setReply3] = useState<any>();
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -83,6 +42,23 @@ const DisplaySurvey: FC = () => {
     setOpen(false);
   };
 
+  const handleCancel = (): void => {
+    setReply1(null);
+    setReply2(null);
+    setReply3(null);
+    handleClose();
+  };
+
+  const fieldsVerified: boolean =
+    typeof reply1 !== 'undefined' && typeof reply2 !== 'undefined' && typeof reply3 !== 'undefined';
+
+  const handleRating = (): void => {
+    const rank: number = reply1 * 0.4 + reply2 * 0.25 + reply3 * 0.35;
+    // props.addRankToCall();
+    // Called to reset the state
+    handleCancel();
+    handleClose();
+  };
   return (
     <div>
       <button type="button" onClick={handleOpen}>
@@ -101,16 +77,53 @@ const DisplaySurvey: FC = () => {
         }}>
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">Transition modal</h2>
+            <h2 id="transition-modal-title">Tell us your experience!</h2>
             <Box component="fieldset" mb={3} borderColor="transparent">
-              <Typography component="legend">Custom empty icon</Typography>
+              <Typography component="legend">Was the assistant able to solve all your doubts?</Typography>
               <Rating
-                name="customized-empty"
-                defaultValue={2}
+                name="question-one"
+                value={reply1}
+                defaultValue={0.5}
                 precision={0.5}
                 emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                onChange={(event, newValue) => {
+                  setReply1(newValue);
+                }}
               />
             </Box>
+            <Box component="fieldset" mb={3} borderColor="transparent">
+              <Typography component="legend">Was the assistant´s disposition adequate?</Typography>
+              <Rating
+                name="question-two"
+                value={reply2}
+                defaultValue={0.5}
+                precision={0.5}
+                emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                onChange={(event, newValue) => {
+                  setReply2(newValue);
+                }}
+              />
+            </Box>
+            <Box component="fieldset" mb={3} borderColor="transparent">
+              <Typography component="legend">The response time to the video call was..</Typography>
+              <Rating
+                name="question-three"
+                value={reply3}
+                defaultValue={0.5}
+                precision={0.5}
+                emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                onChange={(event, newValue) => {
+                  setReply3(newValue);
+                }}
+              />
+            </Box>
+            <Divider />
+            <AccordionActions>
+              <Button onClick={() => handleCancel()}>Cancel</Button>
+              <Button color="primary" disabled={!fieldsVerified} onClick={handleRating}>
+                Done
+              </Button>
+            </AccordionActions>
           </div>
         </Fade>
       </Modal>
