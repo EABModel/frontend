@@ -1,5 +1,6 @@
 import { CatalogueState } from '../types/CatalogueTypes';
 import { createSlice } from '@reduxjs/toolkit';
+import { AssignmentLate } from '@material-ui/icons';
 
 const initialState: CatalogueState = {
   products: [],
@@ -115,11 +116,28 @@ const catalogueSlice = createSlice({
     },
     successEditProductFromCatalogue: (state: CatalogueState, action) => {
       console.log('pppp', action.payload);
-      const index = state.products.indexOf(action.payload);
-      console.log(index);
-      if (index > -1) state.products[index] = action.payload;
+      let index = -1;
+      const newProducts = [];
+      for (let k = 0; k < state.products.length; k++) {
+        if (state.products[k].id === action.payload.id) {
+          newProducts.push(...state.products);
+          newProducts[k] = {
+            id: action.payload.id,
+            name: action.payload.name,
+            brand: action.payload.brand,
+            color: action.payload.color,
+            os: action.payload.os,
+            inches: action.payload.inches,
+            price: action.payload.price,
+          };
+          index = k;
+          // state.products[k] = action.payload;
+          k = state.products.length;
+        }
+      }
       return {
         ...state,
+        products: index !== -1 ? state.products : newProducts,
         editProductFromCatalogue: {
           loading: false,
           success: true,

@@ -22,10 +22,12 @@ import {
 } from '@material-ui/core';
 import EditProduct from '../../components/CatalogueMenu/ProductEdit';
 import { Product } from '../../redux/types/CatalogueTypes';
+import { UserState } from '../../redux/types/UserTypes';
 
 interface StateProps {
   shop: ShopState;
   catalogue: CatalogueState;
+  user: UserState;
 }
 
 interface DispatchProps {
@@ -36,13 +38,16 @@ interface Props extends StateProps, DispatchProps {}
 
 const ProductsShow: FC<Props> = (props: Props) => {
   const styles = useStyles();
-  const { shop, catalogue } = props;
-
+  const { shop, catalogue, user } = props;
+  console.log('user', user);
   const [products, setProducts] = useState<Product[]>(catalogue.products);
-  console.log('0987', catalogue);
-  // useEffect(() => {
-  //   props.getCatalogueInteractor('1');
-  // }, [props.getCatalogueInteractor]);
+  useEffect(() => {
+    props.getCatalogueInteractor('1');
+  }, [props.getCatalogueInteractor, catalogue.editProductFromCatalogue.success]);
+
+  useEffect(() => {
+    setProducts(catalogue.products);
+  }, [props.getCatalogueInteractor, catalogue.getCatalogueStatus.success]);
 
   return (
     <>
@@ -68,6 +73,7 @@ const mapStateToProps = (state: RootState): StateProps => {
   return {
     shop: state.shop,
     catalogue: state.catalogue,
+    user: state.user,
   };
 };
 

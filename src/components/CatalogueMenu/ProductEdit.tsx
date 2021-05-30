@@ -28,9 +28,9 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  addProductToCatalogueInteractor: typeof catalogueInteractors.addProductToCatalogueInteractor;
-  resetCatalogueInteractor: typeof catalogueInteractors.resetCatalogueInteractor;
   editProductFromCatalogueInteractor: typeof catalogueInteractors.editProductFromCatalogueInteractor;
+  // addProductToCatalogueInteractor: typeof catalogueInteractors.addProductToCatalogueInteractor;
+  resetCatalogueInteractor: typeof catalogueInteractors.resetCatalogueInteractor;
   getCatalogueInteractor: typeof catalogueInteractors.getCatalogueInteractor;
 }
 
@@ -57,7 +57,6 @@ const EditProduct: FC<Props> = (props: Props) => {
     if (catalogue.editProductFromCatalogue.success) {
       setShowSuccessMessage(true);
       props.resetCatalogueInteractor();
-      handleCancelEdit();
     }
   }, [catalogue.editProductFromCatalogue, setShowSuccessMessage, props.resetCatalogueInteractor]);
 
@@ -88,7 +87,7 @@ const EditProduct: FC<Props> = (props: Props) => {
     };
     props.editProductFromCatalogueInteractor(productAuthFields);
     // Called to reset the state
-    handleCancelEdit();
+    // handleCancelEdit();
   };
 
   const fieldsVerified: boolean =
@@ -181,7 +180,9 @@ const EditProduct: FC<Props> = (props: Props) => {
       </AccordionDetails>
       <Divider />
       <AccordionActions>
-        <Button size="small"> Cancel </Button>
+        <Button size="small" onClick={handleCancelEdit}>
+          Cancel
+        </Button>
         <Button size="small" color="primary" disabled={!fieldsVerified} onClick={handleEdit}>
           Edit Product
         </Button>

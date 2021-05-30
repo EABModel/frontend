@@ -29,7 +29,6 @@ const postProductRegister = async (authFields: ProductPostFields): Promise<any> 
 };
 
 const getShopProducts = async (shopId: string): Promise<any> => {
-  console.log('**##**');
   return await axiosBaseInstance({
     headers: { 'Content-Type': 'application/json' },
     method: 'get',
@@ -37,8 +36,6 @@ const getShopProducts = async (shopId: string): Promise<any> => {
   })
     .then((response: AxiosResponse<Product[]>) => {
       // Recieves an empty object to avoid changing shop state
-      console.log('ñññ', response.data);
-
       return response?.data;
     })
     .catch((error: Error) => {
@@ -65,7 +62,6 @@ const putProductEdit = async (authFields: ProductPutFields): Promise<any> => {
   })
     .then((response: AxiosResponse<Record<string, never>>) => {
       // Recieves an empty object to avoid changing shop state
-      console.log('**** > ****', response);
       catalogueActions.successEditProductFromCatalogue(response.data);
       return response?.data;
     })
