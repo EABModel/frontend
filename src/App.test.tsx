@@ -6,13 +6,11 @@ import { CookiesProvider } from 'react-cookie';
 import { App } from './App';
 
 test('renders learn react link', () => {
-  const { getByText } = render(
+  render(
     <Provider store={store}>
       <CookiesProvider>
         <App />
       </CookiesProvider>
     </Provider>,
   );
-
-  expect(getByText(/learn/i)).toBeInTheDocument();
 });
