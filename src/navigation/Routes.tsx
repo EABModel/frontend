@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import React, { FC, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import { RootState } from '../redux/store';
 import { UserState } from '../redux/types/UserTypes';
 import Home from '../screens/Home';
 import NavBar from './NavBar';
-import { useSelector } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import CompanyAuth from '../screens/CompanyAuth';
 import AdministrationPortal from '../screens/AdministrationPortal';
 import CallsMenu from '../screens/CallsMenu';
@@ -13,6 +13,24 @@ import EmployeesMenu from '../screens/EmployeesMenu';
 import ShopMenu from '../screens/ShopMenu';
 import ProductDetails from '../screens/ProductDetails';
 import CustomerCallScreen from '../screens/CustomerCallScreen';
+import { Button, IconButton, makeStyles } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
+import '../styles/css/layout.scss';
+import { CompanyState } from '../redux/types/CompanyTypes';
+import SidebarOptions from './SidebarOptions';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+    textAlign: 'left',
+  },
+}));
 
 // eslint-disable-next-line react/prop-types
 const EmployeeRoute: FC<any> = ({ component: Component, ...rest }) => {
@@ -38,25 +56,59 @@ const AdministratorRoute: FC<any> = ({ component: Component, ...rest }) => {
   );
 };
 
-export const Routes: FC = () => {
+const Routes: FC = () => {
+  const styles = useStyles();
+  const [leftOpen, setLeftOpen] = useState(false);
+  const [isOpen, setOpen] = useState(leftOpen ? 'open' : 'closed');
+  const toggleSidebar = (event: any) => {
+    setLeftOpen(!leftOpen);
+    setOpen(leftOpen ? 'open' : 'closed');
+  };
   return (
-    <div>
-      <Router basename={process.env.PUBLIC_URL}>
-        <header>
-          <NavBar />
-        </header>
-        <Switch>
-          <Route path="/" exact component={CompanyAuth} />
-          <Route path="/home" exact component={Home} />
-          <Route path="/home/call" exact component={CustomerCallScreen} />
-          <Route path="/product/:id/details" exact component={ProductDetails} />
-          <EmployeeRoute path="/administration" exact component={AdministrationPortal} />
-          <EmployeeRoute path="/administration/calls" exact component={CallsMenu} />
-          <EmployeeRoute path="/administration/catalogue" exact component={CatalogueMenu} />
-          <EmployeeRoute path="/administration/shop" exact component={ShopMenu} />
-          <AdministratorRoute path="/administration/employees" exact component={EmployeesMenu} />
-        </Switch>
-      </Router>
-    </div>
+    <Router basename={process.env.PUBLIC_URL}>
+      <div id="layout">
+        <div id="left" className={isOpen}>
+          <IconButton
+            edge="start"
+            className={`icon ${styles.menuButton}`}
+            color="inherit"
+            aria-label="menu"
+            onClick={toggleSidebar}>
+            <MenuIcon />
+          </IconButton>
+          <div className={`sidebar ${isOpen}`}>
+            <div className="content">
+              <SidebarOptions />
+            </div>
+          </div>
+        </div>
+        <div id="main">
+          <div className="header">
+            <div
+              className={`
+                          title
+                          ${'left-' + isOpen}
+                      `}>
+              <NavBar />
+            </div>
+          </div>
+          <div className="content" id="page">
+            <Switch>
+              <Route path="/" exact component={CompanyAuth} />
+              <Route path="/home" exact component={Home} />
+              <Route path="/home/call" exact component={CustomerCallScreen} />
+              <Route path="/product/:id/details" exact component={ProductDetails} />
+              <EmployeeRoute path="/administration" exact component={AdministrationPortal} />
+              <EmployeeRoute path="/administration/calls" exact component={CallsMenu} />
+              <EmployeeRoute path="/administration/catalogue" exact component={CatalogueMenu} />
+              <EmployeeRoute path="/administration/shop" exact component={ShopMenu} />
+              <AdministratorRoute path="/administration/employees" exact component={EmployeesMenu} />
+            </Switch>
+          </div>
+        </div>
+      </div>
+    </Router>
   );
 };
+
+export default Routes;

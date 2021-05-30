@@ -28,6 +28,11 @@ const initialState: CatalogueState = {
     success: false,
     error: false,
   },
+  deleteProductFromCatalogue: {
+    loading: false,
+    success: false,
+    error: false,
+  },
 };
 
 const catalogueSlice = createSlice({
@@ -132,6 +137,34 @@ const catalogueSlice = createSlice({
       return {
         ...state,
         removeProductFromCatalogue: {
+          loading: false,
+          success: false,
+          error: action.payload || true,
+        },
+      };
+    },
+    loadingDeleteProductFromCatalogue: (state: CatalogueState) => {
+      return {
+        ...state,
+        deleteProductFromCatalogue: { loading: true, success: false, error: false },
+      };
+    },
+    successDeleteProductFromCatalogue: (state: CatalogueState, action) => {
+      const newArray = state.products.filter((product) => product.id !== action?.payload?.id);
+      return {
+        ...state,
+        products: newArray,
+        deleteProductFromCatalogue: {
+          loading: false,
+          success: true,
+          error: false,
+        },
+      };
+    },
+    errorDeleteProductFromCatalogue: (state: CatalogueState, action) => {
+      return {
+        ...state,
+        deleteProductFromCatalogue: {
           loading: false,
           success: false,
           error: action.payload || true,

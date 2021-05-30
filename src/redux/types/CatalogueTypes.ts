@@ -25,6 +25,11 @@ export interface CatalogueState {
     success: boolean;
     error: boolean;
   };
+  deleteProductFromCatalogue: {
+    loading: boolean;
+    success: boolean;
+    error: boolean;
+  };
 }
 
 export interface Product {
