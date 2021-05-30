@@ -54,7 +54,7 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
     };
   }, []);
 
-  const startCall = useCallback(async () => {
+  const startCall = async () => {
     // Create document with two sub collections in the current shop with shopId
     const callsDocument = firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc();
     const offerCandidates = callsDocument?.collection('offerCandidates');
@@ -100,7 +100,7 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
         }
       });
     });
-  }, []);
+  };
 
   const hangupCall = useCallback(async () => {
     setIsOnCall(false);
