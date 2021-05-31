@@ -26,13 +26,6 @@ export const addProductsToCatalogueInteractor = buildInteractor(
   catalogueServices.postProductsRegister,
 );
 
-export const removeProductFromCatalogueInteractor = buildInteractor(
-  catalogueActions.loadingRemoveProductFromCatalogue,
-  catalogueActions.successRemoveProductFromCatalogue,
-  catalogueActions.errorRemoveProductFromCatalogue,
-  null,
-);
-
 export const deleteProductFromCatalogueInteractor = buildInteractor(
   catalogueActions.loadingDeleteProductFromCatalogue,
   catalogueActions.successDeleteProductFromCatalogue,

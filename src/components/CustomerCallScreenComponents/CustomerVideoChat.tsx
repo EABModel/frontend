@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, useRef, useCallback } from 'react';
+import React, { FC, useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, ButtonGroup, LinearProgress } from '@material-ui/core';
 import { RootState } from '../../redux/store';
@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { ConnectionState } from '../../redux/types/ConnectionTypes';
 import setSources from '../../utils/videoHelpers/setMediaSources';
 import * as connectionInteractors from '../../redux/interactors/connectionInteractors';
+import beginCall from '../../utils/videoHelpers/beginCall';
 
 interface StateProps {
   connection: ConnectionState;
@@ -55,54 +56,10 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
   }, []);
 
   const startCall = async () => {
-    // Create document with two sub collections in the current shop with shopId
-    const callsDocument = firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc();
-    const offerCandidates = callsDocument?.collection('offerCandidates');
-    const answerCandidates = callsDocument?.collection('answerCandidates');
-    callInput.current = callsDocument.id;
-    setCalling(true);
-    setIsOnCall(true);
-
-    // Get candidates for caller, save to db
-    peerConnection.onicecandidate = (event: any) => {
-      event.candidate && offerCandidates.add(event.candidate.toJSON());
-    };
-
-    // Create call offer with offer and status
-    const offerDescription = await peerConnection.createOffer();
-    await peerConnection.setLocalDescription(offerDescription);
-    const offer = {
-      sdp: offerDescription.sdp,
-      type: offerDescription.type,
-    };
-    const status = {
-      answered: false,
-      date: new Date(),
-    };
-    await callsDocument.set({ offer, status });
-
-    // Listen for remote answer
-    callsDocument.onSnapshot((snapshot) => {
-      const data = snapshot.data();
-      if (!peerConnection.currentRemoteDescription && data?.answer) {
-        const answerDescription = new RTCSessionDescription(data.answer);
-        peerConnection.setRemoteDescription(answerDescription);
-      }
-    });
-
-    // When answered, add candidate to peer connection
-    answerCandidates.onSnapshot((snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        if (change.type === 'added') {
-          const candidate = new RTCIceCandidate(change.doc.data());
-          peerConnection.addIceCandidate(candidate);
-          setCalling(false);
-        }
-      });
-    });
+    callInput.current = await beginCall({ firestore, shopId: props.shopId, peerConnection, setCalling, setIsOnCall });
   };
 
-  const hangupCall = useCallback(async () => {
+  const hangupCall = async () => {
     setIsOnCall(false);
     try {
       // Deleting collections is not recommended from web client, find alternative later
@@ -112,7 +69,7 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
     } finally {
       history.go(-1);
     }
-  }, []);
+  };
 
   return (
     <>
@@ -129,7 +86,7 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
               Call Assistant
             </Button>
             <Button size="small" variant="contained" color="secondary" disabled={!isOnCall} onClick={hangupCall}>
-              Hangup
+              Hang up
             </Button>
           </ButtonGroup>
         </div>

@@ -48,22 +48,24 @@ const AdministrationPortal: FC<Props> = (props: Props) => {
           body={'Menu for managing video calls from current store.'}
           callback={goToCallsMenu}
         />
-        <MenuSection
-          title={'Catalogue'}
-          body={'Menu for adding, removing or updating products from the main catalogue.'}
-          callback={goToCatalogueMenu}
-        />
-        <MenuSection
-          title={'Shop'}
-          body={'Menu for updating shops, their location, policies and other specifications.'}
-          callback={goToStoreMenu}
-        />
         {user.sessionType === 'ADMINISTRATOR' && (
-          <MenuSection
-            title={"Employee's"}
-            body={"Menu for updating employee's status and for managing store employees."}
-            callback={goToEmployeesMenu}
-          />
+          <>
+            <MenuSection
+              title={'Catalogue'}
+              body={'Menu for adding, removing or updating products from the main catalogue.'}
+              callback={goToCatalogueMenu}
+            />
+            <MenuSection
+              title={'Shop'}
+              body={'Menu for updating shops, their location, policies and other specifications.'}
+              callback={goToStoreMenu}
+            />
+            <MenuSection
+              title={"Employee's"}
+              body={"Menu for updating employee's status and for managing store employees."}
+              callback={goToEmployeesMenu}
+            />
+          </>
         )}
         <CompanyLogout />
       </div>
