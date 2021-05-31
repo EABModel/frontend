@@ -88,9 +88,11 @@ const ProductDetails: FC<Props> = (props: Props) => {
             {product?.price} CLP
           </Typography>
         </div>
-        <Button size="small" onClick={() => goToCallScreen()}>
-          Get Assistance
-        </Button>
+        <div className="customer-button-container">
+          <Button variant="contained" color="primary" onClick={() => goToCallScreen()}>
+            Get Assistance
+          </Button>
+        </div>
       </div>
       <div className="photo-container"></div>
     </div>

@@ -99,8 +99,8 @@ const Routes: FC = () => {
               <Route path="/product/:id/details" exact component={ProductDetails} />
               <EmployeeRoute path="/administration" exact component={AdministrationPortal} />
               <EmployeeRoute path="/administration/calls" exact component={CallsMenu} />
-              <EmployeeRoute path="/administration/catalogue" exact component={CatalogueMenu} />
-              <EmployeeRoute path="/administration/shop" exact component={ShopMenu} />
+              <AdministratorRoute path="/administration/shop" exact component={ShopMenu} />
+              <AdministratorRoute path="/administration/catalogue" exact component={CatalogueMenu} />
               <AdministratorRoute path="/administration/employees" exact component={EmployeesMenu} />
             </Switch>
           </div>
