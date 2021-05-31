@@ -33,11 +33,11 @@ const CompanyLoginForm: FC<Props> = (props: Props) => {
   };
 
   return (
-    <>
+    <div className={styles.page}>
       <Typography variant="h2" color="textSecondary">
         Choose Shop
       </Typography>
-      <div className={styles.container}>
+      <div className={styles.containerList}>
         {shops?.map((shop: ShopBackendState) => (
           <div className={styles.shopContainer} key={shop.id}>
             <div>
@@ -52,7 +52,7 @@ const CompanyLoginForm: FC<Props> = (props: Props) => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
