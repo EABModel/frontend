@@ -15,6 +15,6 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: '1rem',
   },
   btn: {
-    fontSize: '2rem',
+    fontSize: '1rem',
   },
 }));
