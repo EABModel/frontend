@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const setSources = async ({ peerConnection, webcamVideo, remoteVideo }: any) => {
-  const localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+  const localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
   const remoteStream = new MediaStream();
 
   localStream.getTracks().forEach((track: any) => {
