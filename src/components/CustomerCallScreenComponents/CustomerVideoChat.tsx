@@ -74,7 +74,7 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
   return (
     <>
       <div className="customer-main-container">
-        <video className="local-video-container" ref={webcamVideo} autoPlay playsInline></video>
+        <video className="local-video-container" ref={webcamVideo} autoPlay playsInline muted></video>
         <video className="remote-video-container" ref={remoteVideo} autoPlay playsInline></video>
         <div className="customer-button-container">
           <ButtonGroup
