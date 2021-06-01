@@ -1,18 +1,22 @@
 import React, { FC, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-// import callServices from '../../services/callServices';
-// import { CallState } from '../../redux/types/ConnectionTypes';
+import callServices from '../../services/callServices';
+import { CallState } from '../../redux/types/ConnectionTypes';
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { AccordionActions, Modal, Typography, Backdrop, Fade, Divider, Button, Box } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 // interface DispatchProps {
 //   addRatingToCall: typeof callServices.addRating;
 // }
 
-// interface StateProps {
-//   call: CallState;
-// }
+interface StateProps {
+  call: CallState;
+}
+
+interface Props extends StateProps {}
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -32,7 +36,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DisplaySurvey: FC = () => {
+const DisplaySurvey: FC<Props> = (props: Props) => {
+  const { call } = props;
   const classes = useStyles();
   const [reply1, setReply1] = useState<any>();
   const [reply2, setReply2] = useState<any>();
@@ -59,7 +64,7 @@ const DisplaySurvey: FC = () => {
 
   const handleRating = (): void => {
     const ratingValue: number = reply1 * 0.4 + reply2 * 0.25 + reply3 * 0.35;
-    // props.addRatingToCall(ratingValue, call.id);
+    callServices.addRating(ratingValue, call.id);
     // Called to reset the state
     handleCancel();
     handleClose();
@@ -135,5 +140,11 @@ const DisplaySurvey: FC = () => {
     </div>
   );
 };
+// const mapStateToProps = (state: RootState): StateProps => {
+//   return {
+//     call: state.call,
+//   };
+// };
 
+// export default connect(mapStateToProps)(DisplaySurvey);
 export default DisplaySurvey;

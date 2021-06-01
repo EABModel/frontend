@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { axiosBaseInstance } from './config';
-// import { CallPostFields } from '../redux/types/ConnectionTypes';
+import { CallPostFields } from '../redux/types/ConnectionTypes';
 
 // agregar linea a ConnectionTypes
 // export interface CallState {
@@ -16,26 +16,26 @@ import { axiosBaseInstance } from './config';
 //   date: Date;
 // }
 
-// const postCallRegister = async (authFields: CallPostFields): Promise<any> => {
-//   return await axiosBaseInstance({
-//     headers: { 'Content-Type': 'application/json' },
-//     method: 'post',
-//     url: '/calls/new-call',
-//     data: {
-//       employeeId: authFields.employeeId,
-//       shopId: authFields.shopId,
-//       date: authFields.date,
-//     },
-//   })
-//     .then((response: AxiosResponse<Record<string, never>>) => {
-//       // Recieves an empty object to avoid changing shop state
-//       return response?.data;
-//     })
-//     .catch((error: Error) => {
-//       // TODO: Implement logging functionality for future purposes
-//       throw error;
-//     });
-// };
+const postCallRegister = async (authFields: CallPostFields): Promise<any> => {
+  return await axiosBaseInstance({
+    headers: { 'Content-Type': 'application/json' },
+    method: 'post',
+    url: '/calls/new-call',
+    data: {
+      employeeId: authFields.employeeId,
+      shopId: authFields.shopId,
+      date: authFields.date,
+    },
+  })
+    .then((response: AxiosResponse<Record<string, never>>) => {
+      // Recieves an empty object to avoid changing shop state
+      return response?.data;
+    })
+    .catch((error: Error) => {
+      // TODO: Implement logging functionality for future purposes
+      throw error;
+    });
+};
 
 const addRating = async (ratingValue: number, callId: string): Promise<any> => {
   return await axiosBaseInstance({
@@ -56,7 +56,7 @@ const addRating = async (ratingValue: number, callId: string): Promise<any> => {
 };
 
 const callServices = {
-  // postCallRegister,
+  postCallRegister,
   addRating,
 };
 

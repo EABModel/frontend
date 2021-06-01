@@ -6,3 +6,17 @@ export interface ConnectionState {
   localStream: any;
   remoteStream: any;
 }
+
+export interface CallState {
+  id: string;
+  employeeId: string;
+  shopId: string;
+  rating: string;
+  date: Date;
+}
+
+export interface CallPostFields {
+  employeeId: string;
+  shopId: string;
+  date: Date;
+}

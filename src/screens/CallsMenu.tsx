@@ -57,35 +57,36 @@ const CallsMenu: FC<Props> = (props: Props) => {
   };
 
   return (
-    <div>
-      <p>Calls Menu</p>
-      <DisplaySurvey />
-      <Typography variant="h2" gutterBottom>
-        Call Requests
-      </Typography>
-      <div className="requests-container">
-        <List className="list">
-          {requests.length === 0 && (
-            <ListItem className="item" button disabled={true}>
-              <ListItemIcon>
-                <Assistant />
-              </ListItemIcon>
-              <ListItemText primary={'No calls yet...'} />
-            </ListItem>
-          )}
-          {requests.map((request, index) => (
-            <ListItem className="item" button disabled={!!onCall} key={request} onClick={() => answerCall(request)}>
-              <ListItemIcon>
-                <VideoCall />
-              </ListItemIcon>
-              <ListItemText primary={`Answer client ${index + 1} call`} />
-            </ListItem>
-          ))}
-        </List>
-        {loading && <LinearProgress />}
+    <>
+      <div>
+        <DisplaySurvey />
+        <Typography variant="h2" gutterBottom>
+          Call Requests
+        </Typography>
+        <div className="requests-container">
+          <List className="list">
+            {requests.length === 0 && (
+              <ListItem className="item" button disabled={true}>
+                <ListItemIcon>
+                  <Assistant />
+                </ListItemIcon>
+                <ListItemText primary={'No calls yet...'} />
+              </ListItem>
+            )}
+            {requests.map((request, index) => (
+              <ListItem className="item" button disabled={!!onCall} key={request} onClick={() => answerCall(request)}>
+                <ListItemIcon>
+                  <VideoCall />
+                </ListItemIcon>
+                <ListItemText primary={`Answer client ${index + 1} call`} />
+              </ListItem>
+            ))}
+          </List>
+          {loading && <LinearProgress />}
+        </div>
+        {onCall && <EmployeeVideoChat callId={onCall} setOnCall={setOnCall} shopId={props.shopId} />}
       </div>
-      {onCall && <EmployeeVideoChat callId={onCall} setOnCall={setOnCall} shopId={props.shopId} />}
-    </div>
+    </>
   );
 };
 
