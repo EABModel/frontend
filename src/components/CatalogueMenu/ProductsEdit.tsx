@@ -40,9 +40,11 @@ const ProductsShow: FC<Props> = (props: Props) => {
   const styles = useStyles();
   const { shop, catalogue, user } = props;
   console.log('user', user);
+  console.log('shop', shop);
   const [products, setProducts] = useState<Product[]>(catalogue.products);
+
   useEffect(() => {
-    props.getCatalogueInteractor('1');
+    props.getCatalogueInteractor(shop.id);
   }, [props.getCatalogueInteractor, catalogue.editProductFromCatalogue.success]);
 
   useEffect(() => {

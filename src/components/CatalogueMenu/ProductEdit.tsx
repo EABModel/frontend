@@ -77,7 +77,7 @@ const EditProduct: FC<Props> = (props: Props) => {
   const handleEdit = (): void => {
     const productAuthFields: ProductPutFields = {
       id: product.id,
-      shopId: '1', // shop.id,
+      shopId: shop.id,
       name,
       brand,
       os,

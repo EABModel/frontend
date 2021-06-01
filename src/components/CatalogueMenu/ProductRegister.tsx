@@ -68,7 +68,7 @@ const CreateProduct: FC<Props> = (props: Props) => {
 
   const handleCreate = (): void => {
     const productAuthFields: ProductPostFields = {
-      shopId: '1', // shop.id,
+      shopId: shop.id,
       name,
       brand,
       os,
