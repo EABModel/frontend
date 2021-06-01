@@ -13,17 +13,7 @@ const initialState: CatalogueState = {
     success: false,
     error: false,
   },
-  removeProductFromCatalogue: {
-    loading: false,
-    success: false,
-    error: false,
-  },
   addProductsToCatalogue: {
-    loading: false,
-    success: false,
-    error: false,
-  },
-  removeProductsFromCatalogue: {
     loading: false,
     success: false,
     error: false,
@@ -109,34 +99,6 @@ const catalogueSlice = createSlice({
       return {
         ...state,
         addProductsToCatalogue: {
-          loading: false,
-          success: false,
-          error: action.payload || true,
-        },
-      };
-    },
-    loadingRemoveProductFromCatalogue: (state: CatalogueState) => {
-      return {
-        ...state,
-        removeProductFromCatalogue: { loading: true, success: false, error: false },
-      };
-    },
-    successRemoveProductFromCatalogue: (state: CatalogueState, action) => {
-      const index = state.products.indexOf(action.payload);
-      if (index > -1) state.products.splice(index, 1);
-      return {
-        ...state,
-        removeProductFromCatalogue: {
-          loading: false,
-          success: true,
-          error: false,
-        },
-      };
-    },
-    errorRemoveProductFromCatalogue: (state: CatalogueState, action) => {
-      return {
-        ...state,
-        removeProductFromCatalogue: {
           loading: false,
           success: false,
           error: action.payload || true,

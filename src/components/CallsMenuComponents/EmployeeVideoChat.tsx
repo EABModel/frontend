@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { ConnectionState } from '../../redux/types/ConnectionTypes';
 import setSources from '../../utils/videoHelpers/setMediaSources';
 import * as connectionInteractors from '../../redux/interactors/connectionInteractors';
+import takeCall from '../../utils/videoHelpers/takeCall';
 
 interface StateProps {
   connection: ConnectionState;
@@ -36,12 +37,13 @@ const EmployeeVideoChat: FC<Props> = (props: Props) => {
       remoteVideo: remoteVideo.current,
     };
     if (!props.connection.localStream || !props.connection.remoteStream) {
-      setSources(data).then(({ localStream, remoteStream }) => {
-        props.setLocalStreamInteractor(localStream);
-        props.setRemoteStreamInteractor(remoteStream);
-      });
+      setSources(data)
+        .then(({ localStream, remoteStream }) => {
+          props.setLocalStreamInteractor(localStream);
+          props.setRemoteStreamInteractor(remoteStream);
+        })
+        .then(() => answerCall());
     }
-    answerCall();
     // Cleanup
     return () => {
       hangupCall();
@@ -53,37 +55,9 @@ const EmployeeVideoChat: FC<Props> = (props: Props) => {
     };
   }, []);
 
-  const answerCall = useCallback(async () => {
-    const callDocument = firestore.collection('shopCalls').doc(shopId).collection('calls').doc(callId);
-    const answerCandidates = callDocument.collection('answerCandidates');
-    const offerCandidates = callDocument.collection('offerCandidates');
-
-    peerConnection.onicecandidate = (event: any) => {
-      event.candidate && answerCandidates.add(event.candidate.toJSON());
-    };
-    const callData = (await callDocument.get()).data();
-
-    const offerDescription = callData?.offer;
-    await peerConnection.setRemoteDescription(new RTCSessionDescription(offerDescription));
-
-    const answerDescription = await peerConnection.createAnswer();
-    await peerConnection.setLocalDescription(answerDescription);
-
-    const answer = {
-      type: answerDescription.type,
-      sdp: answerDescription.sdp,
-    };
-    await callDocument.update({ answer, 'status.answered': true });
-
-    offerCandidates.onSnapshot((snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        if (change.type === 'added') {
-          const data = change.doc.data();
-          peerConnection.addIceCandidate(new RTCIceCandidate(data));
-        }
-      });
-    });
-  }, []);
+  const answerCall = async () => {
+    await takeCall({ firestore, shopId, callId, peerConnection });
+  };
 
   const hangupCall = useCallback(async () => {
     try {
@@ -102,7 +76,7 @@ const EmployeeVideoChat: FC<Props> = (props: Props) => {
       <video className="employee-remote-video-container" ref={remoteVideo} autoPlay playsInline></video>
       <div className="employee-button-container">
         <Button variant="contained" color="secondary" onClick={hangupCall}>
-          Hangup
+          Hang up
         </Button>
       </div>
     </div>
