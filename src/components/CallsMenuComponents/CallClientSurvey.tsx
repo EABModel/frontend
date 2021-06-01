@@ -12,11 +12,13 @@ import { RootState } from '../../redux/store';
 //   addRatingToCall: typeof callServices.addRating;
 // }
 
-interface StateProps {
-  call: CallState;
-}
+// interface StateProps {
+//   call: CallState;
+// }
 
-interface Props extends StateProps {}
+// interface Props extends StateProps {
+//   // extra props you want to add
+// }
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -36,8 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DisplaySurvey: FC<Props> = (props: Props) => {
-  const { call } = props;
+const DisplaySurvey: FC = () => {
   const classes = useStyles();
   const [reply1, setReply1] = useState<any>();
   const [reply2, setReply2] = useState<any>();
@@ -64,7 +65,7 @@ const DisplaySurvey: FC<Props> = (props: Props) => {
 
   const handleRating = (): void => {
     const ratingValue: number = reply1 * 0.4 + reply2 * 0.25 + reply3 * 0.35;
-    callServices.addRating(ratingValue, call.id);
+    callServices.addRating(ratingValue, '7c67a4a1-588d-46cc-9c39-c65151f4138a');
     // Called to reset the state
     handleCancel();
     handleClose();
