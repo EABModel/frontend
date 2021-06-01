@@ -77,7 +77,7 @@ const CreateProduct: FC<Props> = (props: Props) => {
       brand,
       os,
       color,
-      inches,
+      inches: Math.trunc(parseFloat(inches)).toString(),
       price,
     };
     props.addProductToCatalogueInteractor(productAuthFields);
