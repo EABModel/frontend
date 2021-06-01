@@ -72,7 +72,7 @@ const EmployeeVideoChat: FC<Props> = (props: Props) => {
 
   return (
     <div className="employee-main-container">
-      <video className="employee-local-video-container" ref={webcamVideo} autoPlay playsInline></video>
+      <video className="employee-local-video-container" ref={webcamVideo} autoPlay playsInline muted></video>
       <video className="employee-remote-video-container" ref={remoteVideo} autoPlay playsInline></video>
       <div className="employee-button-container">
         <Button variant="contained" color="secondary" onClick={hangupCall}>

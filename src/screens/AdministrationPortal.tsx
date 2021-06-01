@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { RootState } from '../redux/store';
 import { UserState } from '../redux/types/UserTypes';
+import { ShopState } from '../redux/types/ShopTypes';
 import { Typography } from '@material-ui/core';
 import UseStyles from '../styles/AdministrationPortalStyles';
 import MenuSection from '../components/AdministrationPortalComponents/MenuSection';
@@ -10,6 +11,7 @@ import CompanyLogout from '../components/AdministrationPortalComponents/CompanyL
 
 interface StateProps {
   user: UserState;
+  shop: ShopState;
 }
 
 interface Props extends StateProps {
@@ -19,7 +21,7 @@ interface Props extends StateProps {
 const AdministrationPortal: FC<Props> = (props: Props) => {
   const history = useHistory();
   const styles = UseStyles();
-  const { user } = props;
+  const { user, shop } = props;
 
   const goToCallsMenu = (): void => {
     history.push('/administration/calls');
@@ -43,18 +45,22 @@ const AdministrationPortal: FC<Props> = (props: Props) => {
         Administration Portal
       </Typography>
       <div className={styles.mainContainer}>
-        <MenuSection
-          title={'Video Calls'}
-          body={'Menu for managing video calls from current store.'}
-          callback={goToCallsMenu}
-        />
+        {shop.id && (
+          <MenuSection
+            title={'Video Calls'}
+            body={'Menu for managing video calls from current store.'}
+            callback={goToCallsMenu}
+          />
+        )}
         {user.sessionType === 'ADMINISTRATOR' && (
           <>
-            <MenuSection
-              title={'Catalogue'}
-              body={'Menu for adding, removing or updating products from the main catalogue.'}
-              callback={goToCatalogueMenu}
-            />
+            {shop.id && (
+              <MenuSection
+                title={'Catalogue'}
+                body={'Menu for adding, removing or updating products from the main catalogue.'}
+                callback={goToCatalogueMenu}
+              />
+            )}
             <MenuSection
               title={'Shop'}
               body={'Menu for updating shops, their location, policies and other specifications.'}
@@ -76,6 +82,7 @@ const AdministrationPortal: FC<Props> = (props: Props) => {
 const mapStateToProps = (state: RootState): StateProps => {
   return {
     user: state.user,
+    shop: state.shop,
   };
 };
 
