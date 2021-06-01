@@ -18,4 +18,3 @@ __Siguientes filas__: G9 Play, Motorola, Android, Orange, 6, 149990 (fila de eje
 
 ## Información Adicional
 - Después de finalizar una llamada, es necesario refrescar la página para reiniciar el _Peer Conection_ y permitir una nueva llamada.
-- Recomiendo el uso de audifonos (por lo menos en Mac) ya que todavía no tiene _noise supression_ y la latencia causa eco y retorno.
