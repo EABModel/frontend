@@ -18,3 +18,4 @@ __Siguientes filas__: G9 Play, Motorola, Android, Orange, 6, 149990 (fila de eje
 
 ## Información Adicional
 - Después de finalizar una llamada, es necesario refrescar la página para reiniciar el _Peer Conection_ y permitir una nueva llamada.
+- Link de la página es [este](https://eabmodel.github.io/frontend) :smiley:
