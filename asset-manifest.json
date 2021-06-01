@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/frontend/static/css/main.22ad42dc.chunk.css",
-    "main.js": "/frontend/static/js/main.53962cba.chunk.js",
-    "main.js.map": "/frontend/static/js/main.53962cba.chunk.js.map",
+    "main.js": "/frontend/static/js/main.d77dabef.chunk.js",
+    "main.js.map": "/frontend/static/js/main.d77dabef.chunk.js.map",
     "reactPlayerDailyMotion.js": "/frontend/static/js/reactPlayerDailyMotion.56478388.chunk.js",
     "reactPlayerDailyMotion.js.map": "/frontend/static/js/reactPlayerDailyMotion.56478388.chunk.js.map",
     "reactPlayerFacebook.js": "/frontend/static/js/reactPlayerFacebook.34418174.chunk.js",
@@ -45,6 +45,6 @@
     "static/js/runtime-main.34767b9b.js",
     "static/js/15.8bed566a.chunk.js",
     "static/css/main.22ad42dc.chunk.css",
-    "static/js/main.53962cba.chunk.js"
+    "static/js/main.d77dabef.chunk.js"
   ]
 }
