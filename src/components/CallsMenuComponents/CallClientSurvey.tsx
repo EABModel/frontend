@@ -1,24 +1,20 @@
 import React, { FC, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import callServices from '../../services/callServices';
-import { CallState } from '../../redux/types/ConnectionTypes';
 import Rating from '@material-ui/lab/Rating';
+import * as connectionInteractors from '../../redux/interactors/connectionInteractors';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { AccordionActions, Modal, Typography, Backdrop, Fade, Divider, Button, Box } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { bindActionCreators } from 'redux';
 
-// interface DispatchProps {
-//   addRatingToCall: typeof callServices.addRating;
-// }
+interface DispatchProps {
+  setCallStateFalseInteractor: typeof connectionInteractors.setCallStateFalseInteractor;
+}
 
-// interface StateProps {
-//   call: CallState;
-// }
-
-// interface Props extends StateProps {
-//   // extra props you want to add
-// }
+interface Props extends DispatchProps {
+  // extra props you want to add
+}
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -38,16 +34,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DisplaySurvey: FC = () => {
+const DisplaySurvey: FC<Props> = (props: Props) => {
   const classes = useStyles();
   const [reply1, setReply1] = useState<any>();
   const [reply2, setReply2] = useState<any>();
   const [reply3, setReply3] = useState<any>();
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const [open, setOpen] = React.useState(true);
 
   const handleClose = () => {
     setOpen(false);
@@ -57,24 +49,24 @@ const DisplaySurvey: FC = () => {
     setReply1(null);
     setReply2(null);
     setReply3(null);
+    props.setCallStateFalseInteractor();
     handleClose();
   };
 
   const fieldsVerified: boolean =
     typeof reply1 !== 'undefined' && typeof reply2 !== 'undefined' && typeof reply3 !== 'undefined';
 
-  const handleRating = (): void => {
+  const handleRating = async (): Promise<void> => {
     const ratingValue: number = reply1 * 0.4 + reply2 * 0.25 + reply3 * 0.35;
-    callServices.addRating(ratingValue, '7c67a4a1-588d-46cc-9c39-c65151f4138a');
+    //TODO: cambiar id por nuevo de llamada
+    await callServices.addRating(ratingValue, '259206f2-69e2-4c4b-8b91-a525f6db89e0');
     // Called to reset the state
+    props.setCallStateFalseInteractor();
     handleCancel();
     handleClose();
   };
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
-        Respond videocall survey
-      </button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -130,7 +122,7 @@ const DisplaySurvey: FC = () => {
             </Box>
             <Divider />
             <AccordionActions>
-              <Button onClick={() => handleCancel()}>Cancel</Button>
+              <Button onClick={() => handleCancel()}>No thanks</Button>
               <Button color="primary" disabled={!fieldsVerified} onClick={handleRating}>
                 Done
               </Button>
@@ -141,11 +133,14 @@ const DisplaySurvey: FC = () => {
     </div>
   );
 };
-// const mapStateToProps = (state: RootState): StateProps => {
-//   return {
-//     call: state.call,
-//   };
-// };
 
-// export default connect(mapStateToProps)(DisplaySurvey);
-export default DisplaySurvey;
+const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+  ...bindActionCreators(
+    {
+      ...connectionInteractors,
+    },
+    dispatch,
+  ),
+});
+
+export default connect(null, mapDispatchToProps)(DisplaySurvey);

@@ -2,20 +2,6 @@ import { AxiosResponse } from 'axios';
 import { axiosBaseInstance } from './config';
 import { CallPostFields } from '../redux/types/ConnectionTypes';
 
-// agregar linea a ConnectionTypes
-// export interface CallState {
-//   id: string;
-//   employeeId: string;
-//   shopId: string;
-//   rating: string;
-//   date: Date;
-// }
-// export interface CallPostFields {
-//   employeeId: string;
-//   shopId: string;
-//   date: Date;
-// }
-
 const postCallRegister = async (authFields: CallPostFields): Promise<any> => {
   return await axiosBaseInstance({
     headers: { 'Content-Type': 'application/json' },

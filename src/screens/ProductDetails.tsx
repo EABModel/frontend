@@ -2,12 +2,17 @@ import React, { FC, useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { RootState } from '../redux/store';
 import { connect } from 'react-redux';
+import { ConnectionState } from '../redux/types/ConnectionTypes';
+import DisplaySurvey from '../components/CallsMenuComponents/CallClientSurvey';
+// import * as connectionInteractors from '../redux/interactors/connectionInteractors';
 import { Product } from '../redux/types/CatalogueTypes';
 import { Typography, Button } from '@material-ui/core';
 import '../styles/css/productDetails.scss';
+import callServices from '../services/callServices';
 
 interface StateProps {
   products: Product[];
+  connection: ConnectionState;
 }
 
 interface Props extends StateProps {
@@ -15,7 +20,8 @@ interface Props extends StateProps {
 }
 
 const ProductDetails: FC<Props> = (props: Props) => {
-  const { products } = props;
+  const { products, connection } = props;
+  const { hangup } = connection;
   const history = useHistory();
   const [product, setProduct] = useState<Product | undefined>();
   const productId = window.location.pathname.split('/')[3];
@@ -29,6 +35,8 @@ const ProductDetails: FC<Props> = (props: Props) => {
       setProduct(filteredProduct);
     }
   }, [product]);
+
+  // TODO: revisar que la llamada efectivamente haya tomado lugar
 
   const goToCallScreen = useCallback(() => {
     history.push('/home/call');
@@ -95,6 +103,7 @@ const ProductDetails: FC<Props> = (props: Props) => {
         </div>
       </div>
       <div className="photo-container"></div>
+      {hangup && <DisplaySurvey />}
     </div>
   );
 };
@@ -102,6 +111,7 @@ const ProductDetails: FC<Props> = (props: Props) => {
 const mapStateToProps = (state: RootState): StateProps => {
   return {
     products: state.catalogue.products,
+    connection: state.connection,
   };
 };
 

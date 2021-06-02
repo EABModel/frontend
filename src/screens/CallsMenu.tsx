@@ -1,16 +1,22 @@
-import DisplaySurvey from '../components/CallsMenuComponents/CallClientSurvey';
 import React, { FC, useState, useEffect, useRef } from 'react';
 import EmployeeVideoChat from '../components/CallsMenuComponents/EmployeeVideoChat';
 import { VideoCall, Assistant } from '@material-ui/icons';
 import { RootState } from '../redux/store';
 import { connect } from 'react-redux';
-import { ConnectionState } from '../redux/types/ConnectionTypes';
+import { ConnectionState, CallPostFields } from '../redux/types/ConnectionTypes';
 import '../styles/css/calls.scss';
+import callServices from '../services/callServices';
+// import * as connectionInteractors from '../redux/interactors/connectionInteractors';
 import { Typography, List, ListItem, ListItemText, ListItemIcon, LinearProgress } from '@material-ui/core';
 interface StateProps {
   connection: ConnectionState;
   shopId: string;
+  userId: string;
 }
+
+// interface DispatchProps {
+//   createCallConnectionInteractor: typeof connectionInteractors.createCallConnectionInteractor;
+// }
 
 interface Props extends StateProps {
   // extra props you want to add
@@ -54,12 +60,17 @@ const CallsMenu: FC<Props> = (props: Props) => {
     // If there's not a call, set it as current call
     refRequests.current = requests;
     !onCall && setOnCall(requestId);
+    const callAuthFields: CallPostFields = {
+      employeeId: props.userId,
+      shopId: props.shopId,
+      date: new Date(),
+    };
+    await callServices.postCallRegister(callAuthFields);
   };
 
   return (
     <>
       <div>
-        <DisplaySurvey />
         <Typography variant="h2" gutterBottom>
           Call Requests
         </Typography>
@@ -94,6 +105,7 @@ const mapStateToProps = (state: RootState): StateProps => {
   return {
     connection: state.connection,
     shopId: state.shop.id,
+    userId: state.user.id,
   };
 };
 

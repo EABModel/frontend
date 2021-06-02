@@ -8,6 +8,7 @@ const initialState: ConnectionState = {
   peerConnection,
   localStream: null,
   remoteStream: null,
+  hangup: false,
 };
 
 const connection = createSlice({
@@ -44,6 +45,18 @@ const connection = createSlice({
         peerConnection: initialState.peerConnection,
         localStream: initialState.localStream,
         remoteStream: initialState.remoteStream,
+      };
+    },
+    setCallStateTrue: (state: ConnectionState) => {
+      return {
+        ...state,
+        hangup: true,
+      };
+    },
+    setCallStateFalse: (state: ConnectionState) => {
+      return {
+        ...state,
+        hangup: false,
       };
     },
   },

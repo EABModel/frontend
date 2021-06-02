@@ -18,6 +18,7 @@ interface DispatchProps {
   setLocalStreamInteractor: typeof connectionInteractors.setLocalStreamInteractor;
   setRemoteStreamInteractor: typeof connectionInteractors.setRemoteStreamInteractor;
   resetStreamConnectionInteractor: typeof connectionInteractors.resetStreamConnectionInteractor;
+  setCallStateTrueInteractor: typeof connectionInteractors.setCallStateTrueInteractor;
 }
 
 interface Props extends StateProps, DispatchProps {
@@ -51,6 +52,8 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
         webcamVideo.current.srcObject = null;
         remoteVideo.current.srcObject = null;
       }
+      //cambiar estado a true
+      props.setCallStateTrueInteractor();
       props.resetStreamConnectionInteractor();
     };
   }, []);
@@ -61,6 +64,8 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
 
   const hangupCall = async () => {
     setIsOnCall(false);
+    //cambiar estado a true
+    props.resetStreamConnectionInteractor();
     try {
       // Deleting collections is not recommended from web client, find alternative later
       await firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc(callInput.current).delete();
