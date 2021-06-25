@@ -13,11 +13,8 @@ export const buildInteractor =
     return async function (dispatch: any) {
       dispatch(loadingAction());
       try {
-        // Simulate API call on localhost, remove in production
-        setTimeout(async () => {
-          const response = await request!(params);
-          dispatch(successAction(response));
-        }, 1500);
+        const response = await request!(params);
+        dispatch(successAction(response));
       } catch (error) {
         dispatch(errorAction(error));
       }
@@ -45,3 +42,15 @@ export const buildInteractorNoParams =
       }
     };
   };
+
+export const buildInteractorDirectAction = (request: ActionCreatorWithPayload<any>) => (params: any) => {
+  return (dispatch: any) => {
+    dispatch(request(params));
+  };
+};
+
+export const buildInteractorDirectActionNoParams = (request: ActionCreatorWithoutPayload) => () => {
+  return (dispatch: any) => {
+    dispatch(request());
+  };
+};

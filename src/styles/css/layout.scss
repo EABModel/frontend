@@ -43,9 +43,9 @@
     color: #fff;
     transition: width var(--secs);
     width: 0;
-    @media (orientation: landscape) {
-        &.open { width: calc(1% * var(--landscape-width)); }
-    } // <-- Landscape ONLY sidebars
+    // @media (orientation: landscape) {
+    //     &.open { width: calc(1% * var(--landscape-width)); }
+    // } // <-- Landscape ONLY sidebars
     .icon {
         position: fixed;
         margin-left: 0.3rem;
