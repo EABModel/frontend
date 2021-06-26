@@ -1,9 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck projectActions properties generated at runtime
 import { userActions } from '../slices/userSlice';
 import userServices from '../../services/userServices';
-import { Action } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { RootState } from '../store';
-import { buildInteractor, buildInteractorNoParams } from './base';
+import { buildInteractor, buildInteractorNoParams, buildInteractorDirectActionNoParams } from './base';
 
 export const loginUserInteractor = buildInteractor(
   userActions.loadingLoginUser,
@@ -19,14 +18,6 @@ export const logoutUserInteractor = buildInteractorNoParams(
   null,
 );
 
-export const resetUserStatusInteractor = () => {
-  return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
-    dispatch(userActions.resetUserStatus());
-  };
-};
+export const resetUserStatusInteractor = buildInteractorDirectActionNoParams(userActions.resetUserStatus);
 
-export const resetUserInteractor = () => {
-  return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
-    dispatch(userActions.resetUser());
-  };
-};
+export const resetUserInteractor = buildInteractorDirectActionNoParams(userActions.resetUser);

@@ -1,25 +1,11 @@
+import { BaseRequestStatus } from './base';
+
 export interface CatalogueState {
   products: Product[];
-  getCatalogueStatus: {
-    loading: boolean;
-    success: boolean;
-    error: boolean;
-  };
-  addProductToCatalogue: {
-    loading: boolean;
-    success: boolean;
-    error: boolean;
-  };
-  addProductsToCatalogue: {
-    loading: boolean;
-    success: boolean;
-    error: boolean;
-  };
-  deleteProductFromCatalogue: {
-    loading: boolean;
-    success: boolean;
-    error: boolean;
-  };
+  getCatalogueStatus: BaseRequestStatus;
+  addProductToCatalogueStatus: BaseRequestStatus;
+  addProductsToCatalogueStatus: BaseRequestStatus;
+  deleteProductFromCatalogueStatus: BaseRequestStatus;
 }
 
 export interface Product {

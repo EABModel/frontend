@@ -1,18 +1,12 @@
+import { BaseRequestStatus } from './base';
+
 export interface UserState {
   id: string;
   username: string;
   email: string;
   sessionType: Session;
-  loginUserStatus: {
-    loading: boolean;
-    success: boolean;
-    error: boolean;
-  };
-  logoutUserStatus: {
-    loading: boolean;
-    success: boolean;
-    error: boolean;
-  };
+  loginUserStatus: BaseRequestStatus;
+  logoutUserStatus: BaseRequestStatus;
 }
 
 export interface PostUserFields {
