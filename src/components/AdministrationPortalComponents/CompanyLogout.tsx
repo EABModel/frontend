@@ -19,14 +19,16 @@ interface Props extends DispatchProps {}
 
 const CompanyLogoutButton: FC<Props> = (props: Props) => {
   const history = useHistory();
+  const { resetShopInteractor, logoutUserInteractor, resetCatalogueInteractor, logoutCompanyInteractor } = props;
 
   const companyLogout = (): void => {
-    props.resetShopInteractor();
-    props.logoutUserInteractor();
-    props.resetCatalogueInteractor();
-    props.logoutCompanyInteractor();
+    resetShopInteractor();
+    logoutUserInteractor();
+    resetCatalogueInteractor();
+    logoutCompanyInteractor();
     history.replace('/');
   };
+
   return (
     <Button variant="outlined" color="secondary" onClick={companyLogout}>
       Company Logout

@@ -25,6 +25,12 @@ export const updateShopInteractor = buildInteractor(
   null,
 );
 
+export const resetAddShopInteractor = buildInteractorDirectActionNoParams(shopActions.resetAddShop);
+
+export const resetRemoveShopInteractor = buildInteractorDirectActionNoParams(shopActions.resetRemoveShop);
+
+export const resetUpdateShopInteractor = buildInteractorDirectActionNoParams(shopActions.resetUpdateShop);
+
 export const setShopInteractor = buildInteractorDirectAction(shopActions.setShop);
 
 export const resetShopStatusInteractor = buildInteractorDirectActionNoParams(shopActions.resetShopStatus);

@@ -17,6 +17,8 @@ import { IconButton, makeStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import '../styles/css/layout.scss';
 import SidebarOptions from './SidebarOptions';
+import SuccessHandler from '../components/GeneralUseComponents/Successes/SuccessHandler';
+import ErrorHandler from '../components/GeneralUseComponents/Errors/ErrorHandler';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,6 +94,8 @@ const Routes: FC = () => {
             </div>
           </div>
           <div className="content" id="page">
+            <ErrorHandler time={4000} margin={1000} />
+            <SuccessHandler time={4000} margin={1000} />
             <Switch>
               <Route path="/" exact component={CompanyAuth} />
               <Route path="/home" exact component={Home} />
