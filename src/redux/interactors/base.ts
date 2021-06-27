@@ -2,6 +2,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from '@reduxjs/toolkit';
 
+let time = 0;
+if (process.env.NODE_ENV === 'development') {
+  time = 1200;
+}
+
 export const buildInteractor =
   (
     loadingAction: ActionCreatorWithoutPayload,
@@ -13,8 +18,10 @@ export const buildInteractor =
     return async function (dispatch: any) {
       dispatch(loadingAction());
       try {
-        const response = await request!(params);
-        dispatch(successAction(response));
+        setTimeout(async () => {
+          const response = await request!(params);
+          dispatch(successAction(response));
+        }, time);
       } catch (error) {
         dispatch(errorAction(error));
       }
@@ -32,11 +39,13 @@ export const buildInteractorNoParams =
     return async function (dispatch: any) {
       dispatch(loadingAction());
       try {
-        let response: any;
-        if (request) {
-          response = await request!();
-        }
-        dispatch(successAction(response));
+        setTimeout(async () => {
+          let response: any;
+          if (request) {
+            response = await request!();
+          }
+          dispatch(successAction(response));
+        }, time);
       } catch (error) {
         dispatch(errorAction(error));
       }

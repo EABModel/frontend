@@ -25,6 +25,12 @@ export const logoutCompanyInteractor = buildInteractorNoParams(
   null,
 );
 
+export const resetRegisterCompanyInteractor = buildInteractorDirectActionNoParams(companyActions.resetRegisterCompany);
+
+export const resetLoginCompanyInteractor = buildInteractorDirectActionNoParams(companyActions.resetLoginCompany);
+
+export const resetLogoutCompanyInteractor = buildInteractorDirectActionNoParams(companyActions.resetLogoutCompany);
+
 export const resetCompanyStatusInteractor = buildInteractorDirectActionNoParams(companyActions.resetCompanyStatus);
 
 export const resetCompanyInteractor = buildInteractorDirectActionNoParams(companyActions.resetCompany);

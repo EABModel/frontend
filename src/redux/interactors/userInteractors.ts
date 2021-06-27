@@ -18,6 +18,10 @@ export const logoutUserInteractor = buildInteractorNoParams(
   null,
 );
 
+export const resetLoginUserInteractor = buildInteractorDirectActionNoParams(userActions.resetLoginUser);
+
+export const resetLogoutUserInteractor = buildInteractorDirectActionNoParams(userActions.resetLogoutUser);
+
 export const resetUserStatusInteractor = buildInteractorDirectActionNoParams(userActions.resetUserStatus);
 
 export const resetUserInteractor = buildInteractorDirectActionNoParams(userActions.resetUser);

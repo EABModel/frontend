@@ -32,4 +32,18 @@ export const deleteProductFromCatalogueInteractor = buildInteractor(
   catalogueServices.postProductDelete,
 );
 
+export const resetGetCatalogueInteractor = buildInteractorDirectActionNoParams(catalogueActions.resetGetCatalogue);
+
+export const resetAddProductToCatalogueInteractor = buildInteractorDirectActionNoParams(
+  catalogueActions.resetAddProductToCatalogue,
+);
+
+export const resetAddProductsToCatalogueInteractor = buildInteractorDirectActionNoParams(
+  catalogueActions.resetAddProductsToCatalogue,
+);
+
+export const resetDeleteProductFromCatalogueInteractor = buildInteractorDirectActionNoParams(
+  catalogueActions.resetDeleteProductFromCatalogue,
+);
+
 export const resetCatalogueInteractor = buildInteractorDirectActionNoParams(catalogueActions.resetCatalogue);
