@@ -55,11 +55,11 @@ const CreateProduct: FC<Props> = (props: Props) => {
   const styles = useStyles();
 
   useEffect(() => {
-    if (catalogue.addProductToCatalogue.success) {
+    if (catalogue.addProductToCatalogueStatus.success) {
       setShowSuccessMessage(true);
       props.resetCatalogueInteractor();
     }
-  }, [catalogue.addProductToCatalogue, setShowSuccessMessage, props.resetCatalogueInteractor]);
+  }, [catalogue.addProductToCatalogueStatus, setShowSuccessMessage, props.resetCatalogueInteractor]);
 
   const handleCancelCreate = (): void => {
     setName('');
@@ -189,7 +189,7 @@ const CreateProduct: FC<Props> = (props: Props) => {
           Create Product
         </Button>
       </AccordionActions>
-      {catalogue.addProductToCatalogue.loading && <LinearProgress />}
+      {catalogue.addProductToCatalogueStatus.loading && <LinearProgress />}
       {showSuccessMessage && (
         <DissmisibleSuccessAlert
           message={'Product successfully created, you can close this menu now.'}
