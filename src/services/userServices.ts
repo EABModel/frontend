@@ -27,6 +27,7 @@ const postUserLogin = async (authFields: UserAuthFields): Promise<any> => {
     },
   })
     .then((response: AxiosResponse<any>) => {
+      localStorage.setItem('Token', response?.data['token']);
       return response?.data;
     })
     .catch((error: Error) => {

@@ -43,8 +43,9 @@ const postProductsRegister = async (products: ProductPostFields[]): Promise<any>
 };
 
 const getShopProducts = async (shopId: string): Promise<any> => {
+  const token = localStorage.getItem('Token');
   return await axiosBaseInstance({
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', Token: token },
     method: 'get',
     url: `/catalogue/shop/${shopId}`,
   })
