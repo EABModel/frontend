@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { RootState } from '../redux/store';
 import { UserState } from '../redux/types/UserTypes';
 import Home from '../screens/Home';
+import Information from '../screens/Information';
 import NavBar from './NavBar';
 import { useSelector } from 'react-redux';
 import CompanyAuth from '../screens/CompanyAuth';
@@ -100,6 +101,7 @@ const Routes: FC = () => {
               <Route path="/" exact component={CompanyAuth} />
               <Route path="/home" exact component={Home} />
               <Route path="/home/call" exact component={CustomerCallScreen} />
+              <Route path="/information" exact component={Information} />
               <Route path="/product/:id/details" exact component={ProductDetails} />
               <EmployeeRoute path="/administration" exact component={AdministrationPortal} />
               <EmployeeRoute path="/administration/calls" exact component={CallsMenu} />
