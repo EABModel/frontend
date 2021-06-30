@@ -24,26 +24,26 @@ interface DispatchProps {
 interface Props extends StateProps, DispatchProps {}
 
 function getSteps() {
-  return ['Catálogo de productos', 'Pedir asistencia', 'Hay asistentes disponibles', 'No hay asistentes disponibles'];
+  return ['Product catalog', 'Request assistance', 'Assistants available', 'No assistants available'];
 }
 
 function getStepContent(step: any) {
   switch (step) {
     case 0:
-      return `En la tienda se puede ver el catálogo disponible de los productos que están a la venta, en
-              cada uno de los dispositivos.`;
+      return `In the store you can see the available catalog of the products for sale,
+              in each of the devices.`;
     case 1:
-      return `Si el cliente requiere de asistencia para saber más sobre un producto, 
-              debe apretar "Details" del producto y luego en la parte inferior de la 
-              pantalla apretar el botón "Get assistance".`;
+      return `If the customer requires assistance to learn more about a product,  
+              he/she should click on "Details" of the product and then at the  
+              bottom of the screen click on the "Get assistance" button.`;
     case 2:
-      return `Si hay asistentes disponibles, se desplegará un mensaje indicándole al
-              cliente que debe acercarse a la tablet de asistencia de la tienda.
-              Desde aquí se podrá contactar mediante una videollamada con un asistente
-              que le ayudará con todas sus dudas.`;
+      return `If assistants are available, a message will be displayed telling the customer
+              to go to the assistance tablet in the store. From here, a video call can be 
+              made to an assistant who will help the customer with all his questions.`;
     case 3:
-      return `En caso que no hayan asistentes disponibles, se desplegará un mensaje infromándole 
-              al cliente y luego si este lo desea, podrá dejar su mail para que un asistente lo contacte posteriormente.`;
+      return `In case there are no assistants available, a message will be displayed 
+              informing the client and then, if he/she wishes, he/she can leave his/her 
+              e-mail so that an assistant can contact him/her later.`;
   }
 }
 
@@ -72,13 +72,13 @@ const VerticalLinearStepper: FC<Props> = (props: Props) => {
   return (
     <div className={classes.root}>
       <Typography variant="h3" gutterBottom>
-        Funcionamiento de la plataforma
+        Operation of the platform
       </Typography>
       <Typography variant="subtitle1" gutterBottom>
-        Virual Assistant es una plataforma que ofrece asistencia y ayuda a los clientes con el proceso de compra de
-        manera virtual, a través de una videollamada. Esto permite que en tiempos de pandemia nuestros clientes puedan
-        comprar de manera segura e informada, cubriendo todas las dudas que les puedan surgir. Aquí se puede encontrar
-        información de los pasos que el cliente debe seguir.
+        Virual Assistant is a platform that offers assistance and helps customers with the purchase process virtually,
+        through a video call. This allows that in times of pandemic our customers can buy in a safe and informed way,
+        covering all the doubts that may arise. Here you can find information on the steps that the customer must
+        follow.
       </Typography>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((label, index) => (
