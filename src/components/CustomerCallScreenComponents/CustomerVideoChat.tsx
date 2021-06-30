@@ -1,6 +1,16 @@
 import React, { FC, useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, ButtonGroup, LinearProgress } from '@material-ui/core';
+import {
+  Button,
+  ButtonGroup,
+  LinearProgress,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  TextField,
+} from '@material-ui/core';
 import { RootState } from '../../redux/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -32,6 +42,9 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
   const callInput = useRef<string>();
   const [isOnCall, setIsOnCall] = useState(false);
   const [calling, setCalling] = useState(false);
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const [open, setOpen] = React.useState(false);
+  const [startCountingTime, setstartCountingTime] = React.useState(false);
 
   useEffect(() => {
     console.log('This it a test console log to prevent firestore excessive requests...');
@@ -55,7 +68,21 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
     };
   }, []);
 
+  useEffect(() => {
+    // exit when we reach 0
+    if (!timeLeft) return handleOpen();
+    const intervalId = setInterval(() => {
+      setTimeLeft(timeLeft - 1);
+    }, 1000);
+    // clear interval on re-render to avoid memory leaks
+    return () => clearInterval(intervalId);
+  }, [timeLeft]);
+
   const startCall = async () => {
+    // Empezamos cuenta atras para ver si hay asistentes disponibles
+    // Falta implementar si contestan
+    setstartCountingTime(true);
+    setTimeLeft(10);
     callInput.current = await beginCall({ firestore, shopId: props.shopId, peerConnection, setCalling, setIsOnCall });
   };
 
@@ -71,11 +98,43 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
     }
   };
 
+  const handleOpen = () => {
+    if (startCountingTime) {
+      setIsOnCall(false);
+      hangupCall();
+      setOpen(true);
+    }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <div className="customer-main-container">
         <video className="local-video-container" ref={webcamVideo} autoPlay playsInline muted></video>
         <video className="remote-video-container" ref={remoteVideo} autoPlay playsInline></video>
+        <div>
+          <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <DialogTitle>We are sorry :(</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                At the moment there are no assistants available for this call. If you wish to be contacted later, please
+                leave your email.
+              </DialogContentText>
+              <TextField autoFocus margin="dense" id="name" label="Email Address" type="email" fullWidth />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={handleClose} color="primary">
+                Contact me later
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
         <div className="customer-button-container">
           <ButtonGroup
             orientation="vertical"
