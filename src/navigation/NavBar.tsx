@@ -36,6 +36,7 @@ const NavBar: FC<Props> = (props: Props) => {
 
   const logOut = (): void => {
     props.logoutUserInteractor();
+    localStorage.removeItem('Token');
     history.replace('/home');
   };
 

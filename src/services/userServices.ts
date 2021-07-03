@@ -27,7 +27,8 @@ const postUserLogin = async (authFields: UserAuthFields): Promise<any> => {
     },
   })
     .then((response: AxiosResponse<any>) => {
-      return response?.data;
+      localStorage.setItem('Token', response?.data['token']);
+      return response?.data?.user;
     })
     .catch((error: Error) => {
       // TODO: Implement logging functionality for future purposes
