@@ -6,7 +6,8 @@ import { UserState } from '../redux/types/UserTypes';
 import { CompanyState } from '../redux/types/CompanyTypes';
 import * as userInteractors from '../redux/interactors/userInteractors';
 import * as modalInteractors from '../redux/interactors/modalInteractors';
-import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Button, Toolbar, Typography, IconButton } from '@material-ui/core';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { useHistory } from 'react-router-dom';
 import { useStyles } from '../styles/NavBarStyles';
 
@@ -38,6 +39,10 @@ const NavBar: FC<Props> = (props: Props) => {
     history.replace('/home');
   };
 
+  const informationsPage = (): void => {
+    history.replace('/information');
+  };
+
   return (
     <AppBar position="static" className={styles.root}>
       <Toolbar>
@@ -45,9 +50,14 @@ const NavBar: FC<Props> = (props: Props) => {
           {user.sessionType === 'ANONYMOUS' ? `Hello Dear Customer!` : `Hello ${user.username}!`}
         </Typography>
         {user.sessionType === 'ANONYMOUS' ? (
-          <Button className={styles.btn} color="inherit" onClick={openPopUp} disabled={!company.id}>
-            Login
-          </Button>
+          <>
+            <Button className={styles.btn} color="inherit" onClick={openPopUp} disabled={!company.id}>
+              Login
+            </Button>
+            <IconButton color="inherit" onClick={informationsPage}>
+              <InfoOutlinedIcon />
+            </IconButton>
+          </>
         ) : (
           <Button color="secondary" onClick={logOut} disabled={!company.id}>
             Logout
