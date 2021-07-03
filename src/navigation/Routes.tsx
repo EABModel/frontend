@@ -12,6 +12,7 @@ import CallsMenu from '../screens/CallsMenu';
 import CatalogueMenu from '../screens/CatalogueMenu';
 import EmployeesMenu from '../screens/EmployeesMenu';
 import ShopMenu from '../screens/ShopMenu';
+import ShopDevices from '../screens/ShopDevices';
 import ProductDetails from '../screens/ProductDetails';
 import CustomerCallScreen from '../screens/CustomerCallScreen';
 import { IconButton, makeStyles } from '@material-ui/core';
@@ -106,6 +107,7 @@ const Routes: FC = () => {
               <EmployeeRoute path="/administration" exact component={AdministrationPortal} />
               <EmployeeRoute path="/administration/calls" exact component={CallsMenu} />
               <AdministratorRoute path="/administration/shop" exact component={ShopMenu} />
+              <AdministratorRoute path="/administration/shop/:id" exact component={ShopDevices} />
               <AdministratorRoute path="/administration/catalogue" exact component={CatalogueMenu} />
               <AdministratorRoute path="/administration/employees" exact component={EmployeesMenu} />
             </Switch>
