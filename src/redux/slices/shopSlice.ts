@@ -7,6 +7,7 @@ const initialState: ShopState = {
   companyId: '',
   name: '',
   location: '',
+  shops: [],
   addShopStatus: {
     loading: false,
     success: false,
@@ -24,9 +25,10 @@ const initialState: ShopState = {
   },
 };
 
-const successAddShop = (state: ShopState) => {
+const successAddShop = (state: ShopState, action: Action) => {
   return {
     ...state,
+    shops: [...state.shops, action.payload],
     addShopStatus: { loading: false, success: true, error: false },
   };
 };
@@ -53,6 +55,12 @@ const shopSlice = createSlice({
     ...baseRequestStatusReducers('addShop', initialState, null, successAddShop),
     ...baseRequestStatusReducers('removeShop', initialState, null, successRemoveShop),
     ...baseRequestStatusReducers('updateShop', initialState, null, successUpdateShop),
+    setShops: (state: ShopState, action: Action) => {
+      return {
+        ...state,
+        shops: action.payload,
+      };
+    },
     setShop: (state: ShopState, action: Action) => {
       return {
         ...state,

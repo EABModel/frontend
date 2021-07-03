@@ -13,19 +13,27 @@ interface DispatchProps {
   resetShopInteractor: typeof shopInteractors.resetShopInteractor;
   logoutUserInteractor: typeof userInteractors.logoutUserInteractor;
   resetCatalogueInteractor: typeof catalogueInteractors.resetCatalogueInteractor;
+  resetCompanyInteractor: typeof companyInteractors.resetCompanyInteractor;
 }
 
 interface Props extends DispatchProps {}
 
 const CompanyLogoutButton: FC<Props> = (props: Props) => {
   const history = useHistory();
-  const { resetShopInteractor, logoutUserInteractor, resetCatalogueInteractor, logoutCompanyInteractor } = props;
+  const {
+    resetShopInteractor,
+    logoutUserInteractor,
+    resetCatalogueInteractor,
+    logoutCompanyInteractor,
+    resetCompanyInteractor,
+  } = props;
 
   const companyLogout = (): void => {
     resetShopInteractor();
     logoutUserInteractor();
     resetCatalogueInteractor();
     logoutCompanyInteractor();
+    resetCompanyInteractor();
     history.replace('/');
   };
 
