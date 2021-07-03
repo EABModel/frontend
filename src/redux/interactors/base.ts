@@ -18,10 +18,8 @@ export const buildInteractor =
     return async function (dispatch: any) {
       dispatch(loadingAction());
       try {
-        setTimeout(async () => {
-          const response = await request!(params);
-          dispatch(successAction(response));
-        }, time);
+        const response = await request!(params);
+        dispatch(successAction(response));
       } catch (error) {
         dispatch(errorAction(error));
       }

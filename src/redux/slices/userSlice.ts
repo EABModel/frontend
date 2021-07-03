@@ -17,6 +17,22 @@ const initialState: UserState = {
     success: false,
     error: false,
   },
+  registerUserStatus: {
+    loading: false,
+    success: false,
+    error: false,
+  },
+};
+
+const successRegisterUser = (state: UserState) => {
+  return {
+    ...state,
+    registerUserStatus: {
+      loading: false,
+      success: true,
+      error: false,
+    },
+  };
 };
 
 const successLoginUser = (state: UserState, action: Action) => {
@@ -44,6 +60,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    ...baseRequestStatusReducers('registerUser', initialState, null, successRegisterUser),
     ...baseRequestStatusReducers('loginUser', initialState, null, successLoginUser),
     ...baseRequestStatusReducers('logoutUser', initialState, null, successLogoutUser),
     resetUserStatus: (state: UserState) => {

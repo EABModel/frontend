@@ -7,13 +7,15 @@ export interface UserState {
   sessionType: Session;
   loginUserStatus: BaseRequestStatus;
   logoutUserStatus: BaseRequestStatus;
+  registerUserStatus: BaseRequestStatus;
 }
 
 export interface PostUserFields {
   username: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  shopId: string;
+  companyId: string;
 }
 
 export interface UserAuthFields {

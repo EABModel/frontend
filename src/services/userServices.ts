@@ -44,11 +44,12 @@ const postUserRegister = async (authFields: PostUserFields): Promise<any> => {
     data: {
       username: authFields.username,
       email: authFields.email,
+      companyId: authFields.companyId,
+      shopId: authFields.shopId,
       password: authFields.password,
-      confirmPassword: authFields.confirmPassword,
     },
   })
-    .then((response: AxiosResponse<any>) => {
+    .then((response: AxiosResponse<Record<string, never>>) => {
       return response?.data;
     })
     .catch((error: Error) => {

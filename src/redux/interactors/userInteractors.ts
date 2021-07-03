@@ -4,6 +4,13 @@ import { userActions } from '../slices/userSlice';
 import userServices from '../../services/userServices';
 import { buildInteractor, buildInteractorNoParams, buildInteractorDirectActionNoParams } from './base';
 
+export const registerUserInteractor = buildInteractor(
+  userActions.loadingRegisterUser,
+  userActions.successRegisterUser,
+  userActions.errorRegisterUser,
+  userServices.postUserRegister,
+);
+
 export const loginUserInteractor = buildInteractor(
   userActions.loadingLoginUser,
   userActions.successLoginUser,
