@@ -31,13 +31,18 @@ const CallsMenu: FC<Props> = (props: Props) => {
       .onSnapshot((snapshot) => {
         // If there are changes in the current waiting calls
         snapshot.docChanges().forEach((change) => {
-          if (change.type === 'added') {
-            if (!change.doc.data().status.answered) {
+          if (change.type === 'modified') {
+            if (!change.doc.data().status?.answered && change.doc.data().status?.inProgress) {
               refRequests.current.push(change.doc.id);
-              setRequests((oldArray) => [...oldArray, change.doc.id]);
+              setRequests((oldArray) => {
+                if (!oldArray.includes(change.doc.id)) {
+                  return [...oldArray, change.doc.id];
+                }
+                return oldArray;
+              });
             }
           }
-          if (change.type === 'modified' || change.type === 'removed') {
+          if (change.type === 'removed') {
             refRequests.current = refRequests.current.filter((item) => item !== change.doc.id);
             setRequests(refRequests.current.filter((item) => item !== change.doc.id));
           }

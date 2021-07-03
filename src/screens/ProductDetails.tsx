@@ -89,7 +89,7 @@ const ProductDetails: FC<Props> = (props: Props) => {
           </Typography>
         </div>
         <div className="customer-button-container">
-          <Button variant="contained" color="primary" onClick={() => goToCallScreen()}>
+          <Button variant="contained" color="primary" onClick={goToCallScreen}>
             Get Assistance
           </Button>
         </div>

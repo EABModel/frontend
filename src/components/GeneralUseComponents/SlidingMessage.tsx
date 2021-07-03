@@ -18,9 +18,9 @@ const SlidingMessage: FC<Props> = ({ message, type, time }: Props) => {
   let animationTimeout = useRef<any>(null).current;
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const transition = useTransition(isVisible, {
-    from: { y: 100, opacity: 0, margin: '4px 0', 'box-shadow': '5px 6px 12px -4px rgba(0,0,0,0.75)' },
-    enter: { y: 0, opacity: 1, margin: '4px 0', 'box-shadow': '5px 8px 15px -8px rgba(0,0,0,0.9)' },
-    leave: { y: 100, opacity: 0, margin: '4px 0', 'box-shadow': '5px 6px 12px -4px rgba(0,0,0,0.75)' },
+    from: { y: 100, opacity: 0, margin: '4px 0', boxShadow: '5px 6px 12px -4px rgba(0,0,0,0.75)' },
+    enter: { y: 0, opacity: 1, margin: '4px 0', boxShadow: '5px 8px 15px -8px rgba(0,0,0,0.9)' },
+    leave: { y: 100, opacity: 0, margin: '4px 0', boxShadow: '5px 6px 12px -4px rgba(0,0,0,0.75)' },
   });
 
   useEffect(() => {
