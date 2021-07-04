@@ -42,12 +42,6 @@ const ShowAllShops: FC<Props> = (props: Props) => {
   const styles = useStyles();
   const history = useHistory();
 
-  useEffect(() => {
-    if (shop.addShopStatus.success) {
-      resetShopStatusInteractor();
-    }
-  }, [shop.addShopStatus]);
-
   const handleGoToDevices = (id: string): void => {
     history.push(`/administration/shop/${id}`);
   };

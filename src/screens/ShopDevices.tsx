@@ -18,15 +18,7 @@ import '../styles/css/productDetails.scss';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
-interface StateProps {
-  // extra props you want to add
-}
-
-interface Props extends StateProps {
-  // extra props you want to add
-}
-
-const ShopDevices: FC<Props> = () => {
+const ShopDevices: FC = () => {
   const shopId = window.location.pathname.split('/')[4];
   const [devices, setDevices] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
