@@ -3,22 +3,17 @@ import EmployeeVideoChat from '../components/CallsMenuComponents/EmployeeVideoCh
 import { VideoCall, Assistant } from '@material-ui/icons';
 import { RootState } from '../redux/store';
 import { connect } from 'react-redux';
-import { ConnectionState, CallPostFields } from '../redux/types/ConnectionTypes';
+import { ConnectionState } from '../redux/types/ConnectionTypes';
 import '../styles/css/calls.scss';
-// import callServices from '../services/callServices';
-// import * as connectionInteractors from '../redux/interactors/connectionInteractors';
 import { Button } from '@material-ui/core';
 import '../styles/css/catalogueMenu.scss';
 import { Typography, List, ListItem, ListItemText, ListItemIcon, LinearProgress } from '@material-ui/core';
+
 interface StateProps {
   connection: ConnectionState;
   shopId: string;
   userId: string;
 }
-
-// interface DispatchProps {
-//   createCallConnectionInteractor: typeof connectionInteractors.createCallConnectionInteractor;
-// }
 
 interface Props extends StateProps {
   // extra props you want to add

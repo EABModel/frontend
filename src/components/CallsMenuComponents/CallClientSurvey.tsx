@@ -87,7 +87,6 @@ const DisplaySurvey: FC<Props> = (props: Props) => {
               <Typography component="legend">Was the assistant able to solve all your doubts?</Typography>
               <Rating
                 name="question-one"
-                value={reply1}
                 defaultValue={0.5}
                 precision={0.5}
                 emptyIcon={<StarBorderIcon fontSize="inherit" />}
@@ -100,7 +99,6 @@ const DisplaySurvey: FC<Props> = (props: Props) => {
               <Typography component="legend">Was the assistant´s disposition adequate?</Typography>
               <Rating
                 name="question-two"
-                value={reply2}
                 defaultValue={0.5}
                 precision={0.5}
                 emptyIcon={<StarBorderIcon fontSize="inherit" />}
@@ -113,7 +111,6 @@ const DisplaySurvey: FC<Props> = (props: Props) => {
               <Typography component="legend">The response time to the video call was..</Typography>
               <Rating
                 name="question-three"
-                value={reply3}
                 defaultValue={0.5}
                 precision={0.5}
                 emptyIcon={<StarBorderIcon fontSize="inherit" />}

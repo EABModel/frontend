@@ -30,8 +30,8 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
 
   const sendSurvey = () => {
     callId = null;
-    setSurveyShowing(false); // Stop showing survey
-    history.go(-1); // Go back to previous page
+    setSurveyShowing(false);
+    history.go(-1);
   };
 
   useEffect(() => {
@@ -42,14 +42,12 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
       inProgress: false,
       date: new Date(),
     };
-    // Aqui de puede crear una llamada en backend y darle el id que retorne a el .doc(id_retornado) usando .then()
-    // Luego se setea el id de la llamada con setCallId(id_retornado)
+    // Se crea llamada en backend
     createCall().then((response) => {
       firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc(response.id).set({ status });
       callId = response.id;
       setStateCallId(callId);
     });
-    // firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc().set({ status });
   }, []);
 
   // Listen to any additions or deletions to the database
