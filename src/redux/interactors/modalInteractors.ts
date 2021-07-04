@@ -1,16 +1,6 @@
 import { modalActions } from '../slices/modalSlice';
-import { Action } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { RootState } from '../store';
+import { buildInteractorDirectActionNoParams } from './base';
 
-export const showPopUpInteractor = () => {
-  return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
-    dispatch(modalActions.showLogIn());
-  };
-};
+export const showPopUpInteractor = buildInteractorDirectActionNoParams(modalActions.showLogIn);
 
-export const closePopUpInteractor = () => {
-  return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
-    dispatch(modalActions.closeLogIn());
-  };
-};
+export const closePopUpInteractor = buildInteractorDirectActionNoParams(modalActions.closeLogIn);

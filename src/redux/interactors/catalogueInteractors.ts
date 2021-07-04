@@ -1,9 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck projectActions properties generated at runtime
 import { catalogueActions } from '../slices/catalogueSlice';
 import catalogueServices from '../../services/catalogueServices';
-import { buildInteractor } from './base';
-import { Action } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { RootState } from '../store';
+import { buildInteractor, buildInteractorDirectActionNoParams } from './base';
 
 export const getCatalogueInteractor = buildInteractor(
   catalogueActions.loadingGetCatalogue,
@@ -33,8 +32,18 @@ export const deleteProductFromCatalogueInteractor = buildInteractor(
   catalogueServices.postProductDelete,
 );
 
-export const resetCatalogueInteractor = () => {
-  return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
-    dispatch(catalogueActions.resetCatalogue());
-  };
-};
+export const resetGetCatalogueInteractor = buildInteractorDirectActionNoParams(catalogueActions.resetGetCatalogue);
+
+export const resetAddProductToCatalogueInteractor = buildInteractorDirectActionNoParams(
+  catalogueActions.resetAddProductToCatalogue,
+);
+
+export const resetAddProductsToCatalogueInteractor = buildInteractorDirectActionNoParams(
+  catalogueActions.resetAddProductsToCatalogue,
+);
+
+export const resetDeleteProductFromCatalogueInteractor = buildInteractorDirectActionNoParams(
+  catalogueActions.resetDeleteProductFromCatalogue,
+);
+
+export const resetCatalogueInteractor = buildInteractorDirectActionNoParams(catalogueActions.resetCatalogue);

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { RootState } from '../redux/store';
 import { UserState } from '../redux/types/UserTypes';
 import Home from '../screens/Home';
+import Information from '../screens/Information';
 import NavBar from './NavBar';
 import { useSelector } from 'react-redux';
 import CompanyAuth from '../screens/CompanyAuth';
@@ -11,12 +12,16 @@ import CallsMenu from '../screens/CallsMenu';
 import CatalogueMenu from '../screens/CatalogueMenu';
 import EmployeesMenu from '../screens/EmployeesMenu';
 import ShopMenu from '../screens/ShopMenu';
+import ShopDevices from '../screens/ShopDevices';
 import ProductDetails from '../screens/ProductDetails';
-import CustomerCallScreen from '../screens/CustomerCallScreen';
+import PreCallScreen from '../screens/PreCallScreen';
+import AssistanceTablet from '../screens/AssistanceTablet';
 import { IconButton, makeStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import '../styles/css/layout.scss';
 import SidebarOptions from './SidebarOptions';
+import SuccessHandler from '../components/GeneralUseComponents/Successes/SuccessHandler';
+import ErrorHandler from '../components/GeneralUseComponents/Errors/ErrorHandler';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,14 +97,19 @@ const Routes: FC = () => {
             </div>
           </div>
           <div className="content" id="page">
+            <ErrorHandler time={4000} margin={1000} />
+            <SuccessHandler time={4000} margin={1000} />
             <Switch>
               <Route path="/" exact component={CompanyAuth} />
               <Route path="/home" exact component={Home} />
-              <Route path="/home/call" exact component={CustomerCallScreen} />
+              <Route path="/home/call" exact component={PreCallScreen} />
+              <Route path="/information" exact component={Information} />
               <Route path="/product/:id/details" exact component={ProductDetails} />
+              <Route path="/assistance" exact component={AssistanceTablet} />
               <EmployeeRoute path="/administration" exact component={AdministrationPortal} />
               <EmployeeRoute path="/administration/calls" exact component={CallsMenu} />
               <AdministratorRoute path="/administration/shop" exact component={ShopMenu} />
+              <AdministratorRoute path="/administration/shop/:id" exact component={ShopDevices} />
               <AdministratorRoute path="/administration/catalogue" exact component={CatalogueMenu} />
               <AdministratorRoute path="/administration/employees" exact component={EmployeesMenu} />
             </Switch>

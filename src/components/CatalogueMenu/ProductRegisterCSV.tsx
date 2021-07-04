@@ -31,11 +31,11 @@ const CreateProductsCSV: FC<Props> = (props: Props) => {
   const [showErrorMessage, setShowErrorMessage] = useState<string>('');
 
   useEffect(() => {
-    if (catalogue.addProductsToCatalogue.success) {
+    if (catalogue.addProductsToCatalogueStatus.success) {
       setShowSuccessMessage(true);
       props.resetCatalogueInteractor();
     }
-  }, [catalogue.addProductsToCatalogue, props.resetCatalogueInteractor]);
+  }, [catalogue.addProductsToCatalogueStatus, props.resetCatalogueInteractor]);
 
   const handleOnDrop = (data: any) => {
     setData(data);
@@ -88,7 +88,7 @@ const CreateProductsCSV: FC<Props> = (props: Props) => {
           </Fab>
         </div>
       </div>
-      {catalogue.addProductsToCatalogue.loading && <LinearProgress />}
+      {catalogue.addProductsToCatalogueStatus.loading && <LinearProgress />}
       {showSuccessMessage && (
         <DissmisibleSuccessAlert
           message={'Products successfully created, you can close this menu now.'}

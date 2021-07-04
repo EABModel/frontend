@@ -1,23 +1,13 @@
+import { BaseRequestStatus } from './base';
+
 export interface CompanyState {
   id: string;
   name: string;
   email: string;
   shops: ShopBackendState[];
-  registerCompanyStatus: {
-    loading: boolean;
-    success: boolean;
-    error: boolean;
-  };
-  loginCompanyStatus: {
-    loading: boolean;
-    success: boolean;
-    error: boolean;
-  };
-  logoutCompanyStatus: {
-    loading: boolean;
-    success: boolean;
-    error: boolean;
-  };
+  registerCompanyStatus: BaseRequestStatus;
+  loginCompanyStatus: BaseRequestStatus;
+  logoutCompanyStatus: BaseRequestStatus;
 }
 
 export interface PostCompanyFields {

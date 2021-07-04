@@ -1,9 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck projectActions properties generated at runtime
 import { companyActions } from '../slices/companySlice';
 import companyServices from '../../services/companyServices';
-import { Action } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { RootState } from '../store';
-import { buildInteractor, buildInteractorNoParams } from './base';
+import { buildInteractor, buildInteractorNoParams, buildInteractorDirectActionNoParams } from './base';
 
 export const registerCompanyInteractor = buildInteractor(
   companyActions.loadingRegisterCompany,
@@ -26,14 +25,12 @@ export const logoutCompanyInteractor = buildInteractorNoParams(
   null,
 );
 
-export const resetCompanyStatusInteractor = () => {
-  return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
-    dispatch(companyActions.resetCompanyStatus());
-  };
-};
+export const resetRegisterCompanyInteractor = buildInteractorDirectActionNoParams(companyActions.resetRegisterCompany);
 
-export const resetCompanyInteractor = () => {
-  return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
-    dispatch(companyActions.resetCompany());
-  };
-};
+export const resetLoginCompanyInteractor = buildInteractorDirectActionNoParams(companyActions.resetLoginCompany);
+
+export const resetLogoutCompanyInteractor = buildInteractorDirectActionNoParams(companyActions.resetLogoutCompany);
+
+export const resetCompanyStatusInteractor = buildInteractorDirectActionNoParams(companyActions.resetCompanyStatus);
+
+export const resetCompanyInteractor = buildInteractorDirectActionNoParams(companyActions.resetCompany);
