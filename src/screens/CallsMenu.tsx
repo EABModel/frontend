@@ -5,7 +5,7 @@ import { RootState } from '../redux/store';
 import { connect } from 'react-redux';
 import { ConnectionState, CallPostFields } from '../redux/types/ConnectionTypes';
 import '../styles/css/calls.scss';
-import callServices from '../services/callServices';
+// import callServices from '../services/callServices';
 // import * as connectionInteractors from '../redux/interactors/connectionInteractors';
 import { Button } from '@material-ui/core';
 import '../styles/css/catalogueMenu.scss';
@@ -67,12 +67,12 @@ const CallsMenu: FC<Props> = (props: Props) => {
     // If there's not a call, set it as current call
     refRequests.current = requests;
     !onCall && setOnCall(requestId);
-    const callAuthFields: CallPostFields = {
-      employeeId: props.userId,
-      shopId: props.shopId,
-      date: new Date(),
-    };
-    await callServices.postCallRegister(callAuthFields);
+    // const callAuthFields: CallPostFields = {
+    //   employeeId: props.userId,
+    //   shopId: props.shopId,
+    //   date: new Date(),
+    // };
+    // await callServices.postCallRegister(callAuthFields);
   };
 
   return (

@@ -65,6 +65,7 @@ const DisplaySurvey: FC<Props> = (props: Props) => {
     handleCancel();
     handleClose();
   };
+
   return (
     <div>
       <Modal

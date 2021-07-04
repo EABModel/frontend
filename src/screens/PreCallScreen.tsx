@@ -2,12 +2,15 @@ import React, { FC, useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { RootState } from '../redux/store';
 import { connect } from 'react-redux';
-import { ConnectionState } from '../redux/types/ConnectionTypes';
+import { ConnectionState, CallPostFields } from '../redux/types/ConnectionTypes';
+import DisplaySurvey from '../components/CallsMenuComponents/CallClientSurvey';
+import callServices from '../services/callServices';
 import '../styles/css/calls.scss';
 
 interface StateProps {
   connection: ConnectionState;
   shopId: string;
+  userId: string;
 }
 
 interface Props extends StateProps {
@@ -42,7 +45,11 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
     };
     // Aqui de puede crear una llamada en backend y darle el id que retorne a el .doc(id_retornado) usando .then()
     // Luego se setea el id de la llamada con setCallId(id_retornado)
-    firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc().set({ status });
+    createCall().then((call) => {
+      console.log(call);
+      // firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc(call.id).set({ status });
+      // setCallId(call.id);
+    });
   }, []);
 
   // Listen to any additions or deletions to the database
@@ -65,8 +72,17 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
     };
   }, [firestore]);
 
+  const createCall = async (): Promise<void> => {
+    const callAuthFields: CallPostFields = {
+      employeeId: props.userId,
+      shopId: props.shopId,
+      date: new Date(),
+    };
+    await callServices.postCallRegister(callAuthFields);
+  };
+
   if (surveyShowing) {
-    return <div>Survey Component</div>;
+    return <DisplaySurvey />;
   }
 
   return (
@@ -81,6 +97,7 @@ const mapStateToProps = (state: RootState): StateProps => {
   return {
     connection: state.connection,
     shopId: state.shop.id,
+    userId: state.user.id,
   };
 };
 

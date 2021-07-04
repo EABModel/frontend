@@ -3,12 +3,11 @@ import { useHistory } from 'react-router-dom';
 import { RootState } from '../redux/store';
 import { connect } from 'react-redux';
 import { ConnectionState } from '../redux/types/ConnectionTypes';
-import DisplaySurvey from '../components/CallsMenuComponents/CallClientSurvey';
+// import DisplaySurvey from '../components/CallsMenuComponents/CallClientSurvey';
 // import * as connectionInteractors from '../redux/interactors/connectionInteractors';
 import { Product } from '../redux/types/CatalogueTypes';
 import { Typography, Button } from '@material-ui/core';
 import '../styles/css/productDetails.scss';
-import callServices from '../services/callServices';
 
 interface StateProps {
   products: Product[];
@@ -21,7 +20,7 @@ interface Props extends StateProps {
 
 const ProductDetails: FC<Props> = (props: Props) => {
   const { products, connection } = props;
-  const { hangup } = connection;
+  // const { hangup } = connection;
   const history = useHistory();
   const [product, setProduct] = useState<Product | undefined>();
   const productId = window.location.pathname.split('/')[3];
@@ -103,7 +102,7 @@ const ProductDetails: FC<Props> = (props: Props) => {
         </div>
       </div>
       <div className="photo-container"></div>
-      {hangup && <DisplaySurvey />}
+      {/* {hangup && <DisplaySurvey />} */}
     </div>
   );
 };
