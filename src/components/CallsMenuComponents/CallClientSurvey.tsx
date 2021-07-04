@@ -13,7 +13,7 @@ interface DispatchProps {
 }
 
 interface Props extends DispatchProps {
-  // extra props you want to add
+  callId: string;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const DisplaySurvey: FC<Props> = (props: Props) => {
   const classes = useStyles();
+  const { callId } = props;
   const [reply1, setReply1] = useState<any>();
   const [reply2, setReply2] = useState<any>();
   const [reply3, setReply3] = useState<any>();
@@ -58,8 +59,7 @@ const DisplaySurvey: FC<Props> = (props: Props) => {
 
   const handleRating = async (): Promise<void> => {
     const ratingValue: number = reply1 * 0.4 + reply2 * 0.25 + reply3 * 0.35;
-    //TODO: cambiar id por nuevo de llamada
-    await callServices.addRating(ratingValue, '259206f2-69e2-4c4b-8b91-a525f6db89e0');
+    await callServices.addRating(ratingValue, callId);
     // Called to reset the state
     props.setCallStateFalseInteractor();
     handleCancel();

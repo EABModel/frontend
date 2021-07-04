@@ -24,12 +24,10 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
   const [surveyShowing, setSurveyShowing] = useState(false);
 
   const showSurvey = () => {
-    // Show survey
     setSurveyShowing(true);
   };
 
   const sendSurvey = () => {
-    // Send survey
     setCallId(null);
     setSurveyShowing(false); // Stop showing survey
     history.go(-1); // Go back to previous page
@@ -46,10 +44,12 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
     // Aqui de puede crear una llamada en backend y darle el id que retorne a el .doc(id_retornado) usando .then()
     // Luego se setea el id de la llamada con setCallId(id_retornado)
     createCall().then((call) => {
+      console.log('Entrando a createCall');
       console.log(call);
       // firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc(call.id).set({ status });
       // setCallId(call.id);
     });
+    firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc().set({ status });
   }, []);
 
   // Listen to any additions or deletions to the database
@@ -72,17 +72,18 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
     };
   }, [firestore]);
 
-  const createCall = async (): Promise<void> => {
+  const createCall = async (): Promise<any> => {
     const callAuthFields: CallPostFields = {
       employeeId: props.userId,
       shopId: props.shopId,
       date: new Date(),
     };
-    await callServices.postCallRegister(callAuthFields);
+    const response = await callServices.postCallRegister(callAuthFields);
+    return response;
   };
 
   if (surveyShowing) {
-    return <DisplaySurvey />;
+    return <DisplaySurvey callId={callId} />;
   }
 
   return (
