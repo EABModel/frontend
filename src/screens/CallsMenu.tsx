@@ -5,6 +5,8 @@ import { RootState } from '../redux/store';
 import { connect } from 'react-redux';
 import { ConnectionState } from '../redux/types/ConnectionTypes';
 import '../styles/css/calls.scss';
+import { Button } from '@material-ui/core';
+import '../styles/css/catalogueMenu.scss';
 import { Typography, List, ListItem, ListItemText, ListItemIcon, LinearProgress } from '@material-ui/core';
 interface StateProps {
   connection: ConnectionState;
@@ -87,6 +89,16 @@ const CallsMenu: FC<Props> = (props: Props) => {
         {loading && <LinearProgress />}
       </div>
       {onCall && <EmployeeVideoChat callId={onCall} setOnCall={setOnCall} shopId={props.shopId} />}
+      <div className="btn-bottom-left">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            history.go(-1);
+          }}>
+          Back
+        </Button>
+      </div>
     </div>
   );
 };
