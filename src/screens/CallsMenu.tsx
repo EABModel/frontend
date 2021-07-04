@@ -67,12 +67,6 @@ const CallsMenu: FC<Props> = (props: Props) => {
     // If there's not a call, set it as current call
     refRequests.current = requests;
     !onCall && setOnCall(requestId);
-    // const callAuthFields: CallPostFields = {
-    //   employeeId: props.userId,
-    //   shopId: props.shopId,
-    //   date: new Date(),
-    // };
-    // await callServices.postCallRegister(callAuthFields);
   };
 
   return (

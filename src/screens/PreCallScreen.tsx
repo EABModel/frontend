@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router';
 import { RootState } from '../redux/store';
 import { connect } from 'react-redux';
@@ -20,15 +20,16 @@ interface Props extends StateProps {
 const CustomerVideoChat: FC<Props> = (props: Props) => {
   const history = useHistory();
   const { firestore } = props.connection;
-  const [callId, setCallId] = useState<any>(null);
+  const [stateCallId, setStateCallId] = useState<any>(null);
   const [surveyShowing, setSurveyShowing] = useState(false);
+  let callId = useRef<any>(undefined).current;
 
   const showSurvey = () => {
     setSurveyShowing(true);
   };
 
   const sendSurvey = () => {
-    setCallId(null);
+    callId = null;
     setSurveyShowing(false); // Stop showing survey
     history.go(-1); // Go back to previous page
   };
@@ -44,9 +45,9 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
     // Aqui de puede crear una llamada en backend y darle el id que retorne a el .doc(id_retornado) usando .then()
     // Luego se setea el id de la llamada con setCallId(id_retornado)
     createCall().then((response) => {
-      console.log(response);
       firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc(response.id).set({ status });
-      setCallId(response.id);
+      callId = response.id;
+      setStateCallId(callId);
     });
     // firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc().set({ status });
   }, []);
@@ -61,7 +62,7 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
       .onSnapshot((snapshot) => {
         // If call is finished display survey
         snapshot.docChanges().forEach((change) => {
-          if (change.type === 'removed' && !change.doc.id === callId) {
+          if (change.type === 'removed' && change.doc.id === callId) {
             showSurvey();
           }
         });
@@ -83,7 +84,7 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
   };
 
   if (surveyShowing) {
-    return <DisplaySurvey callId={callId} sendSurvey={sendSurvey} />;
+    return <DisplaySurvey callId={stateCallId} sendSurvey={sendSurvey} />;
   }
 
   return (

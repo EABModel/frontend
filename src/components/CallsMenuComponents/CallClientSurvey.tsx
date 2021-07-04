@@ -59,6 +59,7 @@ const DisplaySurvey: FC<Props> = (props: Props) => {
     typeof reply1 !== 'undefined' && typeof reply2 !== 'undefined' && typeof reply3 !== 'undefined';
 
   const handleRating = async (): Promise<void> => {
+    console.log(callId, 'hola');
     const ratingValue: number = reply1 * 0.4 + reply2 * 0.25 + reply3 * 0.35;
     await callServices.addRating(ratingValue, callId);
     // Called to reset the state
