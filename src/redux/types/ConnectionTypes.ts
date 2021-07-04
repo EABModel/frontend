@@ -8,16 +8,9 @@ export interface ConnectionState {
   hangup: boolean;
 }
 
-// export interface CallState {
-//   id: string;
-//   employeeId: string;
-//   shopId: string;
-//   rating: string;
-//   date: Date;
-// }
-
 export interface CallPostFields {
   employeeId: string;
   shopId: string;
+  rating: number | null;
   date: Date;
 }

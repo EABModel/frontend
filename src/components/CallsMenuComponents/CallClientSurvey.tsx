@@ -14,6 +14,7 @@ interface DispatchProps {
 
 interface Props extends DispatchProps {
   callId: string;
+  sendSurvey: () => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -64,6 +65,7 @@ const DisplaySurvey: FC<Props> = (props: Props) => {
     props.setCallStateFalseInteractor();
     handleCancel();
     handleClose();
+    props.sendSurvey();
   };
 
   return (

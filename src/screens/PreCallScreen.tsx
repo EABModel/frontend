@@ -43,13 +43,12 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
     };
     // Aqui de puede crear una llamada en backend y darle el id que retorne a el .doc(id_retornado) usando .then()
     // Luego se setea el id de la llamada con setCallId(id_retornado)
-    createCall().then((call) => {
-      console.log('Entrando a createCall');
-      console.log(call);
-      // firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc(call.id).set({ status });
-      // setCallId(call.id);
+    createCall().then((response) => {
+      console.log(response);
+      firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc(response.id).set({ status });
+      setCallId(response.id);
     });
-    firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc().set({ status });
+    // firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc().set({ status });
   }, []);
 
   // Listen to any additions or deletions to the database
@@ -76,6 +75,7 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
     const callAuthFields: CallPostFields = {
       employeeId: props.userId,
       shopId: props.shopId,
+      rating: null,
       date: new Date(),
     };
     const response = await callServices.postCallRegister(callAuthFields);
@@ -83,7 +83,7 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
   };
 
   if (surveyShowing) {
-    return <DisplaySurvey callId={callId} />;
+    return <DisplaySurvey callId={callId} sendSurvey={sendSurvey} />;
   }
 
   return (

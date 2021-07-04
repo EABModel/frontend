@@ -10,6 +10,7 @@ const postCallRegister = async (authFields: CallPostFields): Promise<any> => {
     data: {
       employeeId: authFields.employeeId,
       shopId: authFields.shopId,
+      rating: authFields.rating,
       date: authFields.date,
     },
   })
