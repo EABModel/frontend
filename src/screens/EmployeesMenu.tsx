@@ -1,5 +1,6 @@
-import { Button } from '@material-ui/core';
+import { Button, Divider } from '@material-ui/core';
 import React, { FC, useState } from 'react';
+import CompanyUsers from '../components/EmployeesMenu/CompanyUsers';
 import CreateUser from '../components/EmployeesMenu/UserRegister';
 import useStyles from '../styles/AccordionMenuStyles';
 
@@ -21,6 +22,7 @@ const EmployeesMenu: FC = () => {
           heading={'Create Single User'}
           summary={'Here you can create a user for this shop, giving it all its necesary attributes.'}
         />
+        <CompanyUsers />
       </div>
       <div className="btn-bottom-left">
         <Button

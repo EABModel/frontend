@@ -25,6 +25,22 @@ export const logoutUserInteractor = buildInteractorNoParams(
   null,
 );
 
+export const deleteUserInteractor = buildInteractor(
+  userActions.loadingDeleteUser,
+  userActions.successDeleteUser,
+  userActions.errorDeleteUser,
+  userServices.deleteUser,
+);
+
+export const reassignUserShopInteractor = buildInteractor(
+  userActions.loadingReassignUserShop,
+  userActions.successReassignUserShop,
+  userActions.errorReassignUserShop,
+  userServices.reassignUserShop,
+);
+
+export const resetRegisterUserInteractor = buildInteractorDirectActionNoParams(userActions.resetRegisterUser);
+
 export const resetLoginUserInteractor = buildInteractorDirectActionNoParams(userActions.resetLoginUser);
 
 export const resetLogoutUserInteractor = buildInteractorDirectActionNoParams(userActions.resetLogoutUser);
@@ -32,3 +48,7 @@ export const resetLogoutUserInteractor = buildInteractorDirectActionNoParams(use
 export const resetUserStatusInteractor = buildInteractorDirectActionNoParams(userActions.resetUserStatus);
 
 export const resetUserInteractor = buildInteractorDirectActionNoParams(userActions.resetUser);
+
+export const resetDeleteUserInteractor = buildInteractorDirectActionNoParams(userActions.resetDeleteUser);
+
+export const resetReassignUserInteractor = buildInteractorDirectActionNoParams(userActions.resetReassignUserShop);

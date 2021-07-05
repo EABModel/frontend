@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { PostUserFields, UserAuthFields } from '../redux/types/UserTypes';
+import { PostUserFields, ReassignUserFields, UserAuthFields } from '../redux/types/UserTypes';
 import { axiosBaseInstance } from './config';
 
 const getUser = async (userId: string): Promise<any> => {
@@ -58,10 +58,44 @@ const postUserRegister = async (authFields: PostUserFields): Promise<any> => {
     });
 };
 
+const deleteUser = async (id: string): Promise<any> => {
+  return await axiosBaseInstance({
+    headers: { 'Content-Type': 'application/json' },
+    method: 'delete',
+    url: `/user/${id}`,
+  })
+    .then((response: AxiosResponse<string>) => {
+      return response?.data;
+    })
+    .catch((error: Error) => {
+      throw error;
+    });
+};
+
+const reassignUserShop = async (authFields: ReassignUserFields): Promise<any> => {
+  return await axiosBaseInstance({
+    headers: { 'Content-Type': 'application/json' },
+    method: 'patch',
+    url: `/user/set_shop`,
+    data: {
+      userId: authFields.userId,
+      shopId: authFields.shopId,
+    },
+  })
+    .then((response: AxiosResponse<Record<string, never>>) => {
+      return response?.data;
+    })
+    .catch((error: Error) => {
+      throw error;
+    });
+};
+
 const usersService = {
   getUser,
   postUserLogin,
   postUserRegister,
+  deleteUser,
+  reassignUserShop,
 };
 
 export default usersService;

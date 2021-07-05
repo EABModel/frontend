@@ -6,6 +6,8 @@ const initialState: UserState = {
   username: 'defaultUser',
   email: '',
   id: '',
+  companyId: '',
+  shopId: '',
   sessionType: Session.ANONYMOUS,
   loginUserStatus: {
     loading: false,
@@ -18,6 +20,16 @@ const initialState: UserState = {
     error: false,
   },
   registerUserStatus: {
+    loading: false,
+    success: false,
+    error: false,
+  },
+  deleteUserStatus: {
+    loading: false,
+    success: false,
+    error: false,
+  },
+  reassignUserShopStatus: {
     loading: false,
     success: false,
     error: false,
@@ -56,6 +68,21 @@ const successLogoutUser = (state: UserState) => {
   };
 };
 
+const successDeleteUser = (state: UserState) => {
+  return {
+    ...state,
+    deleteUserStatus: { loading: false, success: true, error: false },
+  };
+};
+
+const successReassignUserShop = (state: UserState, action: Action) => {
+  return {
+    ...state,
+    ...action.payload,
+    reassignUserShopStatus: { loading: false, success: true, error: false },
+  };
+};
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -63,6 +90,8 @@ const userSlice = createSlice({
     ...baseRequestStatusReducers('registerUser', initialState, null, successRegisterUser),
     ...baseRequestStatusReducers('loginUser', initialState, null, successLoginUser),
     ...baseRequestStatusReducers('logoutUser', initialState, null, successLogoutUser),
+    ...baseRequestStatusReducers('deleteUser', initialState, null, successDeleteUser),
+    ...baseRequestStatusReducers('reassignUserShop', initialState, null, successReassignUserShop),
     resetUserStatus: (state: UserState) => {
       return {
         ...state,

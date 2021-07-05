@@ -1,13 +1,17 @@
 import { BaseRequestStatus } from './base';
+import { UserState } from './UserTypes';
 
 export interface CompanyState {
   id: string;
   name: string;
   email: string;
   shops: ShopBackendState[];
+  users: UserState[];
   registerCompanyStatus: BaseRequestStatus;
   loginCompanyStatus: BaseRequestStatus;
   logoutCompanyStatus: BaseRequestStatus;
+  getCompanyUsersStatus: BaseRequestStatus;
+  getCompanyShopsStatus: BaseRequestStatus;
 }
 
 export interface PostCompanyFields {

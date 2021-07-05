@@ -21,6 +21,7 @@ import verifyString from '../../utils/globalHelpers/verifyString';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import * as userInteractors from '../../redux/interactors/userInteractors';
 import { connect } from 'react-redux';
+import { Alert } from '@material-ui/lab';
 
 const validateEmail = (email: string): boolean => {
   const re =
@@ -109,6 +110,22 @@ const CreateUser: FC<Props> = (props: Props) => {
   const fieldsVerified: boolean =
     verifyString(username) && validateEmail(email) && verifyString(email) && verifyString(password);
 
+  const emailAlert = () => {
+    if (emailError === '') {
+      return;
+    } else {
+      return <Alert severity="warning">{emailError}</Alert>;
+    }
+  };
+
+  const passwordAlert = () => {
+    if (passwordError === '') {
+      return;
+    } else {
+      return <Alert severity="warning">{passwordError}</Alert>;
+    }
+  };
+
   return (
     <Accordion TransitionProps={{ unmountOnExit: true }} expanded={expanded === panel} onChange={handleChange(panel)}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
@@ -138,10 +155,8 @@ const CreateUser: FC<Props> = (props: Props) => {
           name="email"
           onChange={onEmailChange}
         />
-        <Typography variant="body2" className={styles.alertMessage}>
-          {emailError}
-        </Typography>
       </AccordionDetails>
+      {emailAlert()}
       <AccordionDetails>
         <TextField
           value={password}
@@ -154,17 +169,15 @@ const CreateUser: FC<Props> = (props: Props) => {
           name="password"
           onChange={onPasswordChange}
         />
-        <Typography variant="body2" className={styles.alertMessage}>
-          {passwordError}
-        </Typography>
       </AccordionDetails>
+      {passwordAlert()}
       <Divider />
       <AccordionActions>
         <Button size="small" onClick={() => handleCancelCreate()}>
           Cancel
         </Button>
         <Button size="small" color="primary" disabled={!fieldsVerified} onClick={handleCreate}>
-          Create Product
+          Create User
         </Button>
       </AccordionActions>
       {user.registerUserStatus.loading && <LinearProgress />}

@@ -37,13 +37,11 @@ export const buildInteractorNoParams =
     return async function (dispatch: any) {
       dispatch(loadingAction());
       try {
-        setTimeout(async () => {
-          let response: any;
-          if (request) {
-            response = await request!();
-          }
-          dispatch(successAction(response));
-        }, time);
+        let response: any;
+        if (request) {
+          response = await request!();
+        }
+        dispatch(successAction(response));
       } catch (error) {
         dispatch(errorAction(error));
       }
