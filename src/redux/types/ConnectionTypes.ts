@@ -5,4 +5,12 @@ export interface ConnectionState {
   peerConnection: RTCPeerConnection;
   localStream: any;
   remoteStream: any;
+  hangup: boolean;
+}
+
+export interface CallPostFields {
+  employeeId: string;
+  shopId: string;
+  rating: number | null;
+  date: Date;
 }

@@ -12,3 +12,7 @@ export const resetRemoteStreamInteractor = buildInteractorDirectActionNoParams(c
 export const resetStreamConnectionInteractor = buildInteractorDirectActionNoParams(
   connectionActions.resetStreamConnection,
 );
+
+export const setCallStateTrueInteractor = buildInteractorDirectActionNoParams(connectionActions.setCallStateTrue);
+
+export const setCallStateFalseInteractor = buildInteractorDirectActionNoParams(connectionActions.setCallStateFalse);

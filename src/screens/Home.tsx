@@ -39,7 +39,7 @@ const Home: FC<Props> = (props: Props) => {
 
   useEffect(() => {
     // If just registered or has no shops
-    if (company.registerCompanyStatus.success || company?.shops?.length === 0) {
+    if (company.registerCompanyStatus.success || shop?.shops?.length === 0 || !shop?.id) {
       setShowCreateShopMessage(true);
     } else {
       setShowCreateShopMessage(false);
