@@ -59,12 +59,6 @@ const connection = createSlice({
         hangup: false,
       };
     },
-    toggleCallState: (state: ConnectionState) => {
-      return {
-        ...state,
-        hangup: !state.hangup,
-      };
-    },
   },
 });
 
