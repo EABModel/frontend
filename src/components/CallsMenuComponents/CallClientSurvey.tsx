@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { useStyles } from '../../styles/ClientSurveyStyles';
 import callServices from '../../services/callServices';
 import Rating from '@material-ui/lab/Rating';
 import * as connectionInteractors from '../../redux/interactors/connectionInteractors';
@@ -16,24 +16,6 @@ interface Props extends DispatchProps {
   callId: string;
   sendSurvey: () => void;
 }
-
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  root: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-}));
 
 const DisplaySurvey: FC<Props> = (props: Props) => {
   const classes = useStyles();
