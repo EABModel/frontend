@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ConnectionState } from '../types/ConnectionTypes';
-import firestore from '../../services/firebase/config';
+import { firestore, storage } from '../../services/firebase/config';
 import peerConnection from '../../services/webRTC/config';
 
 const initialState: ConnectionState = {
   firestore,
+  storage,
   peerConnection,
   localStream: null,
   remoteStream: null,

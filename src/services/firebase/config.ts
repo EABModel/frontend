@@ -15,6 +15,5 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-const firestore = firebase.firestore();
-
-export default firestore;
+export const firestore = firebase.firestore();
+export const storage = firebase.storage();

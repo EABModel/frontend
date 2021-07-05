@@ -7,10 +7,11 @@ import { connect } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { ShopState } from '../../redux/types/ShopTypes';
 import { ConnectionState } from '../../redux/types/ConnectionTypes';
-// import { firestore } from '../../services/firebase/config';
+import firebase from 'firebase/app';
 import { CatalogueState, ProductPostFields } from '../../redux/types/CatalogueTypes';
 import * as catalogueInteractors from '../../redux/interactors/catalogueInteractors';
 import verifyString from '../../utils/globalHelpers/verifyString';
+import AddIcon from '@material-ui/icons/Add';
 import {
   Accordion,
   AccordionDetails,
@@ -25,7 +26,9 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Fab,
 } from '@material-ui/core';
+import { firestore } from '../../services/firebase/config';
 
 interface StateProps {
   shop: ShopState;
@@ -48,7 +51,6 @@ interface Props extends StateProps, DispatchProps {
 
 const CreateProduct: FC<Props> = (props: Props) => {
   const { expanded, handleChange, panel, heading, summary, shop, catalogue } = props;
-  const { firestore } = props.connection;
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
   const [os, setOS] = useState('');
@@ -98,11 +100,12 @@ const CreateProduct: FC<Props> = (props: Props) => {
 
   const onFileChange = async (event: any) => {
     const file = event.target.files[0];
-    const storageRef = firestore.app.storage().ref();
+    const storageRef = firebase.storage().ref(`${shop.id}/${file.name}`);
     const fileRef = storageRef.child(file.name);
     await fileRef.put(file);
     setImage(await fileRef.getDownloadURL());
   };
+  console.log(image);
 
   const fieldsVerified: boolean =
     verifyString(name) &&
@@ -197,7 +200,7 @@ const CreateProduct: FC<Props> = (props: Props) => {
         />
       </AccordionDetails>
       <AccordionDetails>
-        <TextField
+        {/* <TextField
           value={image}
           variant="standard"
           type="file"
@@ -207,7 +210,19 @@ const CreateProduct: FC<Props> = (props: Props) => {
           label="Image"
           name="image"
           onChange={onFileChange}
-        />
+        /> */}
+        <label htmlFor="upload-photo">
+          <input
+            style={{ display: 'none' }}
+            id="upload-photo"
+            name="upload-photo"
+            type="file"
+            onChange={onFileChange}
+          />
+          <Fab color="primary" size="small" component="span" aria-label="add" variant="extended">
+            <AddIcon /> Upload photo
+          </Fab>
+        </label>
       </AccordionDetails>
       <Divider />
       <AccordionActions>

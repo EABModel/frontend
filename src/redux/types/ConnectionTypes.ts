@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 
 export interface ConnectionState {
   firestore: firebase.firestore.Firestore;
+  storage: firebase.storage.Storage;
   peerConnection: RTCPeerConnection;
   localStream: any;
   remoteStream: any;
