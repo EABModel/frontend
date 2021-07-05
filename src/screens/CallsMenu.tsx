@@ -8,9 +8,11 @@ import '../styles/css/calls.scss';
 import { Button } from '@material-ui/core';
 import '../styles/css/catalogueMenu.scss';
 import { Typography, List, ListItem, ListItemText, ListItemIcon, LinearProgress } from '@material-ui/core';
+
 interface StateProps {
   connection: ConnectionState;
   shopId: string;
+  userId: string;
 }
 
 interface Props extends StateProps {
@@ -107,6 +109,7 @@ const mapStateToProps = (state: RootState): StateProps => {
   return {
     connection: state.connection,
     shopId: state.shop.id,
+    userId: state.user.id,
   };
 };
 

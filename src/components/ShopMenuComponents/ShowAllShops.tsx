@@ -1,13 +1,10 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useHistory } from 'react-router-dom';
 import useStyles from '../../styles/AccordionMenuStyles';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { CompanyState } from '../../redux/types/CompanyTypes';
 import { ShopState } from '../../redux/types/ShopTypes';
-import * as shopInteractors from '../../redux/interactors/shopInteractors';
 import {
   Accordion,
   AccordionSummary,
@@ -21,15 +18,10 @@ import {
 } from '@material-ui/core';
 
 interface StateProps {
-  company: CompanyState;
   shop: ShopState;
 }
 
-interface DispatchProps {
-  resetShopStatusInteractor: typeof shopInteractors.resetShopStatusInteractor;
-}
-
-interface Props extends StateProps, DispatchProps {
+interface Props extends StateProps {
   expanded: string | false;
   handleChange: (panel: string) => any;
   panel: string;
@@ -38,7 +30,7 @@ interface Props extends StateProps, DispatchProps {
 }
 
 const ShowAllShops: FC<Props> = (props: Props) => {
-  const { expanded, handleChange, panel, heading, summary, company, shop, resetShopStatusInteractor } = props;
+  const { expanded, handleChange, panel, heading, summary, shop } = props;
   const styles = useStyles();
   const history = useHistory();
 
@@ -54,7 +46,7 @@ const ShowAllShops: FC<Props> = (props: Props) => {
       </AccordionSummary>
       <Divider />
       <List dense>
-        {company.shops.map((shop) => {
+        {shop.shops.map((shop) => {
           return (
             <ListItem key={shop.id} button>
               <ListItemText id={shop.id} primary={`${shop.name}`} secondary={`Location: ${shop.location}`} />
@@ -73,18 +65,8 @@ const ShowAllShops: FC<Props> = (props: Props) => {
 
 const mapStateToProps = (state: RootState): StateProps => {
   return {
-    company: state.company,
     shop: state.shop,
   };
 };
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
-  ...bindActionCreators(
-    {
-      ...shopInteractors,
-    },
-    dispatch,
-  ),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ShowAllShops);
+export default connect(mapStateToProps)(ShowAllShops);

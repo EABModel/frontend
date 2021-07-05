@@ -34,7 +34,7 @@ const ShopDevices: FC = () => {
       .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, []);
-  console.log(devices);
+
   return (
     <>
       <Typography className={classes.title} variant="h4">

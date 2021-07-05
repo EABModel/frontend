@@ -1,13 +1,16 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router';
 import { RootState } from '../redux/store';
 import { connect } from 'react-redux';
-import { ConnectionState } from '../redux/types/ConnectionTypes';
+import { ConnectionState, CallPostFields } from '../redux/types/ConnectionTypes';
+import DisplaySurvey from '../components/CallsMenuComponents/CallClientSurvey';
+import callServices from '../services/callServices';
 import '../styles/css/calls.scss';
 
 interface StateProps {
   connection: ConnectionState;
   shopId: string;
+  userId: string;
 }
 
 interface Props extends StateProps {
@@ -17,19 +20,18 @@ interface Props extends StateProps {
 const CustomerVideoChat: FC<Props> = (props: Props) => {
   const history = useHistory();
   const { firestore } = props.connection;
-  const [callId, setCallId] = useState<any>(null);
+  const [stateCallId, setStateCallId] = useState<any>(null);
   const [surveyShowing, setSurveyShowing] = useState(false);
+  let callId = useRef<any>(undefined).current;
 
   const showSurvey = () => {
-    // Show survey
     setSurveyShowing(true);
   };
 
   const sendSurvey = () => {
-    // Send survey
-    setCallId(null);
-    setSurveyShowing(false); // Stop showing survey
-    history.go(-1); // Go back to previous page
+    callId = null;
+    setSurveyShowing(false);
+    history.go(-1);
   };
 
   useEffect(() => {
@@ -40,9 +42,12 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
       inProgress: false,
       date: new Date(),
     };
-    // Aqui de puede crear una llamada en backend y darle el id que retorne a el .doc(id_retornado) usando .then()
-    // Luego se setea el id de la llamada con setCallId(id_retornado)
-    firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc().set({ status });
+    // Se crea llamada en backend
+    createCall().then((response) => {
+      firestore.collection('shopCalls').doc(props.shopId).collection('calls').doc(response.id).set({ status });
+      callId = response.id;
+      setStateCallId(callId);
+    });
   }, []);
 
   // Listen to any additions or deletions to the database
@@ -55,7 +60,7 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
       .onSnapshot((snapshot) => {
         // If call is finished display survey
         snapshot.docChanges().forEach((change) => {
-          if (change.type === 'removed' && !change.doc.id === callId) {
+          if (change.type === 'removed' && change.doc.id === callId) {
             showSurvey();
           }
         });
@@ -65,8 +70,19 @@ const CustomerVideoChat: FC<Props> = (props: Props) => {
     };
   }, [firestore]);
 
+  const createCall = async (): Promise<any> => {
+    const callAuthFields: CallPostFields = {
+      employeeId: props.userId,
+      shopId: props.shopId,
+      rating: null,
+      date: new Date(),
+    };
+    const response = await callServices.postCallRegister(callAuthFields);
+    return response;
+  };
+
   if (surveyShowing) {
-    return <div>Survey Component</div>;
+    return <DisplaySurvey callId={stateCallId} sendSurvey={sendSurvey} />;
   }
 
   return (
@@ -81,6 +97,7 @@ const mapStateToProps = (state: RootState): StateProps => {
   return {
     connection: state.connection,
     shopId: state.shop.id,
+    userId: state.user.id,
   };
 };
 
