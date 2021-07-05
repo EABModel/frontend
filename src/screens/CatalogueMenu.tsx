@@ -25,7 +25,7 @@ const CatalogueMenu: FC = () => {
           handleChange={handleChange}
           panel={'panel1'}
           heading={'Create Single Product'}
-          summary={'Here you can create a product for this shop, giving all its necesary attributes.'}
+          summary={'Here you can create a product for this shop, giving it all its necesary attributes.'}
         />
         <CreateProductsCSV />
         <DeleteProduct

@@ -13,6 +13,9 @@ interface StateProps {
 interface DispatchProps {
   resetLoginUserInteractor: typeof userInteractors.resetLoginUserInteractor;
   resetLogoutUserInteractor: typeof userInteractors.resetLogoutUserInteractor;
+  resetDeleteUserInteractor: typeof userInteractors.resetDeleteUserInteractor;
+  resetRegisterUserInteractor: typeof userInteractors.resetRegisterUserInteractor;
+  resetReassignUserInteractor: typeof userInteractors.resetReassignUserInteractor;
 }
 
 interface Props extends StateProps, DispatchProps {
@@ -22,8 +25,26 @@ interface Props extends StateProps, DispatchProps {
 
 const UserSuccess: FC<Props> = (props: Props) => {
   const timeWithMargin = props.time + props.margin;
-  const { time, user, resetLoginUserInteractor, resetLogoutUserInteractor } = props;
+  const {
+    time,
+    user,
+    resetLoginUserInteractor,
+    resetLogoutUserInteractor,
+    resetDeleteUserInteractor,
+    resetRegisterUserInteractor,
+    resetReassignUserInteractor,
+  } = props;
   const [successMessage, setSuccessMessage] = useState<string>('');
+
+  useEffect(() => {
+    if (user.registerUserStatus.success) {
+      setSuccessMessage('Successfull user register');
+      setTimeout(() => {
+        resetRegisterUserInteractor();
+        setSuccessMessage('');
+      }, timeWithMargin);
+    }
+  }, [resetRegisterUserInteractor, user.registerUserStatus.success, timeWithMargin]);
 
   useEffect(() => {
     if (user.loginUserStatus.success) {
@@ -44,6 +65,26 @@ const UserSuccess: FC<Props> = (props: Props) => {
       }, timeWithMargin);
     }
   }, [resetLogoutUserInteractor, user.logoutUserStatus.success, timeWithMargin]);
+
+  useEffect(() => {
+    if (user.deleteUserStatus.success) {
+      setSuccessMessage('Successfull user delete');
+      setTimeout(() => {
+        resetDeleteUserInteractor();
+        setSuccessMessage('');
+      }, timeWithMargin);
+    }
+  }, [resetDeleteUserInteractor, user.deleteUserStatus.success, timeWithMargin]);
+
+  useEffect(() => {
+    if (user.reassignUserShopStatus.success) {
+      setSuccessMessage('Succesfull reasignation of user to another shop');
+      setTimeout(() => {
+        resetReassignUserInteractor();
+        setSuccessMessage('');
+      }, timeWithMargin);
+    }
+  }, [resetReassignUserInteractor, user.reassignUserShopStatus.success, timeWithMargin]);
 
   return (
     <>

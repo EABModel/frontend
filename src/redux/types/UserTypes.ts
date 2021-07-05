@@ -4,16 +4,27 @@ export interface UserState {
   id: string;
   username: string;
   email: string;
+  companyId: string;
+  shopId: string;
   sessionType: Session;
   loginUserStatus: BaseRequestStatus;
   logoutUserStatus: BaseRequestStatus;
+  registerUserStatus: BaseRequestStatus;
+  deleteUserStatus: BaseRequestStatus;
+  reassignUserShopStatus: BaseRequestStatus;
 }
 
 export interface PostUserFields {
   username: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  shopId: string;
+  companyId: string;
+}
+
+export interface ReassignUserFields {
+  userId: string;
+  shopId: string;
 }
 
 export interface UserAuthFields {

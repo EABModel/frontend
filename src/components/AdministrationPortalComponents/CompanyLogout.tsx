@@ -33,6 +33,7 @@ const CompanyLogoutButton: FC<Props> = (props: Props) => {
     logoutUserInteractor();
     resetCatalogueInteractor();
     logoutCompanyInteractor();
+    localStorage.removeItem('Token');
     resetCompanyInteractor();
     history.replace('/');
   };

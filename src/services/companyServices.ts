@@ -38,9 +38,39 @@ const postCompanyRegister = async (authFields: RegisterCompanyFields): Promise<a
   }
 };
 
+const getCompanyUsers = async (companyId: string): Promise<any> => {
+  return await axiosBaseInstance({
+    headers: { 'Content-Type': 'application/json' },
+    method: 'get',
+    url: `/company/${companyId}/users`,
+  })
+    .then((response: AxiosResponse<CompanyBackendState>) => {
+      return response?.data;
+    })
+    .catch((error: any) => {
+      throw error;
+    });
+};
+
+const getCompanyShops = async (companyId: string): Promise<any> => {
+  return await axiosBaseInstance({
+    headers: { 'Content-Type': 'application/json' },
+    method: 'get',
+    url: `/company/${companyId}/shops`,
+  })
+    .then((response: AxiosResponse<CompanyBackendState>) => {
+      return response?.data;
+    })
+    .catch((error: any) => {
+      throw error;
+    });
+};
+
 const companyServices = {
   postCompanyLogin,
   postCompanyRegister,
+  getCompanyUsers,
+  getCompanyShops,
 };
 
 export default companyServices;
