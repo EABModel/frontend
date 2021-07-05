@@ -66,6 +66,7 @@ const CreateProductsCSV: FC<Props> = (props: Props) => {
         color: dataRow.data[3],
         inches: dataRow.data[4],
         price: dataRow.data[5],
+        image: dataRow.data[6],
       };
       // TODO: check if it's necessary to check if attributes make sense (like os being part of a valid list)
       if (isValid(productAuthFields)) {

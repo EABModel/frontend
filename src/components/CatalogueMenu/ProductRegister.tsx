@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { ShopState } from '../../redux/types/ShopTypes';
+import { ConnectionState } from '../../redux/types/ConnectionTypes';
+// import { firestore } from '../../services/firebase/config';
 import { CatalogueState, ProductPostFields } from '../../redux/types/CatalogueTypes';
 import * as catalogueInteractors from '../../redux/interactors/catalogueInteractors';
 import verifyString from '../../utils/globalHelpers/verifyString';
@@ -28,6 +30,7 @@ import {
 interface StateProps {
   shop: ShopState;
   catalogue: CatalogueState;
+  connection: ConnectionState;
 }
 
 interface DispatchProps {
@@ -45,12 +48,14 @@ interface Props extends StateProps, DispatchProps {
 
 const CreateProduct: FC<Props> = (props: Props) => {
   const { expanded, handleChange, panel, heading, summary, shop, catalogue } = props;
+  const { firestore } = props.connection;
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
   const [os, setOS] = useState('');
   const [color, setColor] = useState('');
   const [inches, setInches] = useState('');
   const [price, setPrice] = useState('');
+  const [image, setImage] = useState('');
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const styles = useStyles();
 
@@ -68,6 +73,7 @@ const CreateProduct: FC<Props> = (props: Props) => {
     setColor('');
     setInches('');
     setPrice('');
+    setImage('');
   };
 
   const handleCreate = (): void => {
@@ -79,6 +85,7 @@ const CreateProduct: FC<Props> = (props: Props) => {
       color,
       inches: Math.trunc(parseFloat(inches)).toString(),
       price,
+      image,
     };
     props.addProductToCatalogueInteractor(productAuthFields);
     // Called to reset the state
@@ -89,12 +96,21 @@ const CreateProduct: FC<Props> = (props: Props) => {
     setOS(event.target.value as string);
   };
 
+  const onFileChange = async (event: any) => {
+    const file = event.target.files[0];
+    const storageRef = firestore.app.storage().ref();
+    const fileRef = storageRef.child(file.name);
+    await fileRef.put(file);
+    setImage(await fileRef.getDownloadURL());
+  };
+
   const fieldsVerified: boolean =
     verifyString(name) &&
     verifyString(brand) &&
     verifyString(os) &&
     verifyString(color) &&
     verifyString(inches) &&
+    verifyString(image) &&
     verifyString(price);
 
   return (
@@ -180,6 +196,19 @@ const CreateProduct: FC<Props> = (props: Props) => {
           onChange={(event) => setPrice(event.target.value)}
         />
       </AccordionDetails>
+      <AccordionDetails>
+        <TextField
+          value={image}
+          variant="standard"
+          type="file"
+          required
+          fullWidth
+          id="image"
+          label="Image"
+          name="image"
+          onChange={onFileChange}
+        />
+      </AccordionDetails>
       <Divider />
       <AccordionActions>
         <Button size="small" onClick={() => handleCancelCreate()}>
@@ -204,6 +233,7 @@ const mapStateToProps = (state: RootState): StateProps => {
   return {
     shop: state.shop,
     catalogue: state.catalogue,
+    connection: state.connection,
   };
 };
 
