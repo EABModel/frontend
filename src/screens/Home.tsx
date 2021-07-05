@@ -47,8 +47,10 @@ const Home: FC<Props> = (props: Props) => {
   }, [company.registerCompanyStatus, company]);
 
   useEffect(() => {
-    props.getCatalogueInteractor(shop.id);
-  }, [props.getCatalogueInteractor]);
+    if (!showCreateShopMessage) {
+      props.getCatalogueInteractor(shop.id);
+    }
+  }, [props.getCatalogueInteractor, showCreateShopMessage]);
 
   useEffect(() => {
     // If shop has no products, show create product message

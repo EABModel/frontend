@@ -1,48 +1,41 @@
+/* eslint-disable no-useless-catch */
 import { AxiosResponse } from 'axios';
 import { PostCompanyFields, RegisterCompanyFields, CompanyBackendState } from '../redux/types/CompanyTypes';
 import { axiosBaseInstance } from './config';
 
 const postCompanyLogin = async (authFields: PostCompanyFields): Promise<any> => {
-  return await axiosBaseInstance({
-    headers: { 'Content-Type': 'application/json' },
-    method: 'post',
-    url: '/company/login',
-    data: {
-      name: authFields.name,
-      password: authFields.password,
-    },
-  })
-    .then((response: AxiosResponse<CompanyBackendState>) => {
-      return response?.data;
-    })
-    .catch((error: any) => {
-      // TODO: Implement logging functionality for future purposes
-      // TOFIX: always get Error: Network Error, cors must be enabled on api, not nginx
-      console.log(error);
-      throw error;
+  try {
+    const response: AxiosResponse<CompanyBackendState> = await axiosBaseInstance({
+      headers: { 'Content-Type': 'application/json' },
+      method: 'post',
+      url: '/company/login',
+      data: {
+        name: authFields.name,
+        password: authFields.password,
+      },
     });
+    return response?.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const postCompanyRegister = async (authFields: RegisterCompanyFields): Promise<any> => {
-  return await axiosBaseInstance({
-    headers: { 'Content-Type': 'application/json' },
-    method: 'post',
-    url: '/company/create',
-    data: {
-      name: authFields.name,
-      email: authFields.email,
-      password: authFields.password,
-    },
-  })
-    .then((response: AxiosResponse<CompanyBackendState>) => {
-      return response?.data;
-    })
-    .catch((error: any) => {
-      // TODO: Implement logging functionality for future purposes
-      // TOFIX: always get Error: Network Error, cors must be enabled on api, not nginx
-      console.log(error);
-      throw error;
+  try {
+    const response: AxiosResponse<CompanyBackendState> = await axiosBaseInstance({
+      headers: { 'Content-Type': 'application/json' },
+      method: 'post',
+      url: '/company/create',
+      data: {
+        name: authFields.name,
+        email: authFields.email,
+        password: authFields.password,
+      },
     });
+    return response?.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const getCompanyUsers = async (companyId: string): Promise<any> => {

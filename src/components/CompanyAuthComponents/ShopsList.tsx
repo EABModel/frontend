@@ -9,6 +9,7 @@ import { Button, Typography } from '@material-ui/core';
 
 interface DispatchProps {
   setShopInteractor: typeof shopInteractors.setShopInteractor;
+  setShopsInteractor: typeof shopInteractors.setShopsInteractor;
 }
 
 interface Props extends DispatchProps {
@@ -18,17 +19,19 @@ interface Props extends DispatchProps {
 const CompanyLoginForm: FC<Props> = (props: Props) => {
   const styles = UseStyles();
   const history = useHistory();
-  const { shops } = props;
+  const { shops, setShopInteractor, setShopsInteractor } = props;
 
   useEffect(() => {
     // If company has not created a shop, redirect to home to allow it to do that
     if (shops?.length === 0) {
       history.replace('/home');
+    } else {
+      setShopsInteractor(shops);
     }
   }, []);
 
   const login = (shop: ShopBackendState): void => {
-    props.setShopInteractor(shop);
+    setShopInteractor(shop);
     history.replace('/home');
   };
 
