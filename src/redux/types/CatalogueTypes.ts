@@ -16,6 +16,7 @@ export interface Product {
   color: string;
   inches: number;
   price: number;
+  image: string;
 }
 
 export interface ProductPostFields {

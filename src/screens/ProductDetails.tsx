@@ -46,6 +46,16 @@ const ProductDetails: FC<Props> = (props: Props) => {
         </Typography>
         <div className="detail">
           <Typography className="detail-label" variant="h5" gutterBottom>
+            Photo:
+          </Typography>
+          <img
+            srcSet={`${product?.image}?w=161&fit=crop&auto=format 1x,
+            ${product?.image}?w=161&fit=crop&auto=format&dpr=2 2x`}
+            loading="lazy"
+          />
+        </div>
+        <div className="detail">
+          <Typography className="detail-label" variant="h5" gutterBottom>
             Name:
           </Typography>
           <Typography className="detail-body" variant="h6" gutterBottom>

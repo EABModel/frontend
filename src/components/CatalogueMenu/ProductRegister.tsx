@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { ShopState } from '../../redux/types/ShopTypes';
 import { ConnectionState } from '../../redux/types/ConnectionTypes';
-import firebase from 'firebase/app';
+// import firebase from 'firebase/app';
 import { CatalogueState, ProductPostFields } from '../../redux/types/CatalogueTypes';
 import * as catalogueInteractors from '../../redux/interactors/catalogueInteractors';
 import verifyString from '../../utils/globalHelpers/verifyString';
@@ -28,7 +28,6 @@ import {
   Select,
   Fab,
 } from '@material-ui/core';
-import { firestore } from '../../services/firebase/config';
 
 interface StateProps {
   shop: ShopState;
@@ -98,12 +97,31 @@ const CreateProduct: FC<Props> = (props: Props) => {
     setOS(event.target.value as string);
   };
 
-  const onFileChange = async (event: any) => {
+  // const onFileChange = async (event: any) => {
+  //   const file = event.target.files[0];
+  //   const storageRef = firebase.storage().ref(`${shop.id}/${file.name}`);
+  //   const fileRef = storageRef.child(file.name);
+  //   await fileRef.put(file);
+  //   setImage(await fileRef.getDownloadURL());
+  // };
+  const onFileChange = (event: any) => {
     const file = event.target.files[0];
-    const storageRef = firebase.storage().ref(`${shop.id}/${file.name}`);
-    const fileRef = storageRef.child(file.name);
-    await fileRef.put(file);
-    setImage(await fileRef.getDownloadURL());
+    props.connection.storage.ref(`${shop.id}`);
+    const storageRef = props.connection.storage.ref(`${shop.id}/${file.name}`).put(file);
+    storageRef.on(
+      'state_changed',
+      (snapshot: any) => {
+        console.log(snapshot);
+      },
+      (error: any) => {
+        console.log(error.message);
+      },
+      () => {
+        storageRef.snapshot.ref.getDownloadURL().then((url: any) => {
+          console.log(url);
+        });
+      },
+    );
   };
   console.log(image);
 

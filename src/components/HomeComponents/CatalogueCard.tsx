@@ -12,6 +12,7 @@ interface Props {
     color: string;
     inches: number;
     price: number;
+    image: string;
   };
 }
 
@@ -26,7 +27,7 @@ export const CatalogueCard: FC<Props> = ({ specs }: Props) => {
   return (
     <Card className={styles.root}>
       <CardActionArea style={{ textAlign: 'left' }}>
-        <CardMedia className={styles.media} image="CHANGE-LATER" title="Device" />
+        <CardMedia className={styles.media} image={specs.image} title="Device" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {specs.name}
@@ -66,5 +67,6 @@ CatalogueCard.defaultProps = {
     color: 'Default Color',
     inches: 5,
     price: 0,
+    image: 'image url',
   },
 };
