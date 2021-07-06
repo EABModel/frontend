@@ -101,6 +101,16 @@ const ProductDetails: FC<Props> = (props: Props) => {
       <div className="photo-container">
         <img className="image" src={product?.image} alt="Product" />
       </div>
+      <div className="btn-bottom-left">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            history.go(-1);
+          }}>
+          Back
+        </Button>
+      </div>
     </div>
   );
 };

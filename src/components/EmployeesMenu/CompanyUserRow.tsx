@@ -1,14 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { ReassignUserFields, UserState } from '../../redux/types/UserTypes';
+import { UserState } from '../../redux/types/UserTypes';
 import ReassignShop from './ReassignShop';
 import * as userInteractors from '../../redux/interactors/userInteractors';
-import { Button, FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { RootState } from '../../redux/store';
@@ -52,6 +48,18 @@ const CompanyUserRow: FC<Props> = (props: Props) => {
     }
   };
 
+  const deleteBtn = (sessionType: string) => {
+    if (sessionType === 'ADMINISTRATOR') {
+      return;
+    } else {
+      return (
+        <Button variant="contained" color="secondary" onClick={() => handleDelete(data.id)}>
+          Delete
+        </Button>
+      );
+    }
+  };
+
   return (
     <TableRow key={data.username}>
       <TableCell component="th" scope="row">
@@ -59,11 +67,7 @@ const CompanyUserRow: FC<Props> = (props: Props) => {
       </TableCell>
       <TableCell align="right">{data.sessionType}</TableCell>
       <TableCell align="center">{reassignSection(data.sessionType, data.shopId, data.id)}</TableCell>
-      <TableCell align="left">
-        <Button variant="contained" color="secondary" onClick={() => handleDelete(data.id)}>
-          Delete
-        </Button>
-      </TableCell>
+      <TableCell align="left">{deleteBtn(data.sessionType)}</TableCell>
     </TableRow>
   );
 };

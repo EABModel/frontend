@@ -13,6 +13,7 @@ import StepContent from '@material-ui/core/StepContent';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import '../styles/css/catalogueMenu.scss';
 
 interface StateProps {
   modal: PopUpState;
@@ -30,8 +31,7 @@ function getSteps() {
 function getStepContent(step: any) {
   switch (step) {
     case 0:
-      return `In the store you can see the available catalog of the products for sale,
-              in each of the devices.`;
+      return `In the store you can see the available catalog of the products for sale, in each of the devices.`;
     case 1:
       return `If the customer requires assistance to learn more about a product,  
               he/she should click on "Details" of the product and then at the  
@@ -70,48 +70,60 @@ const VerticalLinearStepper: FC<Props> = (props: Props) => {
   };
 
   return (
-    <div className={classes.root}>
-      <Typography variant="h3" gutterBottom>
-        Operation of the platform
-      </Typography>
-      <Typography variant="subtitle1" gutterBottom>
-        Virual Assistant is a platform that offers assistance and helps customers with the purchase process virtually,
-        through a video call. This allows that in times of pandemic our customers can buy in a safe and informed way,
-        covering all the doubts that may arise. Here you can find information on the steps that the customer must
-        follow.
-      </Typography>
-      <Stepper activeStep={activeStep} orientation="vertical">
-        {steps.map((label, index) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-            <StepContent>
-              <div className={classes.textContainer}>
-                <Typography>{getStepContent(index)}</Typography>
-              </div>
-              <div className={classes.actionsContainer}>
-                <div>
-                  <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                    Back
-                  </Button>
-                  <Button variant="contained" color="primary" onClick={handleNext} className={classes.button}>
-                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                  </Button>
+    <>
+      <div className={classes.root}>
+        <Typography variant="h3" gutterBottom>
+          Operation of the platform
+        </Typography>
+        <Typography variant="subtitle1" gutterBottom>
+          Virual Assistant is a platform that offers assistance and helps customers with the purchase process virtually,
+          through a video call. This allows that in times of pandemic our customers can buy in a safe and informed way,
+          covering all the doubts that may arise. Here you can find information on the steps that the customer must
+          follow.
+        </Typography>
+        <Stepper activeStep={activeStep} orientation="vertical">
+          {steps.map((label, index) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+              <StepContent>
+                <div className={classes.textContainer}>
+                  <Typography className={classes.text}>{getStepContent(index)}</Typography>
                 </div>
-              </div>
-            </StepContent>
-          </Step>
-        ))}
-      </Stepper>
-      {activeStep === steps.length && (
-        <Paper square elevation={0} className={classes.resetContainer}>
-          <Typography>Now you are ready to use Virtual Assistance!</Typography>
-          <Button onClick={handleReset} className={classes.button}>
-            Reset
-          </Button>
-        </Paper>
-      )}
-      {modal.open && <Login closePopUp={closeModal} />}
-    </div>
+                <div className={classes.actionsContainer}>
+                  <div>
+                    <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                      Back
+                    </Button>
+                    <Button variant="contained" color="primary" onClick={handleNext} className={classes.button}>
+                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                    </Button>
+                  </div>
+                </div>
+              </StepContent>
+            </Step>
+          ))}
+        </Stepper>
+        {activeStep === steps.length && (
+          <Paper square elevation={0} className={classes.resetContainer}>
+            <Typography>Now you are ready to use Virtual Assistance!</Typography>
+            <Button onClick={handleReset} className={classes.button}>
+              Reset
+            </Button>
+          </Paper>
+        )}
+        {modal.open && <Login closePopUp={closeModal} />}
+      </div>
+      <div className="btn-bottom-left">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            history.go(-1);
+          }}>
+          Back
+        </Button>
+      </div>
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { CatalogueState, ProductPostFields } from '../../redux/types/CatalogueTypes';
+import { CatalogueState } from '../../redux/types/CatalogueTypes';
 import { ShopState } from '../../redux/types/ShopTypes';
 import * as catalogueInteractors from '../../redux/interactors/catalogueInteractors';
 import { RootState } from '../../redux/store';
@@ -45,7 +45,7 @@ const CreateProductsCSV: FC<Props> = (props: Props) => {
     setShowErrorMessage(`An unexpected error ocurred: ${err}`);
   };
 
-  function isValid(productAuthFields: ProductPostFields): boolean {
+  function isValid(productAuthFields: any): boolean {
     let validated = true;
     Object.values(productAuthFields).forEach((value) => {
       if (value == undefined || value == '') {
@@ -56,17 +56,18 @@ const CreateProductsCSV: FC<Props> = (props: Props) => {
   }
 
   const handleUpload = (): void => {
-    const products: ProductPostFields[] = [];
+    const products: any[] = [];
     csvData?.slice(1).forEach((dataRow: { data: any }) => {
-      const productAuthFields: ProductPostFields = {
+      const productAuthFields: any = {
         shopId: shop.id,
         name: dataRow.data[0],
         brand: dataRow.data[1],
         os: dataRow.data[2],
         color: dataRow.data[3],
-        inches: dataRow.data[4],
-        price: dataRow.data[5],
-        image: dataRow.data[6],
+        inches: Number(dataRow.data[4]),
+        price: Number(dataRow.data[5]),
+        image:
+          'https://firebasestorage.googleapis.com/v0/b/eabmodel-ff034.appspot.com/o/PhoneGeneric.jpeg?alt=media&token=2fc686b6-295e-4d59-9af0-db8897463b36',
       };
       // TODO: check if it's necessary to check if attributes make sense (like os being part of a valid list)
       if (isValid(productAuthFields)) {

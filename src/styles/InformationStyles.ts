@@ -16,11 +16,14 @@ export const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   textContainer: {
-    width: '40%',
-    marginLeft: theme.spacing(43),
+    width: '100%',
+    margin: '1rem',
   },
   resetContainer: {
     padding: theme.spacing(2),
     marginLeft: theme.spacing(3),
+  },
+  text: {
+    textAlign: 'center',
   },
 }));

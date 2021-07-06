@@ -1,21 +1,11 @@
 import React, { FC } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { useHistory } from 'react-router-dom';
 import useStyles from '../../styles/AccordionMenuStyles';
 import { connect } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { ShopState } from '../../redux/types/ShopTypes';
-import {
-  Accordion,
-  AccordionSummary,
-  Button,
-  Divider,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  Typography,
-} from '@material-ui/core';
+import ShopItem from './ShopItem';
+import { Accordion, AccordionSummary, Divider, List, Typography } from '@material-ui/core';
 
 interface StateProps {
   shop: ShopState;
@@ -32,11 +22,6 @@ interface Props extends StateProps {
 const ShowAllShops: FC<Props> = (props: Props) => {
   const { expanded, handleChange, panel, heading, summary, shop } = props;
   const styles = useStyles();
-  const history = useHistory();
-
-  const handleGoToDevices = (id: string): void => {
-    history.push(`/administration/shop/${id}`);
-  };
 
   return (
     <Accordion TransitionProps={{ unmountOnExit: true }} expanded={expanded === panel} onChange={handleChange(panel)}>
@@ -46,18 +31,9 @@ const ShowAllShops: FC<Props> = (props: Props) => {
       </AccordionSummary>
       <Divider />
       <List dense>
-        {shop.shops.map((shop) => {
-          return (
-            <ListItem key={shop.id} button>
-              <ListItemText id={shop.id} primary={`${shop.name}`} secondary={`Location: ${shop.location}`} />
-              <ListItemSecondaryAction>
-                <Button size="small" variant="contained" onClick={() => handleGoToDevices(shop.id)}>
-                  View devices
-                </Button>
-              </ListItemSecondaryAction>
-            </ListItem>
-          );
-        })}
+        {shop.shops.map((shop) => (
+          <ShopItem key={shop.id} shop={shop} />
+        ))}
       </List>
     </Accordion>
   );

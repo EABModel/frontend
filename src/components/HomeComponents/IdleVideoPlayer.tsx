@@ -49,7 +49,7 @@ const IdleHandler: FC<Props> = (props: Props) => {
               <div className="player-wrapper">
                 <ReactPlayer
                   className="react-player"
-                  url="https://www.youtube.com/watch?v=ivukpkSMoYQ"
+                  url="https://www.youtube.com/watch?v=A_hNkfRS05I"
                   playing
                   loop
                   muted // It's imposible to autoplay an unmuted video because of chrome policies

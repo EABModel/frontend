@@ -75,10 +75,10 @@ const Home: FC<Props> = (props: Props) => {
             <HomeAlert
               resourceName={'shop'}
               severity={Severity.warning}
-              alertTitle={'Create a shop'}
+              alertTitle={'Create a shop or switch to one'}
               alertBody={[
-                "It seems you don't have any shops, create one.",
-                'If you already created one, logout your company and sign in as that shop.',
+                'It seems you are not currently in a shop, create or switch to one.',
+                'You can do this by logging in as an employee and entering th Shops Menu.',
               ]}
               hasLoginButton={true}
             />

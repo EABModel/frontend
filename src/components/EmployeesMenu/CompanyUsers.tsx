@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -14,10 +14,6 @@ import { bindActionCreators } from '@reduxjs/toolkit';
 import '../../styles/css/employeesMenu.scss';
 import CompanyUserRow from './CompanyUserRow';
 import { UserState } from '../../redux/types/UserTypes';
-
-function createData(name: string, calories: string, fat: number, carbs: number, protein: number) {
-  return { name, calories, fat, carbs, protein };
-}
 
 interface StateProps {
   company: CompanyState;
