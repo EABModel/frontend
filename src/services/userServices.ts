@@ -43,8 +43,9 @@ const postUserRegister = async (authFields: PostUserFields): Promise<any> => {
       data: {
         username: authFields.username,
         email: authFields.email,
+        companyId: authFields.companyId,
+        shopId: authFields.shopId,
         password: authFields.password,
-        confirmPassword: authFields.confirmPassword,
       },
     });
     return response?.data;
