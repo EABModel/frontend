@@ -3,6 +3,7 @@ import useStyles from '../styles/AccordionMenuStyles';
 import CreateSingleProductAccordionRow from '../components/CatalogueMenu/ProductRegister';
 import CreateProductsCSV from '../components/CatalogueMenu/ProductRegisterCSV';
 import DeleteProduct from '../components/CatalogueMenu/ProductDelete';
+import EditProducts from '../components/CatalogueMenu/ProductsEdit';
 import { Button } from '@material-ui/core';
 import '../styles/css/catalogueMenu.scss';
 import { useHistory } from 'react-router-dom';
@@ -35,6 +36,7 @@ const CatalogueMenu: FC = () => {
           heading={'Delete Product'}
           summary={'Here you can delete a product from this shop.'}
         />
+        <EditProducts />
       </div>
       <div className="btn-bottom-left">
         <Button

@@ -6,6 +6,7 @@ export interface CatalogueState {
   addProductToCatalogueStatus: BaseRequestStatus;
   addProductsToCatalogueStatus: BaseRequestStatus;
   deleteProductFromCatalogueStatus: BaseRequestStatus;
+  editProductFromCatalogueStatus: BaseRequestStatus;
 }
 
 export interface Product {
@@ -27,5 +28,17 @@ export interface ProductPostFields {
   color: string;
   inches: string;
   price: string;
+  image: string;
+}
+
+export interface ProductPutFields {
+  id: string;
+  shopId: string;
+  name: string;
+  brand: string;
+  os: string;
+  color: string;
+  inches: number;
+  price: number;
   image: string;
 }

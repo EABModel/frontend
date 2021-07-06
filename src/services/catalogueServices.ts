@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-catch */
 import { AxiosResponse } from 'axios';
-import { ProductPostFields, Product } from '../redux/types/CatalogueTypes';
+import { ProductPostFields, Product, ProductPutFields } from '../redux/types/CatalogueTypes';
 import { axiosBaseInstance } from './config';
 
 const postProductRegister = async (authFields: ProductPostFields): Promise<any> => {
@@ -68,11 +68,35 @@ const postProductDelete = async (productId: string): Promise<any> => {
   }
 };
 
+const putProductEdit = async (authFields: ProductPutFields): Promise<any> => {
+  const token = localStorage.getItem('Token');
+  try {
+    const response: AxiosResponse<any> = await axiosBaseInstance({
+      headers: { 'Content-Type': 'application/json', Token: token },
+      method: 'put',
+      url: `/catalogue/edit-product/${authFields.id}`,
+      data: {
+        name: authFields.name,
+        brand: authFields.brand,
+        os: authFields.os,
+        color: authFields.color,
+        inches: Number(authFields.inches),
+        price: Number(authFields.price),
+        image: authFields.image,
+      },
+    });
+    return response?.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const catalogueService = {
   postProductRegister,
   getShopProducts,
   postProductsRegister,
   postProductDelete,
+  putProductEdit,
 };
 
 export default catalogueService;
