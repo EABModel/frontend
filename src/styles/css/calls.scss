@@ -104,6 +104,12 @@
   background-position: center;
 }
 
+@media screen and (max-width: 400px) {
+  .go-to-tablet-screen {
+    background-size: 300px;
+  }
+}
+
 @media screen and (max-width: 380px) {
   .customer-call-container {
     width: 85%;

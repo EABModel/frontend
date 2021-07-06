@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { ShopState } from '../../redux/types/ShopTypes';
 import * as shopInteractors from '../../redux/interactors/shopInteractors';
+import * as catalogueInteractors from '../../redux/interactors/catalogueInteractors';
 import {
   Accordion,
   AccordionDetails,
@@ -27,6 +28,7 @@ interface StateProps {
 
 interface DispatchProps {
   setShopInteractor: typeof shopInteractors.setShopInteractor;
+  resetCatalogueInteractor: typeof catalogueInteractors.resetCatalogueInteractor;
 }
 
 interface Props extends StateProps, DispatchProps {
@@ -38,7 +40,7 @@ interface Props extends StateProps, DispatchProps {
 }
 
 const SwitchShop: FC<Props> = (props: Props) => {
-  const { expanded, handleChange, panel, heading, summary, shop, setShopInteractor } = props;
+  const { expanded, handleChange, panel, heading, summary, shop, setShopInteractor, resetCatalogueInteractor } = props;
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [value, setValue] = useState(shop?.id);
   const [toSwitchShop, setToSwitchShop] = useState<any>();
@@ -54,6 +56,7 @@ const SwitchShop: FC<Props> = (props: Props) => {
   const handleSubmit = (): void => {
     setShopInteractor(toSwitchShop);
     setShowSuccessMessage(true);
+    resetCatalogueInteractor();
   };
 
   return (
@@ -97,6 +100,7 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   ...bindActionCreators(
     {
       ...shopInteractors,
+      ...catalogueInteractors,
     },
     dispatch,
   ),

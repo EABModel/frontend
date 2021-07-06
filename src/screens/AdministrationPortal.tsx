@@ -44,6 +44,9 @@ const AdministrationPortal: FC<Props> = (props: Props) => {
       <Typography variant="h2" color="textSecondary">
         Administration Portal
       </Typography>
+      <Typography variant="h4" color="textSecondary">
+        {shop?.name}
+      </Typography>
       <div className={styles.mainContainer}>
         {shop.id && (
           <MenuSection

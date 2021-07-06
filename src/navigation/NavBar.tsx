@@ -51,18 +51,18 @@ const NavBar: FC<Props> = (props: Props) => {
           {user.sessionType === 'ANONYMOUS' ? `Hello Dear Customer!` : `Hello ${user.username}!`}
         </Typography>
         {user.sessionType === 'ANONYMOUS' ? (
-          <>
-            <Button className={styles.btn} color="inherit" onClick={openPopUp} disabled={!company.id}>
-              Login
-            </Button>
-            <IconButton color="inherit" onClick={informationsPage}>
-              <InfoOutlinedIcon />
-            </IconButton>
-          </>
+          <Button className={styles.btn} color="inherit" onClick={openPopUp} disabled={!company.id}>
+            Login
+          </Button>
         ) : (
           <Button color="secondary" onClick={logOut} disabled={!company.id}>
             Logout
           </Button>
+        )}
+        {company.id?.length > 0 && (
+          <IconButton color="inherit" onClick={informationsPage}>
+            <InfoOutlinedIcon />
+          </IconButton>
         )}
       </Toolbar>
     </AppBar>

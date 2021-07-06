@@ -18,7 +18,6 @@ interface StateProps {
 
 interface DispatchProps {
   addProductsToCatalogueInteractor: typeof catalogueInteractors.addProductToCatalogueInteractor;
-  resetCatalogueInteractor: typeof catalogueInteractors.resetCatalogueInteractor;
 }
 
 interface Props extends StateProps, DispatchProps {}
@@ -33,9 +32,8 @@ const CreateProductsCSV: FC<Props> = (props: Props) => {
   useEffect(() => {
     if (catalogue.addProductsToCatalogueStatus.success) {
       setShowSuccessMessage(true);
-      props.resetCatalogueInteractor();
     }
-  }, [catalogue.addProductsToCatalogueStatus, props.resetCatalogueInteractor]);
+  }, [catalogue.addProductsToCatalogueStatus]);
 
   const handleOnDrop = (data: any) => {
     setData(data);
