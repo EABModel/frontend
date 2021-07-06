@@ -60,9 +60,8 @@ const EditProduct: FC<Props> = (props: Props) => {
   useEffect(() => {
     if (catalogue.editProductFromCatalogueStatus.success) {
       setShowSuccessMessage(true);
-      props.resetCatalogueInteractor();
     }
-  }, [catalogue.editProductFromCatalogueStatus, setShowSuccessMessage, props.resetCatalogueInteractor]);
+  }, [catalogue.editProductFromCatalogueStatus, setShowSuccessMessage]);
 
   // eslint-disable-next-line @typescript-eslint/ban-types
   const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
