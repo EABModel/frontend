@@ -23,6 +23,10 @@ import {
   TextField,
   LinearProgress,
   Fab,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@material-ui/core';
 
 interface StateProps {
@@ -91,8 +95,6 @@ const EditProduct: FC<Props> = (props: Props) => {
       image,
     };
     props.editProductFromCatalogueInteractor(productAuthFields);
-    // Called to reset the state
-    // handleCancelEdit();
   };
 
   const onFileChange = async (event: any) => {
@@ -144,16 +146,19 @@ const EditProduct: FC<Props> = (props: Props) => {
         />
       </AccordionDetails>
       <AccordionDetails>
-        <TextField
-          value={os}
-          variant="standard"
-          required
-          fullWidth
-          id="os"
-          label="Operative System"
-          name="os"
-          onChange={(event) => setOS(event.target.value)}
-        />
+        <FormControl variant="outlined" className={styles.formControl} fullWidth>
+          <InputLabel id="demo-simple-select-outlined-label">OS</InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            value={os}
+            onChange={(event: any) => setOS(event.target.value)}
+            label="Age">
+            <MenuItem value={'Android'}>Android</MenuItem>
+            <MenuItem value={'IOS'}>IOS</MenuItem>
+            <MenuItem value={'Windows'}>Windows</MenuItem>
+          </Select>
+        </FormControl>
       </AccordionDetails>
       <AccordionDetails>
         <TextField

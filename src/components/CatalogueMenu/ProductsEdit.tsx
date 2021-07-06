@@ -24,7 +24,7 @@ interface Props extends StateProps, DispatchProps {}
 
 const ProductsShow: FC<Props> = (props: Props) => {
   const styles = useStyles();
-  const { shop, catalogue, user } = props;
+  const { catalogue } = props;
   const [products, setProducts] = useState<Product[]>(catalogue.products);
 
   useEffect(() => {
