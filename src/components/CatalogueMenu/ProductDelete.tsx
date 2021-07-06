@@ -42,10 +42,10 @@ const DeleteProduct: FC<Props> = (props: Props) => {
   const styles = useStyles();
 
   useEffect(() => {
-    if (catalogue.deleteProductFromCatalogue.success) {
+    if (catalogue.deleteProductFromCatalogueStatus.success) {
       setShowSuccessMessage(true);
     }
-  }, [catalogue.deleteProductFromCatalogue, setShowSuccessMessage]);
+  }, [catalogue.deleteProductFromCatalogueStatus, setShowSuccessMessage]);
 
   const handleDelete = (id: string): void => {
     props.deleteProductFromCatalogueInteractor(id);
@@ -76,7 +76,7 @@ const DeleteProduct: FC<Props> = (props: Props) => {
         })}
       </List>
       <Divider />
-      {catalogue.deleteProductFromCatalogue.loading && <LinearProgress />}
+      {catalogue.deleteProductFromCatalogueStatus.loading && <LinearProgress />}
       {showSuccessMessage && (
         <DissmisibleSuccessAlert
           message={'Product successfully deleted, you can close this menu now.'}

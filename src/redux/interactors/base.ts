@@ -16,7 +16,7 @@ export const buildInteractor =
         const response = await request!(params);
         dispatch(successAction(response));
       } catch (error) {
-        dispatch(errorAction(error));
+        dispatch(errorAction(error?.response?.data?.error?.message));
       }
     };
   };
@@ -38,7 +38,7 @@ export const buildInteractorNoParams =
         }
         dispatch(successAction(response));
       } catch (error) {
-        dispatch(errorAction(error));
+        dispatch(errorAction(error?.response?.data?.error?.message));
       }
     };
   };

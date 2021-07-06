@@ -32,7 +32,7 @@ const CompanyLoginForm: FC<Props> = (props: Props) => {
   const styles = UseStyles();
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const { company } = props;
+  const { company, loginCompanyInteractor } = props;
 
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setName(event.target.value);
@@ -47,7 +47,9 @@ const CompanyLoginForm: FC<Props> = (props: Props) => {
       name,
       password,
     };
-    props.loginCompanyInteractor(authFields);
+    loginCompanyInteractor(authFields);
+    setName('');
+    setPassword('');
   };
 
   return (
@@ -60,6 +62,7 @@ const CompanyLoginForm: FC<Props> = (props: Props) => {
         </Typography>
         <div className={styles.form}>
           <TextField
+            value={name}
             variant="outlined"
             margin="normal"
             required
@@ -71,6 +74,7 @@ const CompanyLoginForm: FC<Props> = (props: Props) => {
             onChange={onNameChange}
           />
           <TextField
+            value={password}
             variant="outlined"
             margin="normal"
             required

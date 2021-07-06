@@ -8,19 +8,7 @@ import { UserState, UserAuthFields } from '../../redux/types/UserTypes';
 import * as userInteractors from '../../redux/interactors/userInteractors';
 import * as modalInteractors from '../../redux/interactors/modalInteractors';
 import { Cancel } from '@material-ui/icons';
-import {
-  Button,
-  CssBaseline,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Link,
-  Grid,
-  Box,
-  Typography,
-  Card,
-  CircularProgress,
-} from '@material-ui/core';
+import { Button, CssBaseline, TextField, Link, Box, Typography, Card, CircularProgress } from '@material-ui/core';
 
 function Copyright() {
   return (
@@ -120,7 +108,6 @@ const UserLogin: FC<Props> = (props: Props) => {
             autoComplete="current-password"
             onChange={onPasswordChange}
           />
-          <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
           <Button
             type="submit"
             fullWidth
@@ -131,18 +118,6 @@ const UserLogin: FC<Props> = (props: Props) => {
             onClick={handleSubmit}>
             Sign In
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                ¿Forgot password?
-              </Link>
-            </Grid>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Don&apos;t have an account? Sign Up
-              </Link>
-            </Grid>
-          </Grid>
         </div>
       </div>
       <Box mt={4}>

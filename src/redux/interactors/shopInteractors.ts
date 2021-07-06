@@ -1,16 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck projectActions properties generated at runtime
 import { shopActions } from '../slices/shopSlice';
 import shopServices from '../../services/shopServices';
-import { ShopBackendState } from '../types/CompanyTypes';
-import { Action } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { RootState } from '../store';
-import { buildInteractor } from './base';
-
-export const setShopInteractor = (shop: ShopBackendState) => {
-  return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
-    dispatch(shopActions.setShop(shop));
-  };
-};
+import { buildInteractor, buildInteractorDirectAction, buildInteractorDirectActionNoParams } from './base';
 
 export const addShopInteractor = buildInteractor(
   shopActions.loadingAddShop,
@@ -33,14 +25,16 @@ export const updateShopInteractor = buildInteractor(
   null,
 );
 
-export const resetShopStatusInteractor = () => {
-  return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
-    dispatch(shopActions.resetShopStatus());
-  };
-};
+export const setShopsInteractor = buildInteractorDirectAction(shopActions.setShops);
 
-export const resetShopInteractor = () => {
-  return (dispatch: ThunkDispatch<RootState, void, Action>): void => {
-    dispatch(shopActions.resetShop());
-  };
-};
+export const resetAddShopInteractor = buildInteractorDirectActionNoParams(shopActions.resetAddShop);
+
+export const resetRemoveShopInteractor = buildInteractorDirectActionNoParams(shopActions.resetRemoveShop);
+
+export const resetUpdateShopInteractor = buildInteractorDirectActionNoParams(shopActions.resetUpdateShop);
+
+export const setShopInteractor = buildInteractorDirectAction(shopActions.setShop);
+
+export const resetShopStatusInteractor = buildInteractorDirectActionNoParams(shopActions.resetShopStatus);
+
+export const resetShopInteractor = buildInteractorDirectActionNoParams(shopActions.resetShop);

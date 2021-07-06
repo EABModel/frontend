@@ -28,7 +28,6 @@ interface StateProps {
 
 interface DispatchProps {
   addShopInteractor: typeof shopInteractors.addShopInteractor;
-  resetShopStatusInteractor: typeof shopInteractors.resetShopStatusInteractor;
 }
 
 interface Props extends StateProps, DispatchProps {
@@ -40,17 +39,7 @@ interface Props extends StateProps, DispatchProps {
 }
 
 const CreateShop: FC<Props> = (props: Props) => {
-  const {
-    expanded,
-    handleChange,
-    panel,
-    heading,
-    summary,
-    company,
-    shop,
-    addShopInteractor,
-    resetShopStatusInteractor,
-  } = props;
+  const { expanded, handleChange, panel, heading, summary, company, shop, addShopInteractor } = props;
   const [shopName, setShopName] = useState('');
   const [shopLocation, setShopLocation] = useState('');
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -59,9 +48,8 @@ const CreateShop: FC<Props> = (props: Props) => {
   useEffect(() => {
     if (shop.addShopStatus.success) {
       setShowSuccessMessage(true);
-      resetShopStatusInteractor();
     }
-  }, [shop.addShopStatus, setShowSuccessMessage, resetShopStatusInteractor]);
+  }, [shop.addShopStatus, setShowSuccessMessage]);
 
   const handleCancelCreate = (): void => {
     setShopName('');

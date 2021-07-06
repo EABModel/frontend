@@ -5,10 +5,14 @@ import { RootState } from '../redux/store';
 import { connect } from 'react-redux';
 import { ConnectionState } from '../redux/types/ConnectionTypes';
 import '../styles/css/calls.scss';
+import { Button } from '@material-ui/core';
+import '../styles/css/catalogueMenu.scss';
 import { Typography, List, ListItem, ListItemText, ListItemIcon, LinearProgress } from '@material-ui/core';
+
 interface StateProps {
   connection: ConnectionState;
   shopId: string;
+  userId: string;
 }
 
 interface Props extends StateProps {
@@ -31,13 +35,18 @@ const CallsMenu: FC<Props> = (props: Props) => {
       .onSnapshot((snapshot) => {
         // If there are changes in the current waiting calls
         snapshot.docChanges().forEach((change) => {
-          if (change.type === 'added') {
-            if (!change.doc.data().status.answered) {
+          if (change.type === 'modified') {
+            if (!change.doc.data().status?.answered && change.doc.data().status?.inProgress) {
               refRequests.current.push(change.doc.id);
-              setRequests((oldArray) => [...oldArray, change.doc.id]);
+              setRequests((oldArray) => {
+                if (!oldArray.includes(change.doc.id)) {
+                  return [...oldArray, change.doc.id];
+                }
+                return oldArray;
+              });
             }
           }
-          if (change.type === 'modified' || change.type === 'removed') {
+          if (change.type === 'removed') {
             refRequests.current = refRequests.current.filter((item) => item !== change.doc.id);
             setRequests(refRequests.current.filter((item) => item !== change.doc.id));
           }
@@ -82,6 +91,16 @@ const CallsMenu: FC<Props> = (props: Props) => {
         {loading && <LinearProgress />}
       </div>
       {onCall && <EmployeeVideoChat callId={onCall} setOnCall={setOnCall} shopId={props.shopId} />}
+      <div className="btn-bottom-left">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            history.go(-1);
+          }}>
+          Back
+        </Button>
+      </div>
     </div>
   );
 };
@@ -90,6 +109,7 @@ const mapStateToProps = (state: RootState): StateProps => {
   return {
     connection: state.connection,
     shopId: state.shop.id,
+    userId: state.user.id,
   };
 };
 

@@ -1,10 +1,13 @@
 import { UserState, Session } from '../types/UserTypes';
 import { createSlice } from '@reduxjs/toolkit';
+import { Action, baseRequestStatusReducers } from './base';
 
 const initialState: UserState = {
   username: 'defaultUser',
   email: '',
   id: '',
+  companyId: '',
+  shopId: '',
   sessionType: Session.ANONYMOUS,
   loginUserStatus: {
     loading: false,
@@ -16,63 +19,79 @@ const initialState: UserState = {
     success: false,
     error: false,
   },
+  registerUserStatus: {
+    loading: false,
+    success: false,
+    error: false,
+  },
+  deleteUserStatus: {
+    loading: false,
+    success: false,
+    error: false,
+  },
+  reassignUserShopStatus: {
+    loading: false,
+    success: false,
+    error: false,
+  },
+};
+
+const successRegisterUser = (state: UserState) => {
+  return {
+    ...state,
+    registerUserStatus: {
+      loading: false,
+      success: true,
+      error: false,
+    },
+  };
+};
+
+const successLoginUser = (state: UserState, action: Action) => {
+  return {
+    ...state,
+    ...action.payload,
+    loginUserStatus: {
+      loading: false,
+      success: true,
+      error: false,
+    },
+    logoutUserStatus: { loading: false, success: false, error: false },
+  };
+};
+
+const successLogoutUser = (state: UserState) => {
+  return {
+    ...state,
+    ...initialState,
+    logoutUserStatus: { loading: false, success: true, error: false },
+  };
+};
+
+const successDeleteUser = (state: UserState) => {
+  return {
+    ...state,
+    deleteUserStatus: { loading: false, success: true, error: false },
+  };
+};
+
+const successReassignUserShop = (state: UserState, action: Action) => {
+  return {
+    ...state,
+    ...action.payload,
+    reassignUserShopStatus: { loading: false, success: true, error: false },
+  };
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    loadingLoginUser: (state: UserState) => {
-      return {
-        ...state,
-        loginUserStatus: { loading: true, success: false, error: false },
-      };
-    },
-    successLoginUser: (state: UserState, action) => {
-      return {
-        ...state,
-        ...action.payload,
-        loginUserStatus: {
-          loading: false,
-          success: true,
-          error: false,
-        },
-        logoutUserStatus: { loading: false, success: false, error: false },
-      };
-    },
-    errorLoginUser: (state: UserState, action) => {
-      return {
-        ...state,
-        loginUserStatus: {
-          loading: false,
-          success: false,
-          error: action.payload || true,
-        },
-      };
-    },
-    loadingLogoutUser: (state: UserState) => {
-      return {
-        ...state,
-        logoutUserStatus: { loading: true, success: false, error: false },
-      };
-    },
-    successLogoutUser: (state: UserState) => {
-      return {
-        ...state,
-        ...initialState,
-        logoutUserStatus: { loading: false, success: true, error: false },
-      };
-    },
-    errorLogoutUser: (state: UserState, action) => {
-      return {
-        ...state,
-        logoutUserStatus: {
-          loading: false,
-          success: false,
-          error: action.payload || true,
-        },
-      };
-    },
+    ...baseRequestStatusReducers('registerUser', initialState, null, successRegisterUser),
+    ...baseRequestStatusReducers('loginUser', initialState, null, successLoginUser),
+    ...baseRequestStatusReducers('logoutUser', initialState, null, successLogoutUser),
+    ...baseRequestStatusReducers('deleteUser', initialState, null, successDeleteUser),
+    ...baseRequestStatusReducers('reassignUserShop', initialState, null, successReassignUserShop),
     resetUserStatus: (state: UserState) => {
       return {
         ...state,

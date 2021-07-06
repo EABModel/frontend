@@ -1,11 +1,13 @@
 import { CompanyState } from '../types/CompanyTypes';
 import { createSlice } from '@reduxjs/toolkit';
+import { Action, baseRequestStatusReducers } from './base';
 
 const initialState: CompanyState = {
   id: '',
   name: '',
   email: '',
   shops: [],
+  users: [],
   registerCompanyStatus: {
     loading: false,
     success: false,
@@ -21,69 +23,67 @@ const initialState: CompanyState = {
     success: false,
     error: false,
   },
+  getCompanyUsersStatus: {
+    loading: false,
+    success: false,
+    error: false,
+  },
+  getCompanyShopsStatus: {
+    loading: false,
+    success: false,
+    error: false,
+  },
+};
+
+const successRegisterCompany = (state: CompanyState, action: Action) => {
+  return {
+    ...state,
+    ...action.payload,
+    registerCompanyStatus: { loading: false, success: true, error: false },
+  };
+};
+
+const successLoginCompany = (state: CompanyState, action: Action) => {
+  return {
+    ...state,
+    ...action.payload,
+    loginCompanyStatus: { loading: false, success: true, error: false },
+  };
+};
+
+const successLogoutCompany = (state: CompanyState) => {
+  return {
+    ...state,
+    ...initialState,
+    logoutCompanyStatus: { loading: false, success: true, error: false },
+  };
+};
+
+const successGetCompanyUsers = (state: CompanyState, action: Action) => {
+  return {
+    ...state,
+    ...action.payload,
+    getCompanyUsersStatus: { loading: false, success: true, error: false },
+  };
+};
+
+const successGetCompanyShops = (state: CompanyState, action: Action) => {
+  return {
+    ...state,
+    ...action.payload,
+    getCompanyUsersStatus: { loading: false, success: true, error: false },
+  };
 };
 
 const companySlice = createSlice({
   name: 'company',
   initialState,
   reducers: {
-    loadingRegisterCompany: (state: CompanyState) => {
-      return {
-        ...state,
-        registerCompanyStatus: { loading: true, success: false, error: false },
-      };
-    },
-    successRegisterCompany: (state: CompanyState, action) => {
-      return {
-        ...state,
-        ...action.payload,
-        registerCompanyStatus: { loading: false, success: true, error: false },
-      };
-    },
-    errorRegisterCompany: (state: CompanyState, action) => {
-      return {
-        ...state,
-        registerCompanyStatus: { loading: false, success: false, error: action.payload || true },
-      };
-    },
-    loadingLoginCompany: (state: CompanyState) => {
-      return {
-        ...state,
-        loginCompanyStatus: { loading: true, success: false, error: false },
-      };
-    },
-    successLoginCompany: (state: CompanyState, action) => {
-      return {
-        ...state,
-        ...action.payload,
-        loginCompanyStatus: { loading: false, success: true, error: false },
-      };
-    },
-    errorLoginCompany: (state: CompanyState, action) => {
-      return {
-        ...state,
-        loginCompanyStatus: { loading: false, success: false, error: action.payload || true },
-      };
-    },
-    loadingLogoutCompany: (state: CompanyState) => {
-      return {
-        ...state,
-        logoutCompanyStatus: { loading: true, success: false, error: false },
-      };
-    },
-    successLogoutCompany: (state: CompanyState) => {
-      return {
-        ...state,
-        ...initialState,
-        logoutCompanyStatus: { loading: false, success: true, error: false },
-      };
-    },
-    errorLogoutCompany: (state: CompanyState, action) => {
-      return {
-        ...state,
-        logoutCompanyStatus: { loading: false, success: false, error: action.payload || true },
-      };
-    },
+    ...baseRequestStatusReducers('registerCompany', initialState, null, successRegisterCompany),
+    ...baseRequestStatusReducers('loginCompany', initialState, null, successLoginCompany),
+    ...baseRequestStatusReducers('logoutCompany', initialState, null, successLogoutCompany),
+    ...baseRequestStatusReducers('getCompanyUsers', initialState, null, successGetCompanyUsers),
+    ...baseRequestStatusReducers('getCompanyShops', initialState, null, successGetCompanyShops),
     resetCompanyStatus: (state: CompanyState) => {
       return {
         ...state,
@@ -95,6 +95,23 @@ const companySlice = createSlice({
       return {
         ...state,
         ...initialState,
+      };
+    },
+    removeUserCompany: (state: CompanyState, action: Action) => {
+      return {
+        ...state,
+        users: state.users.filter((user) => user.id !== action.payload),
+      };
+    },
+    handleUserReassign: (state: CompanyState, action: Action) => {
+      return {
+        ...state,
+        users: state.users.map((user) => {
+          if (user.id === action.payload.userId) {
+            return { ...user, shopId: action.payload.shopId };
+          }
+          return user;
+        }),
       };
     },
   },

@@ -1,18 +1,19 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 interface Params {
+  id: string;
   firestore: any;
   shopId: string;
   peerConnection: RTCPeerConnection;
-  setCalling: any;
+  // setCalling: any;
   setIsOnCall: any;
 }
 
-const beginCall = async ({ firestore, shopId, peerConnection, setCalling, setIsOnCall }: Params): Promise<string> => {
+const beginCall = async ({ id, firestore, shopId, peerConnection, setIsOnCall }: Params): Promise<string> => {
   // Create document with two sub collections in the current shop with shopId
-  const callsDocument = firestore.collection('shopCalls').doc(shopId).collection('calls').doc();
+  const callsDocument = firestore.collection('shopCalls').doc(shopId).collection('calls').doc(id);
   const offerCandidates = callsDocument?.collection('offerCandidates');
   const answerCandidates = callsDocument?.collection('answerCandidates');
-  setCalling(true);
+  // setCalling(true);
   setIsOnCall(true);
 
   // Get candidates for caller, save to db
@@ -29,9 +30,13 @@ const beginCall = async ({ firestore, shopId, peerConnection, setCalling, setIsO
   };
   const status = {
     answered: false,
+    inProgress: true,
     date: new Date(),
   };
+  // Set peer offer
   await callsDocument.set({ offer, status });
+  // Update status to in progress call
+  // await callsDocument.update({ status });
 
   // Listen for remote answer
   callsDocument.onSnapshot((snapshot: any) => {
@@ -48,7 +53,7 @@ const beginCall = async ({ firestore, shopId, peerConnection, setCalling, setIsO
       if (change.type === 'added') {
         const candidate = new RTCIceCandidate(change.doc.data());
         peerConnection.addIceCandidate(candidate);
-        setCalling(false);
+        // setCalling(false);
       }
     });
   });

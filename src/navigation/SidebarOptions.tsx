@@ -13,6 +13,7 @@ import '../styles/css/layout.scss';
 interface StateProps {
   user: UserState;
   company: CompanyState;
+  shopId: string;
 }
 
 interface DispatchProps {
@@ -25,20 +26,30 @@ interface Props extends StateProps, DispatchProps {
 }
 
 const SidebarOptions: FC<Props> = (props: Props) => {
-  const { user, company } = props;
+  const { user, company, shopId } = props;
   const history = useHistory();
   const goToHomePage = (): void => {
     history.replace('/home');
   };
 
+  const goToAssistanceTablet = (): void => {
+    history.push('/assistance');
+  };
+
   const goToAdministrationPortal = (): void => {
     history.replace('/administration');
   };
+
   return (
     <div className="options">
       {company.id && (
         <Button color="inherit" onClick={goToHomePage}>
           Home
+        </Button>
+      )}
+      {shopId.length > 0 && (
+        <Button color="inherit" onClick={goToAssistanceTablet}>
+          Assistance Tablet
         </Button>
       )}
       {user.sessionType !== 'ANONYMOUS' && (
@@ -54,6 +65,7 @@ const mapStateToProps = (state: RootState): StateProps => {
   return {
     user: state.user,
     company: state.company,
+    shopId: state.shop.id,
   };
 };
 

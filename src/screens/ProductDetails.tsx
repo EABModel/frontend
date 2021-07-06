@@ -2,12 +2,14 @@ import React, { FC, useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { RootState } from '../redux/store';
 import { connect } from 'react-redux';
+import { ConnectionState } from '../redux/types/ConnectionTypes';
 import { Product } from '../redux/types/CatalogueTypes';
 import { Typography, Button } from '@material-ui/core';
 import '../styles/css/productDetails.scss';
 
 interface StateProps {
   products: Product[];
+  connection: ConnectionState;
 }
 
 interface Props extends StateProps {
@@ -29,6 +31,8 @@ const ProductDetails: FC<Props> = (props: Props) => {
       setProduct(filteredProduct);
     }
   }, [product]);
+
+  // TODO: revisar que la llamada efectivamente haya tomado lugar
 
   const goToCallScreen = useCallback(() => {
     history.push('/home/call');
@@ -89,12 +93,24 @@ const ProductDetails: FC<Props> = (props: Props) => {
           </Typography>
         </div>
         <div className="customer-button-container">
-          <Button variant="contained" color="primary" onClick={() => goToCallScreen()}>
+          <Button variant="contained" color="primary" onClick={goToCallScreen}>
             Get Assistance
           </Button>
         </div>
       </div>
-      <div className="photo-container"></div>
+      <div className="photo-container">
+        <img className="image" src={product?.image} alt="Product" />
+      </div>
+      <div className="btn-bottom-left">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            history.go(-1);
+          }}>
+          Back
+        </Button>
+      </div>
     </div>
   );
 };
@@ -102,6 +118,7 @@ const ProductDetails: FC<Props> = (props: Props) => {
 const mapStateToProps = (state: RootState): StateProps => {
   return {
     products: state.catalogue.products,
+    connection: state.connection,
   };
 };
 

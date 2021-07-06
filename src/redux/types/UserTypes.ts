@@ -1,25 +1,30 @@
+import { BaseRequestStatus } from './base';
+
 export interface UserState {
   id: string;
   username: string;
   email: string;
+  companyId: string;
+  shopId: string;
   sessionType: Session;
-  loginUserStatus: {
-    loading: boolean;
-    success: boolean;
-    error: boolean;
-  };
-  logoutUserStatus: {
-    loading: boolean;
-    success: boolean;
-    error: boolean;
-  };
+  loginUserStatus: BaseRequestStatus;
+  logoutUserStatus: BaseRequestStatus;
+  registerUserStatus: BaseRequestStatus;
+  deleteUserStatus: BaseRequestStatus;
+  reassignUserShopStatus: BaseRequestStatus;
 }
 
 export interface PostUserFields {
   username: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  shopId: string;
+  companyId: string;
+}
+
+export interface ReassignUserFields {
+  userId: string;
+  shopId: string;
 }
 
 export interface UserAuthFields {

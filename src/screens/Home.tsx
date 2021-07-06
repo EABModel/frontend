@@ -39,7 +39,7 @@ const Home: FC<Props> = (props: Props) => {
 
   useEffect(() => {
     // If just registered or has no shops
-    if (company.registerCompanyStatus.success || company?.shops?.length === 0) {
+    if (company.registerCompanyStatus.success || shop?.shops?.length === 0 || !shop?.id) {
       setShowCreateShopMessage(true);
     } else {
       setShowCreateShopMessage(false);
@@ -47,8 +47,10 @@ const Home: FC<Props> = (props: Props) => {
   }, [company.registerCompanyStatus, company]);
 
   useEffect(() => {
-    props.getCatalogueInteractor(shop.id);
-  }, [props.getCatalogueInteractor]);
+    if (!showCreateShopMessage) {
+      props.getCatalogueInteractor(shop.id);
+    }
+  }, [props.getCatalogueInteractor, showCreateShopMessage]);
 
   useEffect(() => {
     // If shop has no products, show create product message
@@ -73,10 +75,10 @@ const Home: FC<Props> = (props: Props) => {
             <HomeAlert
               resourceName={'shop'}
               severity={Severity.warning}
-              alertTitle={'Create a shop'}
+              alertTitle={'Create a shop or switch to one'}
               alertBody={[
-                "It seems you don't have any shops, create one.",
-                'If you already created one, logout your company and sign in as that shop.',
+                'It seems you are not currently in a shop, create or switch to one.',
+                'You can do this by logging in as an employee and entering th Shops Menu.',
               ]}
               hasLoginButton={true}
             />
