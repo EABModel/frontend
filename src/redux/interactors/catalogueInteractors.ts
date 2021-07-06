@@ -32,6 +32,13 @@ export const deleteProductFromCatalogueInteractor = buildInteractor(
   catalogueServices.postProductDelete,
 );
 
+export const editProductFromCatalogueInteractor = buildInteractor(
+  catalogueActions.loadingEditProductFromCatalogue,
+  catalogueActions.successEditProductFromCatalogue,
+  catalogueActions.errorEditProductFromCatalogue,
+  catalogueServices.putProductEdit,
+);
+
 export const resetGetCatalogueInteractor = buildInteractorDirectActionNoParams(catalogueActions.resetGetCatalogue);
 
 export const resetAddProductToCatalogueInteractor = buildInteractorDirectActionNoParams(
@@ -44,6 +51,10 @@ export const resetAddProductsToCatalogueInteractor = buildInteractorDirectAction
 
 export const resetDeleteProductFromCatalogueInteractor = buildInteractorDirectActionNoParams(
   catalogueActions.resetDeleteProductFromCatalogue,
+);
+
+export const resetEditProductFromCatalogueInteractor = buildInteractorDirectActionNoParams(
+  catalogueActions.resetEditProductFromCatalogue,
 );
 
 export const resetCatalogueInteractor = buildInteractorDirectActionNoParams(catalogueActions.resetCatalogue);

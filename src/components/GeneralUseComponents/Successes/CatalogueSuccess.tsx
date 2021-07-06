@@ -14,6 +14,7 @@ interface DispatchProps {
   resetAddProductToCatalogueInteractor: typeof catalogueInteractors.resetAddProductToCatalogueInteractor;
   resetAddProductsToCatalogueInteractor: typeof catalogueInteractors.resetAddProductsToCatalogueInteractor;
   resetDeleteProductFromCatalogueInteractor: typeof catalogueInteractors.resetDeleteProductFromCatalogueInteractor;
+  resetEditProductFromCatalogueInteractor: typeof catalogueInteractors.resetEditProductFromCatalogueInteractor;
 }
 
 interface Props extends StateProps, DispatchProps {
@@ -29,6 +30,7 @@ const CatalogueSuccess: FC<Props> = (props: Props) => {
     resetAddProductToCatalogueInteractor,
     resetAddProductsToCatalogueInteractor,
     resetDeleteProductFromCatalogueInteractor,
+    resetEditProductFromCatalogueInteractor,
   } = props;
   const [successMessage, setSuccessMessage] = useState<string>('');
 
@@ -61,6 +63,16 @@ const CatalogueSuccess: FC<Props> = (props: Props) => {
       }, timeWithMargin);
     }
   }, [resetDeleteProductFromCatalogueInteractor, catalogue.deleteProductFromCatalogueStatus.success, timeWithMargin]);
+
+  useEffect(() => {
+    if (catalogue.editProductFromCatalogueStatus.success) {
+      setSuccessMessage('Product edited successfully');
+      setTimeout(() => {
+        resetEditProductFromCatalogueInteractor();
+        setSuccessMessage('');
+      }, timeWithMargin);
+    }
+  }, [resetEditProductFromCatalogueInteractor, catalogue.editProductFromCatalogueStatus.success, timeWithMargin]);
 
   return (
     <>

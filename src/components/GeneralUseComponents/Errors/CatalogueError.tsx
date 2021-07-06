@@ -15,6 +15,7 @@ interface DispatchProps {
   resetAddProductToCatalogueInteractor: typeof catalogueInteractors.resetAddProductToCatalogueInteractor;
   resetAddProductsToCatalogueInteractor: typeof catalogueInteractors.resetAddProductsToCatalogueInteractor;
   resetDeleteProductFromCatalogueInteractor: typeof catalogueInteractors.resetDeleteProductFromCatalogueInteractor;
+  resetEditProductFromCatalogueInteractor: typeof catalogueInteractors.resetEditProductFromCatalogueInteractor;
 }
 
 interface Props extends StateProps, DispatchProps {
@@ -31,6 +32,7 @@ const CatalogueError: FC<Props> = (props: Props) => {
     resetAddProductToCatalogueInteractor,
     resetAddProductsToCatalogueInteractor,
     resetDeleteProductFromCatalogueInteractor,
+    resetEditProductFromCatalogueInteractor,
   } = props;
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -73,6 +75,16 @@ const CatalogueError: FC<Props> = (props: Props) => {
       }, timeWithMargin);
     }
   }, [resetDeleteProductFromCatalogueInteractor, catalogue.deleteProductFromCatalogueStatus.error, timeWithMargin]);
+
+  useEffect(() => {
+    if (catalogue.editProductFromCatalogueStatus.error) {
+      setErrorMessage(String(catalogue.editProductFromCatalogueStatus.error));
+      setTimeout(() => {
+        resetEditProductFromCatalogueInteractor();
+        setErrorMessage('');
+      }, timeWithMargin);
+    }
+  }, [resetEditProductFromCatalogueInteractor, catalogue.editProductFromCatalogueStatus.error, timeWithMargin]);
 
   return (
     <>{errorMessage.length > 0 && <SlidingMessage message={errorMessage} type={MessageType.ERROR} time={time} />}</>

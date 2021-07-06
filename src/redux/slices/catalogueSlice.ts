@@ -24,6 +24,11 @@ const initialState: CatalogueState = {
     success: false,
     error: false,
   },
+  editProductFromCatalogueStatus: {
+    loading: false,
+    success: false,
+    error: false,
+  },
 };
 
 const successGetCatalogue = (state: CatalogueState, action: Action) => {
@@ -70,6 +75,19 @@ const successDeleteProductFromCatalogue = (state: CatalogueState, action: Action
   };
 };
 
+const successEditProductFromCatalogue = (state: CatalogueState, action: Action) => {
+  const newArray = state.products.filter((product) => product.id !== action?.payload?.id);
+  return {
+    ...state,
+    products: newArray,
+    editProductFromCatalogueStatus: {
+      loading: false,
+      success: true,
+      error: false,
+    },
+  };
+};
+
 const catalogueSlice = createSlice({
   name: 'catalogue',
   initialState,
@@ -78,10 +96,12 @@ const catalogueSlice = createSlice({
     ...baseRequestStatusReducers('addProductToCatalogue', initialState, null, successAddProductToCatalogue),
     ...baseRequestStatusReducers('addProductsToCatalogue', initialState, null, successAddProductsToCatalogue),
     ...baseRequestStatusReducers('deleteProductFromCatalogue', initialState, null, successDeleteProductFromCatalogue),
+    ...baseRequestStatusReducers('editProductFromCatalogue', initialState, null, successEditProductFromCatalogue),
     resetCatalogue: (state: CatalogueState) => {
       return {
         ...state,
         ...initialState,
+        // ...state.products,
       };
     },
   },
