@@ -1,8 +1,7 @@
-import { Button, FormControl, InputLabel, List, ListItem, ListItemText, MenuItem, Select } from '@material-ui/core';
+import { Button, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import React, { FC, useEffect, useState } from 'react';
 import { RootState } from '../../redux/store';
-import { ShopState } from '../../redux/types/ShopTypes';
 import * as userInteractors from '../../redux/interactors/userInteractors';
 import { connect } from 'react-redux';
 import { ShopBackendState } from '../../redux/types/CompanyTypes';

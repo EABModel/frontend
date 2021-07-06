@@ -1,4 +1,4 @@
-import { Button, Divider } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import React, { FC, useState } from 'react';
 import CompanyUsers from '../components/EmployeesMenu/CompanyUsers';
 import CreateUser from '../components/EmployeesMenu/UserRegister';
@@ -12,6 +12,7 @@ const EmployeesMenu: FC = () => {
   const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
   };
+
   return (
     <>
       <div className={styles.mainContainer}>

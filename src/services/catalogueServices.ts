@@ -16,8 +16,8 @@ const postProductRegister = async (authFields: ProductPostFields): Promise<any> 
         brand: authFields.brand,
         os: authFields.os,
         color: authFields.color,
-        inches: authFields.inches,
-        price: authFields.price,
+        inches: Number(authFields.inches),
+        price: Number(authFields.price),
         image: authFields.image,
       },
     });

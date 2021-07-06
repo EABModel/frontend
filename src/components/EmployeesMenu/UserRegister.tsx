@@ -183,7 +183,7 @@ const CreateUser: FC<Props> = (props: Props) => {
       {user.registerUserStatus.loading && <LinearProgress />}
       {showSuccessMessage && (
         <DissmisibleSuccessAlert
-          message={'Product successfully created, you can close this menu now.'}
+          message={'Employee user successfully created, you can close this menu now.'}
           openedStateInParent={setShowSuccessMessage}
         />
       )}

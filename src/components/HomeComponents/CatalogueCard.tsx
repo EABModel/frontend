@@ -47,9 +47,6 @@ export const CatalogueCard: FC<Props> = ({ specs }: Props) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Buy
-        </Button>
         <Button size="small" color="primary" onClick={() => goToDetails(specs.id)}>
           Details
         </Button>
