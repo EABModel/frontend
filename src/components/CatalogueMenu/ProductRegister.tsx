@@ -6,9 +6,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { ShopState } from '../../redux/types/ShopTypes';
+import { ConnectionState } from '../../redux/types/ConnectionTypes';
 import { CatalogueState, ProductPostFields } from '../../redux/types/CatalogueTypes';
 import * as catalogueInteractors from '../../redux/interactors/catalogueInteractors';
 import verifyString from '../../utils/globalHelpers/verifyString';
+import AddIcon from '@material-ui/icons/Add';
 import {
   Accordion,
   AccordionDetails,
@@ -23,11 +25,13 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Fab,
 } from '@material-ui/core';
 
 interface StateProps {
   shop: ShopState;
   catalogue: CatalogueState;
+  connection: ConnectionState;
 }
 
 interface DispatchProps {
@@ -51,6 +55,7 @@ const CreateProduct: FC<Props> = (props: Props) => {
   const [color, setColor] = useState('');
   const [inches, setInches] = useState('');
   const [price, setPrice] = useState('');
+  const [image, setImage] = useState('');
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const styles = useStyles();
 
@@ -68,6 +73,7 @@ const CreateProduct: FC<Props> = (props: Props) => {
     setColor('');
     setInches('');
     setPrice('');
+    setImage('');
   };
 
   const handleCreate = (): void => {
@@ -79,14 +85,23 @@ const CreateProduct: FC<Props> = (props: Props) => {
       color,
       inches: Math.trunc(parseFloat(inches)).toString(),
       price,
+      image,
     };
     props.addProductToCatalogueInteractor(productAuthFields);
-    // Called to reset the state
     handleCancelCreate();
   };
 
   const handleOS = (event: React.ChangeEvent<{ value: unknown }>) => {
     setOS(event.target.value as string);
+  };
+
+  const onFileChange = async (event: any) => {
+    const file = event.target.files[0];
+    const storageRef: any = await props.connection.storage.ref(`${shop.id}/${file.name}`);
+    const fileRef = storageRef.child(file.name);
+    await fileRef.put(file);
+    const url = await fileRef.getDownloadURL();
+    setImage(url);
   };
 
   const fieldsVerified: boolean =
@@ -95,6 +110,7 @@ const CreateProduct: FC<Props> = (props: Props) => {
     verifyString(os) &&
     verifyString(color) &&
     verifyString(inches) &&
+    verifyString(image) &&
     verifyString(price);
 
   return (
@@ -180,6 +196,20 @@ const CreateProduct: FC<Props> = (props: Props) => {
           onChange={(event) => setPrice(event.target.value)}
         />
       </AccordionDetails>
+      <AccordionDetails>
+        <label htmlFor="upload-photo">
+          <input
+            style={{ display: 'none' }}
+            id="upload-photo"
+            name="upload-photo"
+            type="file"
+            onChange={onFileChange}
+          />
+          <Fab color="primary" size="small" component="span" aria-label="add" variant="extended">
+            <AddIcon /> Upload photo
+          </Fab>
+        </label>
+      </AccordionDetails>
       <Divider />
       <AccordionActions>
         <Button size="small" onClick={() => handleCancelCreate()}>
@@ -204,6 +234,7 @@ const mapStateToProps = (state: RootState): StateProps => {
   return {
     shop: state.shop,
     catalogue: state.catalogue,
+    connection: state.connection,
   };
 };
 

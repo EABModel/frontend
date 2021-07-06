@@ -98,7 +98,9 @@ const ProductDetails: FC<Props> = (props: Props) => {
           </Button>
         </div>
       </div>
-      <div className="photo-container"></div>
+      <div className="photo-container">
+        <img className="image" src={product?.image} alt="Product" />
+      </div>
     </div>
   );
 };

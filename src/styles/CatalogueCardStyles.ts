@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     textAlign: 'left',
   },
   media: {
-    height: 140,
+    height: 300,
   },
 });
 
