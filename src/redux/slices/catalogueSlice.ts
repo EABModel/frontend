@@ -46,9 +46,10 @@ const successAddProductToCatalogue = (state: CatalogueState, action: Action) => 
   };
 };
 
-const successAddProductsToCatalogue = (state: CatalogueState) => {
+const successAddProductsToCatalogue = (state: CatalogueState, action: Action) => {
   return {
     ...state,
+    products: action.payload,
     addProductsToCatalogueStatus: {
       loading: false,
       success: true,

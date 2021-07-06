@@ -6,7 +6,7 @@ import { axiosBaseInstance } from './config';
 const postProductRegister = async (authFields: ProductPostFields): Promise<any> => {
   const token = localStorage.getItem('Token');
   try {
-    const response: AxiosResponse<Record<string, never>> = await axiosBaseInstance({
+    const response: AxiosResponse<any> = await axiosBaseInstance({
       headers: { 'Content-Type': 'application/json', Token: token },
       method: 'post',
       url: '/catalogue/add-single-product',
@@ -30,7 +30,7 @@ const postProductRegister = async (authFields: ProductPostFields): Promise<any> 
 const postProductsRegister = async (products: ProductPostFields[]): Promise<any> => {
   const token = localStorage.getItem('Token');
   try {
-    const response: AxiosResponse<Record<string, never>> = await axiosBaseInstance({
+    const response: AxiosResponse<any> = await axiosBaseInstance({
       headers: { 'Content-Type': 'application/json', Token: token },
       method: 'post',
       url: '/catalogue/add-many-products',

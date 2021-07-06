@@ -41,9 +41,6 @@ export const CatalogueCard: FC<Props> = ({ specs }: Props) => {
           <Typography variant="subtitle2" color="textSecondary" component="p">
             {specs.inches} inches display
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            These phones are really good, buy them now.
-          </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
